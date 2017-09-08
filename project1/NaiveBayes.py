@@ -72,7 +72,7 @@ def create_distribution_dict():
 
     distribution = {}
 
-    for attribute, domains in attributes_with_domains.iteritems():
+    for attribute, domains in attributes_with_domains.items():
         if attribute == 'label':
             continue
         for domain in domains:
@@ -139,7 +139,7 @@ def learn(records):
     neg_count = get_label_count(records, get_negative_label())
 
     for record in records:
-        for attribute, domain_value in record.iteritems():
+        for attribute, domain_value in record.items():
             if attribute == 'label':
                 continue
             put_value_in_distribution(distribution, attribute, domain_value, record['label'])
@@ -157,7 +157,7 @@ def learn(records):
 
 def calculate_probability_of(distribution, instance, label):
     un_normalized_prob = distribution[('label', label)]
-    for attribute, domain_value in instance.iteritems():
+    for attribute, domain_value in instance.items():
         if attribute == 'label':
             continue
         key = create_distribution_key(attribute, domain_value, label)
@@ -235,11 +235,11 @@ distro_1 = learn(set_1)
 # Evalutate
 c2 = classify(distro_1, set_1)
 evaluation_1 = evaluate(set_1, c2)
-print "Error Rate = {}".format(evaluation_1)
+print("Error Rate = {}".format(evaluation_1))
 
 c2 = classify(distro_1, set_2)
 evaluation_1 = evaluate(set_2, c2)
-print "Error Rate = {}".format(evaluation_1)
+print("Error Rate = {}".format(evaluation_1))
 
 
 
@@ -252,22 +252,22 @@ distro_2 = learn(set_2)
 # Evaluate
 c1 = classify(distro_2, set_2)
 evaluation_2 = evaluate(set_2, c1)
-print "Error Rate = {}".format(evaluation_2)
+print("Error Rate = {}".format(evaluation_2))
 
 c1 = classify(distro_2, set_1)
 evaluation_2 = evaluate(set_1, c1)
-print "Error Rate = {}".format(evaluation_2)
+print("Error Rate = {}".format(evaluation_2))
 
 
 
-print "new test"
+print("new test")
 
 distro_3 = learn(test_records)
 
 # Evaluate
 c1 = classify(distro_3, test_records)
 evaluation_2 = evaluate(test_records, c1)
-print "Error Rate = {}".format(evaluation_2)
+print("Error Rate = {}".format(evaluation_2))
 
 
 
