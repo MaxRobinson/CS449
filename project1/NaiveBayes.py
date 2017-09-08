@@ -3,116 +3,116 @@ import csv, math, copy, random
 
 
 # <editor-fold desc="Init Data">
-def attributes_domains():
-    return {
-        'label': ['e', 'p', '?'],
-        'cap-shape': ['b', 'c', 'x', 'f', 'k', 's', '?'],
-        'cap-surface': ['f', 'g', 'y', 's', '?'],
-        'cap-color': ['n', 'b', 'c', 'g', 'r', 'p', 'u', 'e', 'w', 'y', '?'],
-        'bruises?': ['t', 'f', '?'],
-        'odor': ['a', 'l', 'c', 'y', 'f', 'm', 'n', 'p', 's', '?'],
-        'gill-attachment': ['a', 'd', 'f', 'n', '?'],
-        'gill-spacing': ['c', 'w', 'd', '?'],
-        'gill-size': ['b', 'n', '?'],
-        'gill-color': ['k', 'n', 'b', 'h', 'g', 'r', 'o', 'p', 'u', 'e', 'w', 'y', '?'],
-        'stalk-shape': ['e', 't', '?'],
-        'salk-root': ['b', 'c', 'u', 'e', 'z', 'r', '?'],
-        'stalk-surface-above-ring': ['f', 'y', 'k', 's', '?'],
-        'stalk-surface-below-ring': ['f', 'y', 'k', 's', '?'],
-        'stalk-color-above-ring': ['n', 'b', 'c', 'g', 'o', 'p', 'e', 'w', 'y', '?'],
-        'stalk-color-below-ring': ['n', 'b', 'c', 'g', 'o', 'p', 'e', 'w', 'y', '?'],
-        'veil-type': ['p', 'u', '?'],
-        'veil-color': ['n', 'o', 'w', 'y', '?'],
-        'ring-number': ['n', 'o', 't', '?'],
-        'ring-type': ['c', 'e', 'f', 'l', 'n', 'p', 's', 'z', '?'],
-        'spore-print-color': ['k', 'n', 'b', 'h', 'r', 'o', 'u', 'w', 'y', '?'],
-        'population': ['a', 'c', 'n', 's', 'v', 'y', '?'],
-        'habitat': ['g', 'l', 'm', 'p', 'u', 'w', 'd', '?'],
-    }
+# def attributes_domains():
+#     return {
+#         'label': ['e', 'p', '?'],
+#         'cap-shape': ['b', 'c', 'x', 'f', 'k', 's', '?'],
+#         'cap-surface': ['f', 'g', 'y', 's', '?'],
+#         'cap-color': ['n', 'b', 'c', 'g', 'r', 'p', 'u', 'e', 'w', 'y', '?'],
+#         'bruises?': ['t', 'f', '?'],
+#         'odor': ['a', 'l', 'c', 'y', 'f', 'm', 'n', 'p', 's', '?'],
+#         'gill-attachment': ['a', 'd', 'f', 'n', '?'],
+#         'gill-spacing': ['c', 'w', 'd', '?'],
+#         'gill-size': ['b', 'n', '?'],
+#         'gill-color': ['k', 'n', 'b', 'h', 'g', 'r', 'o', 'p', 'u', 'e', 'w', 'y', '?'],
+#         'stalk-shape': ['e', 't', '?'],
+#         'salk-root': ['b', 'c', 'u', 'e', 'z', 'r', '?'],
+#         'stalk-surface-above-ring': ['f', 'y', 'k', 's', '?'],
+#         'stalk-surface-below-ring': ['f', 'y', 'k', 's', '?'],
+#         'stalk-color-above-ring': ['n', 'b', 'c', 'g', 'o', 'p', 'e', 'w', 'y', '?'],
+#         'stalk-color-below-ring': ['n', 'b', 'c', 'g', 'o', 'p', 'e', 'w', 'y', '?'],
+#         'veil-type': ['p', 'u', '?'],
+#         'veil-color': ['n', 'o', 'w', 'y', '?'],
+#         'ring-number': ['n', 'o', 't', '?'],
+#         'ring-type': ['c', 'e', 'f', 'l', 'n', 'p', 's', 'z', '?'],
+#         'spore-print-color': ['k', 'n', 'b', 'h', 'r', 'o', 'u', 'w', 'y', '?'],
+#         'population': ['a', 'c', 'n', 's', 'v', 'y', '?'],
+#         'habitat': ['g', 'l', 'm', 'p', 'u', 'w', 'd', '?'],
+#     }
+def get_possible_domains():
+    return [0, 1]
 
 
 def get_positive_label():
-    return 'e'
+    return 1
 
 
 def get_negative_label():
-    return 'p'
+    return 0
+
+def get_class(record):
+    return record[-1]
+
+# def create_record(csv_record):
+#     return {
+#         'label': csv_record[0],
+#         'cap-shape': csv_record[1],
+#         'cap-surface': csv_record[2],
+#         'cap-color': csv_record[3],
+#         'bruises?': csv_record[4],
+#         'odor': csv_record[5],
+#         'gill-attachment': csv_record[6],
+#         'gill-spacing': csv_record[7],
+#         'gill-size': csv_record[8],
+#         'gill-color': csv_record[9],
+#         'stalk-shape': csv_record[10],
+#         'salk-root': csv_record[11],
+#         'stalk-surface-above-ring': csv_record[12],
+#         'stalk-surface-below-ring': csv_record[13],
+#         'stalk-color-above-ring': csv_record[14],
+#         'stalk-color-below-ring': csv_record[15],
+#         'veil-type': csv_record[16],
+#         'veil-color': csv_record[17],
+#         'ring-number': csv_record[18],
+#         'ring-type': csv_record[19],
+#         'spore-print-color': csv_record[20],
+#         'population': csv_record[21],
+#         'habitat': csv_record[22],
+#     }
 
 
-def create_record(csv_record):
-    return {
-        'label': csv_record[0],
-        'cap-shape': csv_record[1],
-        'cap-surface': csv_record[2],
-        'cap-color': csv_record[3],
-        'bruises?': csv_record[4],
-        'odor': csv_record[5],
-        'gill-attachment': csv_record[6],
-        'gill-spacing': csv_record[7],
-        'gill-size': csv_record[8],
-        'gill-color': csv_record[9],
-        'stalk-shape': csv_record[10],
-        'salk-root': csv_record[11],
-        'stalk-surface-above-ring': csv_record[12],
-        'stalk-surface-below-ring': csv_record[13],
-        'stalk-color-above-ring': csv_record[14],
-        'stalk-color-below-ring': csv_record[15],
-        'veil-type': csv_record[16],
-        'veil-color': csv_record[17],
-        'ring-number': csv_record[18],
-        'ring-type': csv_record[19],
-        'spore-print-color': csv_record[20],
-        'population': csv_record[21],
-        'habitat': csv_record[22],
-    }
-
-
-def create_distribution_dict():
-    attributes_with_domains = attributes_domains()
+def create_distribution_dict(number_features):
+    domains = get_possible_domains()
 
     distribution = {}
 
-    for attribute, domains in attributes_with_domains.items():
-        if attribute == 'label':
-            continue
+    for feature_number in range(number_features):
         for domain in domains:
-            distribution[(attribute, domain, 'label', get_positive_label())] = 1
-            distribution[(attribute, domain, 'label', get_negative_label())] = 1
+            distribution[(feature_number, domain, 'label', get_positive_label())] = 1
+            distribution[(feature_number, domain, 'label', get_negative_label())] = 1
 
     return distribution
 
 
 def read_file(path=None):
     if path is None:
-        path = 'agaricus-lepiota.data'
+        path = 'data/ToyExample.txt'
     with open(path, 'r') as f:
         reader = csv.reader(f)
         csv_list = list(reader)
 
-    records = []
-    for value in csv_list:
-        records.append(create_record(value))
+    for inner_list in csv_list:
+        inner_list[:] = list(int(feature) for feature in inner_list)
 
-    return records
+    return csv_list
 
 # </editor-fold>
 
+
 # <editor-fold desc="Learn">
+def create_distribution_key(feature_number, domain_value, label_value):
+    return (feature_number, domain_value, 'label', label_value)
 
 
-def create_distribution_key(attribute, domain_value, label_value):
-    return (attribute, domain_value, 'label', label_value)
-
-
-def put_value_in_distribution(distribution, attribute, domain_value, label_value):
-    key = create_distribution_key(attribute, domain_value, label_value)
+def put_value_in_distribution(distribution, feature_number, domain_value, label_value):
+    key = create_distribution_key(feature_number, domain_value, label_value)
     distribution[key] += 1
 
 
 def get_label_count(records, label):
     count = 0
     for record in records:
-        if record['label'] == label:
+        if get_class(record) == label:
             count += 1
     return count
 
@@ -134,15 +134,14 @@ def create_percentages(pos_count, neg_count, distribution):
 
 
 def learn(records):
-    distribution = create_distribution_dict()
+    distribution = create_distribution_dict(len(records[0])-1)
     pos_count = get_label_count(records, get_positive_label())
     neg_count = get_label_count(records, get_negative_label())
 
     for record in records:
-        for attribute, domain_value in record.items():
-            if attribute == 'label':
-                continue
-            put_value_in_distribution(distribution, attribute, domain_value, record['label'])
+        for feature_index in range(len(record)-1):
+            feature_value = record[feature_index]
+            put_value_in_distribution(distribution, feature_index, feature_value, get_class(record))
 
     distribution = create_percentages(pos_count, neg_count, distribution)
     distribution[('label', get_positive_label())] = pos_count / (pos_count + neg_count)
@@ -157,10 +156,9 @@ def learn(records):
 
 def calculate_probability_of(distribution, instance, label):
     un_normalized_prob = distribution[('label', label)]
-    for attribute, domain_value in instance.items():
-        if attribute == 'label':
-            continue
-        key = create_distribution_key(attribute, domain_value, label)
+    for feature_index in range(len(instance)-1):
+        feature_value = instance[feature_index]
+        key = create_distribution_key(feature_index, feature_value, label)
         un_normalized_prob *= distribution[key]
 
     return un_normalized_prob
@@ -212,7 +210,7 @@ def classify(distribution, instances):
 def evaluate(test_data, classifications):
     number_of_errors = 0
     for record, classification in zip(test_data, classifications):
-        if record['label'] != classification[0][0]:
+        if get_class(record) != classification[0][0]:
             number_of_errors += 1
 
     return number_of_errors/len(test_data)
@@ -220,7 +218,30 @@ def evaluate(test_data, classifications):
 # </editor-fold>
 
 
+# <editor-fold desc="New Impl Test">
+test_records = read_file()
+
+random.shuffle(test_records)
+
+half_way = 2 * int(math.floor(len(test_records)/3))
+set_1 = test_records[:half_way]
+set_2 = test_records[half_way:]
+
+test_dist = learn(set_1)
+print(test_dist)
+
+results = classify(test_dist, set_2)
+print(set_2)
+print(results)
+
+print("Error Rate = {}".format(evaluate(set_2, results)))
+print()
+# </editor-fold>
+
 # <editor-fold desc="Tests">
+
+# Main Tests
+print("Main Tests")
 
 test_records = read_file()
 
