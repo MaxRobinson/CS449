@@ -60,19 +60,15 @@ def update_weights(record, weights, alpha, promote=True):
     return new_weights
 
 
-def winnow_2(records, theta, learning_rate, positive_class=1, negative_class=0):
-    weights = init_weights(len(records[0])-1)
+def winnow_2(training_set, theta, learning_rate, positive_class=1, negative_class=0):
+    weights = init_weights(len(training_set[0]) - 1)
     threshold = theta
     alpha = learning_rate
-    # random.shuffle(records)
-
-    one_third_data_length = int(math.floor(len(records)/3))
-    training = records[:2*one_third_data_length]
-    test = records[2*one_third_data_length:]
+    random.shuffle(training_set)
 
     count = 0
     print("Iteration #{0} (Initial Weights) : {1}".format(count, weights))
-    for record in records:
+    for record in training_set:
         prediction = calculate_model_prediction(record, weights, threshold)
         actual_class = get_class(record)
         if prediction != actual_class:
@@ -86,10 +82,42 @@ def winnow_2(records, theta, learning_rate, positive_class=1, negative_class=0):
     return weights
 # </editor-fold>
 
-# <editor-fold desc="Tests">
-toy_values = read_file("data/toyExample.txt")
-print(toy_values)
 
-model = winnow_2(toy_values, .75, 2)
-print(model)
+# <editor-fold desc="Verification">
+def validate_winnow_2(model, test, threshold):
+    results = []
+    error = 0
+    for record in test:
+        prediction = calculate_model_prediction(record, model, threshold)
+        results.append(prediction)
+        if prediction != get_class(record):
+            error += 1
+    return (error, results, model)
+
+
+def test_winnow_2(data_set_name):
+    records = read_file(data_set_name)
+    random.shuffle(records)
+
+    one_third_data_length = int(math.floor(len(records)/3))
+    training = records[:2*one_third_data_length]
+    test = records[2*one_third_data_length:]
+
+    threshold = .75
+    model = winnow_2(training, .75, 2)
+
+    results = validate_winnow_2(model, test, threshold)
+    return results
+
+# </editor-fold>
+
+# <editor-fold desc="Tests">
+# toy_values = read_file("data/toyExample.txt")
+# print(toy_values)
+#
+# model = winnow_2(toy_values, .75, 2)
+# print(model)
+
+value = test_winnow_2("data/toyExample.txt")
+print(value)
 # </editor-fold>
