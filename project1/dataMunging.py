@@ -1,4 +1,5 @@
-import csv, random
+from __future__ import division
+import csv, random, math
 
 
 def read_file(path=None):
@@ -214,6 +215,82 @@ def house_votes_data():
             csv_writer.writerow(record)
 
 
+def iris_munge(data):
+    new_data = []
+
+    for record in data:
+        new_record = []
+        for index in range(len(record)):
+            feature = record[index]
+            new_feature = [0]
+
+            if index == 0:
+                feature = float(feature)
+                new_feature = [0] * 6
+                max_value = 7.9
+
+                feature_diff = max_value - feature
+                binn = math.floor(feature_diff/.72)
+
+                new_feature[5 - binn] = 1
+
+            elif index == 1:
+                feature = float(feature)
+                new_feature = [0] * 6
+                max_value = 4.4
+
+                feature_diff = max_value - feature
+                binn = math.floor(feature_diff / .48)
+
+                new_feature[5 - binn] = 1
+
+            elif index == 2:
+                feature = float(feature)
+                new_feature = [0] * 6
+                max_value = 6.9
+
+                feature_diff = max_value - feature
+                binn = math.floor(feature_diff / 1.18)
+
+                new_feature[5 - binn] = 1
+            elif index == 3:
+                feature = float(feature)
+                new_feature = [0] * 6
+                max_value = 2.5
+
+                feature_diff = max_value - feature
+                binn = math.floor(feature_diff / .54)
+
+                new_feature[5 - binn] = 1
+
+            else:
+                new_feature = [record[index]]
+                # new_record.append(record[index])
+                # continue
+
+            for data_point in new_feature:
+                new_record.append(data_point)
+
+        new_data.append(new_record)
+    return new_data
+
+
+
+def iris_data():
+    data = read_file_string('data/iris.data.txt')
+    path = 'data/iris.data.new.txt'
+
+    new_data = iris_munge(data)
+
+    with open(path, 'w') as f:
+        csv_writer = csv.writer(f, lineterminator='\n')
+
+        for record in new_data:
+            csv_writer.writerow(record)
+
+
+
 # breast_cancer_data()
 # soybean_data()
-house_votes_data()
+# house_votes_data()
+iris_data()

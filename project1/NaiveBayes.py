@@ -1,5 +1,5 @@
 from __future__ import division
-import sys, csv, math, copy, random
+import sys, csv, math, copy, random, pprint
 
 
 # <editor-fold desc="Init Data">
@@ -190,11 +190,16 @@ def run_experiment(data_set_path, positive_class_name):
 
     random.shuffle(test_records)
 
-    half_way = 2 * int(math.floor(len(test_records)/3))
-    set_1 = test_records[:half_way]
-    set_2 = test_records[half_way:]
+    two_thirds = 2 * int(math.floor(len(test_records)/3))
+    set_1 = test_records[:two_thirds]
+    set_2 = test_records[two_thirds:]
 
     distro_1 = learn(set_1)
+
+    # print("Learned Distribution: \n {}".format(distro_1))
+    pp = pprint.PrettyPrinter(indent=2)
+    print("Learned Distribution: ")
+    pp.pprint(distro_1)
 
     # Evalutate
     c2 = classify(distro_1, set_1)
@@ -204,12 +209,15 @@ def run_experiment(data_set_path, positive_class_name):
     c2 = classify(distro_1, set_2)
     evaluation_1 = evaluate(set_2, c2)
     print("Error Rate = {}".format(evaluation_1))
+    print()
 # </editor-fold>
 
 
 sys.stdout = open('NaiveBayesOutput.txt', 'w')
 
 run_experiment("data/breast-cancer-wisconsin.data.new.txt", 1)
+run_experiment("data/breast-cancer-wisconsin.data.new.txt", 0)
+
 run_experiment("data/soybean-small.data.new.txt", "D1")
 run_experiment("data/soybean-small.data.new.txt", "D2")
 run_experiment("data/soybean-small.data.new.txt", "D3")
@@ -217,4 +225,8 @@ run_experiment("data/soybean-small.data.new.txt", "D4")
 
 run_experiment("data/house-votes-84.data.new.txt", "democrat")
 run_experiment("data/house-votes-84.data.new.txt", "republican")
+
+run_experiment("data/iris.data.new.txt", "Iris-setosa")
+run_experiment("data/iris.data.new.txt", "Iris-versicolor")
+run_experiment("data/iris.data.new.txt", "Iris-virginica")
 

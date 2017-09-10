@@ -68,7 +68,7 @@ def update_weights(record, weights, alpha, promote=True):
     return new_weights
 
 
-def winnow_2(training_set, theta, learning_rate, positive_class=1, negative_class=0):
+def winnow_2(training_set, theta, learning_rate):
     weights = init_weights(len(training_set[0]) - 1)
     threshold = theta
     alpha = learning_rate
@@ -92,7 +92,7 @@ def winnow_2(training_set, theta, learning_rate, positive_class=1, negative_clas
 
 
 # <editor-fold desc="Verification">
-def validate_winnow_2(model, test, threshold):
+def evaluate_winnow_2(model, test, threshold):
     results = []
     error = 0
     for record in test:
@@ -100,7 +100,9 @@ def validate_winnow_2(model, test, threshold):
         results.append(prediction)
         if prediction != get_class(record):
             error += 1
-    return (error, results, model)
+
+    error_rate = error/len(test)
+    return (error_rate, results, model)
 
 
 def test_winnow_2(records):
@@ -114,7 +116,7 @@ def test_winnow_2(records):
     threshold = .75
     model = winnow_2(training, .75, 2)
 
-    results = validate_winnow_2(model, test, threshold)
+    results = evaluate_winnow_2(model, test, threshold)
     return results
 
 # </editor-fold>
@@ -135,22 +137,44 @@ def pre_process(data, positive_class_name):
 # <editor-fold desc="Experiment">
 def run_experiment(data_set_path, positive_class_name):
     print("Running {0} Experiment with positive class {1}".format(data_set_path, positive_class_name))
-    test_records = read_file(data_set_path)
-    test_records = pre_process(test_records, positive_class_name)
-    results = test_winnow_2(test_records)
-    print("Error = {}".format(results))
+    records = read_file(data_set_path)
+    records = pre_process(records, positive_class_name)
+    # results = test_winnow_2(test_records)
+
+    random.shuffle(records)
+
+    one_third_data_length = int(math.floor(len(records)/3))
+    training = records[:2*one_third_data_length]
+    test = records[2*one_third_data_length:]
+
+    threshold = .75
+
+    model = winnow_2(training, .75, 2)
+
+    results = evaluate_winnow_2(model, test, threshold)
+    print("Results: \n model: {0} \n classifications on test set: {1}".format(results[2], results[1]))
+    print("Error Rate = {} \n".format(results[0]))
+
+
 
 # </editor-fold>
 
 
-sys.stdout = open('TestOutput', 'w')
+# sys.stdout = open('TestOutput', 'w')
+#
+# run_experiment("data/breast-cancer-wisconsin.data.new.txt", 1)
+# run_experiment("data/breast-cancer-wisconsin.data.new.txt", 0)
+#
+# run_experiment("data/soybean-small.data.new.txt", "D1")
+# run_experiment("data/soybean-small.data.new.txt", "D2")
+# run_experiment("data/soybean-small.data.new.txt", "D3")
+# run_experiment("data/soybean-small.data.new.txt", "D4")
+#
+# run_experiment("data/house-votes-84.data.new.txt", "democrat")
+# run_experiment("data/house-votes-84.data.new.txt", "republican")
 
-run_experiment("data/breast-cancer-wisconsin.data.new.txt", 1)
-run_experiment("data/soybean-small.data.new.txt", "D1")
-run_experiment("data/soybean-small.data.new.txt", "D2")
-run_experiment("data/soybean-small.data.new.txt", "D3")
-run_experiment("data/soybean-small.data.new.txt", "D4")
+run_experiment("data/iris.data.new.txt", "Iris-setosa")
+run_experiment("data/iris.data.new.txt", "Iris-versicolor")
+run_experiment("data/iris.data.new.txt", "Iris-virginica")
 
-run_experiment("data/house-votes-84.data.new.txt", "democrat")
-run_experiment("data/house-votes-84.data.new.txt", "republican")
 
