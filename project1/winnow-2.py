@@ -118,6 +118,10 @@ def test_winnow_2(data_set_name):
 # model = winnow_2(toy_values, .75, 2)
 # print(model)
 
-value = test_winnow_2("data/toyExample.txt")
+# value = test_winnow_2("data/toyExample.txt")
+# print(value)
+
+value = test_winnow_2("data/breast-cancer-wisconsin.data.new.txt")
 print(value)
+
 # </editor-fold>

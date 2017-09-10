@@ -219,35 +219,90 @@ def evaluate(test_data, classifications):
 
 
 # <editor-fold desc="New Impl Test">
-test_records = read_file()
-
-random.shuffle(test_records)
-
-half_way = 2 * int(math.floor(len(test_records)/3))
-set_1 = test_records[:half_way]
-set_2 = test_records[half_way:]
-
-test_dist = learn(set_1)
-print(test_dist)
-
-results = classify(test_dist, set_2)
-print(set_2)
-print(results)
-
-print("Error Rate = {}".format(evaluate(set_2, results)))
-print()
+# test_records = read_file()
+#
+# random.shuffle(test_records)
+#
+# half_way = 2 * int(math.floor(len(test_records)/3))
+# set_1 = test_records[:half_way]
+# set_2 = test_records[half_way:]
+#
+# test_dist = learn(set_1)
+# print(test_dist)
+#
+# results = classify(test_dist, set_2)
+# print(set_2)
+# print(results)
+#
+# print("Error Rate = {}".format(evaluate(set_2, results)))
+# print()
 # </editor-fold>
 
 # <editor-fold desc="Tests">
 
 # Main Tests
+# print("Main Tests")
+#
+# test_records = read_file()
+#
+# random.shuffle(test_records)
+#
+# half_way = int(math.floor(len(test_records)/2))
+# set_1 = test_records[:half_way]
+# set_2 = test_records[half_way:]
+#
+# distro_1 = learn(set_1)
+#
+# # Evalutate
+# c2 = classify(distro_1, set_1)
+# evaluation_1 = evaluate(set_1, c2)
+# print("Error Rate = {}".format(evaluation_1))
+#
+# c2 = classify(distro_1, set_2)
+# evaluation_1 = evaluate(set_2, c2)
+# print("Error Rate = {}".format(evaluation_1))
+#
+#
+#
+#
+# # distribution = learn(data)
+# # print distribution
+#
+# distro_2 = learn(set_2)
+#
+# # Evaluate
+# c1 = classify(distro_2, set_2)
+# evaluation_2 = evaluate(set_2, c1)
+# print("Error Rate = {}".format(evaluation_2))
+#
+# c1 = classify(distro_2, set_1)
+# evaluation_2 = evaluate(set_1, c1)
+# print("Error Rate = {}".format(evaluation_2))
+#
+#
+#
+# print("new test")
+#
+# distro_3 = learn(test_records)
+#
+# # Evaluate
+# c1 = classify(distro_3, test_records)
+# evaluation_2 = evaluate(test_records, c1)
+# print("Error Rate = {}".format(evaluation_2))
+
+
+
+# </editor-fold>
+
+
+# <editor-fold desc="binaryDataTest">
 print("Main Tests")
 
-test_records = read_file()
+test_records = read_file("data/breast-cancer-wisconsin.data.new.txt")
 
 random.shuffle(test_records)
 
-half_way = int(math.floor(len(test_records)/2))
+half_way = 2 * int(math.floor(len(test_records)/3))
 set_1 = test_records[:half_way]
 set_2 = test_records[half_way:]
 
@@ -261,35 +316,5 @@ print("Error Rate = {}".format(evaluation_1))
 c2 = classify(distro_1, set_2)
 evaluation_1 = evaluate(set_2, c2)
 print("Error Rate = {}".format(evaluation_1))
-
-
-
-
-# distribution = learn(data)
-# print distribution
-
-distro_2 = learn(set_2)
-
-# Evaluate
-c1 = classify(distro_2, set_2)
-evaluation_2 = evaluate(set_2, c1)
-print("Error Rate = {}".format(evaluation_2))
-
-c1 = classify(distro_2, set_1)
-evaluation_2 = evaluate(set_1, c1)
-print("Error Rate = {}".format(evaluation_2))
-
-
-
-print("new test")
-
-distro_3 = learn(test_records)
-
-# Evaluate
-c1 = classify(distro_3, test_records)
-evaluation_2 = evaluate(test_records, c1)
-print("Error Rate = {}".format(evaluation_2))
-
-
 
 # </editor-fold>
