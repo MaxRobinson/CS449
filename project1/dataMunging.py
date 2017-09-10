@@ -42,6 +42,15 @@ def read_file_float(path=None):
 
     return records
 
+def read_file_string(path=None):
+    if path is None:
+        path = 'data/ToyExample.txt'
+    with open(path, 'r') as f:
+        reader = csv.reader(f)
+        csv_list = list(reader)
+
+    return csv_list
+
 
 def breast_cancer_munge(data):
     new_data = []
@@ -162,5 +171,49 @@ def soybean_data():
         for record in new_data:
             csv_writer.writerow(record)
 
+
+
+def house_votes_munge(data):
+    new_data = []
+
+    for record in data:
+        new_record = []
+        for index in range(len(record)):
+            if index == len(record)-1:
+                new_record.append(record[index])
+            else:
+                feature = record[index]
+                new_feature = [0]
+
+                if feature == '?':
+                    feature = random.randint(0, 1)
+                elif feature == 'y':
+                    feature = 1
+                else:
+                    feature = 0
+
+                new_feature[0] = feature
+
+                for data_point in new_feature:
+                    new_record.append(data_point)
+
+        new_data.append(new_record)
+    return new_data
+
+
+def house_votes_data():
+    data = read_file_string('data/house-votes-84.data.diff.txt')
+    path = 'data/house-votes-84.data.new.txt'
+
+    new_data = house_votes_munge(data)
+
+    with open(path, 'w') as f:
+        csv_writer = csv.writer(f, lineterminator='\n')
+
+        for record in new_data:
+            csv_writer.writerow(record)
+
+
 # breast_cancer_data()
-soybean_data()
+# soybean_data()
+house_votes_data()
