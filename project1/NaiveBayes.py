@@ -1,34 +1,8 @@
 from __future__ import division
-import csv, math, copy, random
+import sys, csv, math, copy, random
 
 
 # <editor-fold desc="Init Data">
-# def attributes_domains():
-#     return {
-#         'label': ['e', 'p', '?'],
-#         'cap-shape': ['b', 'c', 'x', 'f', 'k', 's', '?'],
-#         'cap-surface': ['f', 'g', 'y', 's', '?'],
-#         'cap-color': ['n', 'b', 'c', 'g', 'r', 'p', 'u', 'e', 'w', 'y', '?'],
-#         'bruises?': ['t', 'f', '?'],
-#         'odor': ['a', 'l', 'c', 'y', 'f', 'm', 'n', 'p', 's', '?'],
-#         'gill-attachment': ['a', 'd', 'f', 'n', '?'],
-#         'gill-spacing': ['c', 'w', 'd', '?'],
-#         'gill-size': ['b', 'n', '?'],
-#         'gill-color': ['k', 'n', 'b', 'h', 'g', 'r', 'o', 'p', 'u', 'e', 'w', 'y', '?'],
-#         'stalk-shape': ['e', 't', '?'],
-#         'salk-root': ['b', 'c', 'u', 'e', 'z', 'r', '?'],
-#         'stalk-surface-above-ring': ['f', 'y', 'k', 's', '?'],
-#         'stalk-surface-below-ring': ['f', 'y', 'k', 's', '?'],
-#         'stalk-color-above-ring': ['n', 'b', 'c', 'g', 'o', 'p', 'e', 'w', 'y', '?'],
-#         'stalk-color-below-ring': ['n', 'b', 'c', 'g', 'o', 'p', 'e', 'w', 'y', '?'],
-#         'veil-type': ['p', 'u', '?'],
-#         'veil-color': ['n', 'o', 'w', 'y', '?'],
-#         'ring-number': ['n', 'o', 't', '?'],
-#         'ring-type': ['c', 'e', 'f', 'l', 'n', 'p', 's', 'z', '?'],
-#         'spore-print-color': ['k', 'n', 'b', 'h', 'r', 'o', 'u', 'w', 'y', '?'],
-#         'population': ['a', 'c', 'n', 's', 'v', 'y', '?'],
-#         'habitat': ['g', 'l', 'm', 'p', 'u', 'w', 'd', '?'],
-#     }
 def get_possible_domains():
     return [0, 1]
 
@@ -40,35 +14,9 @@ def get_positive_label():
 def get_negative_label():
     return 0
 
+
 def get_class(record):
     return record[-1]
-
-# def create_record(csv_record):
-#     return {
-#         'label': csv_record[0],
-#         'cap-shape': csv_record[1],
-#         'cap-surface': csv_record[2],
-#         'cap-color': csv_record[3],
-#         'bruises?': csv_record[4],
-#         'odor': csv_record[5],
-#         'gill-attachment': csv_record[6],
-#         'gill-spacing': csv_record[7],
-#         'gill-size': csv_record[8],
-#         'gill-color': csv_record[9],
-#         'stalk-shape': csv_record[10],
-#         'salk-root': csv_record[11],
-#         'stalk-surface-above-ring': csv_record[12],
-#         'stalk-surface-below-ring': csv_record[13],
-#         'stalk-color-above-ring': csv_record[14],
-#         'stalk-color-below-ring': csv_record[15],
-#         'veil-type': csv_record[16],
-#         'veil-color': csv_record[17],
-#         'ring-number': csv_record[18],
-#         'ring-type': csv_record[19],
-#         'spore-print-color': csv_record[20],
-#         'population': csv_record[21],
-#         'habitat': csv_record[22],
-#     }
 
 
 def create_distribution_dict(number_features):
@@ -86,18 +34,25 @@ def create_distribution_dict(number_features):
 
 def read_file(path=None):
     if path is None:
-        path = 'data/ToyExample.txt'
+        path = 'data/breast-cancer-wisconsin.data.txt'
     with open(path, 'r') as f:
         reader = csv.reader(f)
         csv_list = list(reader)
 
     for inner_list in csv_list:
-        inner_list[:] = list(int(feature) for feature in inner_list)
+        new_values = []
+        for feature in inner_list:
+            try:
+                new_feature = int(feature)
+                new_values.append(new_feature)
+            except Exception:
+                new_values.append(feature)
+
+        inner_list[:] = new_values
 
     return csv_list
 
 # </editor-fold>
-
 
 # <editor-fold desc="Learn">
 def create_distribution_key(feature_number, domain_value, label_value):
@@ -205,8 +160,6 @@ def classify(distribution, instances):
 # </editor-fold>
 
 # <editor-fold desc="Evaluate">
-
-
 def evaluate(test_data, classifications):
     number_of_errors = 0
     for record, classification in zip(test_data, classifications):
@@ -214,107 +167,51 @@ def evaluate(test_data, classifications):
             number_of_errors += 1
 
     return number_of_errors/len(test_data)
+# </editor-fold>
 
+# <editor-fold desc="Data Pre-process">
+def pre_process(data, positive_class_name):
+    new_data = []
+    for record in data:
+        current_class = get_class(record)
+        if current_class == positive_class_name:
+            record[-1] = 1
+        else:
+            record[-1] = 0
+        new_data.append(record)
+    return new_data
+# </editor-fold>
+
+# <editor-fold desc="Experiment">
+def run_experiment(data_set_path, positive_class_name):
+    print("Running {0} Experiment with positive class {1}".format(data_set_path, positive_class_name))
+    test_records = read_file(data_set_path)
+    test_records = pre_process(test_records, positive_class_name)
+
+    random.shuffle(test_records)
+
+    half_way = 2 * int(math.floor(len(test_records)/3))
+    set_1 = test_records[:half_way]
+    set_2 = test_records[half_way:]
+
+    distro_1 = learn(set_1)
+
+    # Evalutate
+    c2 = classify(distro_1, set_1)
+    evaluation_1 = evaluate(set_1, c2)
+    print("Error Rate = {}".format(evaluation_1))
+
+    c2 = classify(distro_1, set_2)
+    evaluation_1 = evaluate(set_2, c2)
+    print("Error Rate = {}".format(evaluation_1))
 # </editor-fold>
 
 
-# <editor-fold desc="New Impl Test">
-# test_records = read_file()
-#
-# random.shuffle(test_records)
-#
-# half_way = 2 * int(math.floor(len(test_records)/3))
-# set_1 = test_records[:half_way]
-# set_2 = test_records[half_way:]
-#
-# test_dist = learn(set_1)
-# print(test_dist)
-#
-# results = classify(test_dist, set_2)
-# print(set_2)
-# print(results)
-#
-# print("Error Rate = {}".format(evaluate(set_2, results)))
-# print()
-# </editor-fold>
+sys.stdout = open('NaiveBayesOutput.txt', 'w')
 
-# <editor-fold desc="Tests">
+run_experiment("data/breast-cancer-wisconsin.data.new.txt", 1)
+run_experiment("data/soybean-small.data.new.txt", "D1")
+run_experiment("data/soybean-small.data.new.txt", "D2")
+run_experiment("data/soybean-small.data.new.txt", "D3")
+run_experiment("data/soybean-small.data.new.txt", "D4")
 
-# Main Tests
-# print("Main Tests")
-#
-# test_records = read_file()
-#
-# random.shuffle(test_records)
-#
-# half_way = int(math.floor(len(test_records)/2))
-# set_1 = test_records[:half_way]
-# set_2 = test_records[half_way:]
-#
-# distro_1 = learn(set_1)
-#
-# # Evalutate
-# c2 = classify(distro_1, set_1)
-# evaluation_1 = evaluate(set_1, c2)
-# print("Error Rate = {}".format(evaluation_1))
-#
-# c2 = classify(distro_1, set_2)
-# evaluation_1 = evaluate(set_2, c2)
-# print("Error Rate = {}".format(evaluation_1))
-#
-#
-#
-#
-# # distribution = learn(data)
-# # print distribution
-#
-# distro_2 = learn(set_2)
-#
-# # Evaluate
-# c1 = classify(distro_2, set_2)
-# evaluation_2 = evaluate(set_2, c1)
-# print("Error Rate = {}".format(evaluation_2))
-#
-# c1 = classify(distro_2, set_1)
-# evaluation_2 = evaluate(set_1, c1)
-# print("Error Rate = {}".format(evaluation_2))
-#
-#
-#
-# print("new test")
-#
-# distro_3 = learn(test_records)
-#
-# # Evaluate
-# c1 = classify(distro_3, test_records)
-# evaluation_2 = evaluate(test_records, c1)
-# print("Error Rate = {}".format(evaluation_2))
-
-
-
-# </editor-fold>
-
-
-# <editor-fold desc="binaryDataTest">
-print("Main Tests")
-
-test_records = read_file("data/breast-cancer-wisconsin.data.new.txt")
-
-random.shuffle(test_records)
-
-half_way = 2 * int(math.floor(len(test_records)/3))
-set_1 = test_records[:half_way]
-set_2 = test_records[half_way:]
-
-distro_1 = learn(set_1)
-
-# Evalutate
-c2 = classify(distro_1, set_1)
-evaluation_1 = evaluate(set_1, c2)
-print("Error Rate = {}".format(evaluation_1))
-
-c2 = classify(distro_1, set_2)
-evaluation_1 = evaluate(set_2, c2)
-print("Error Rate = {}".format(evaluation_1))
-
-# </editor-fold>

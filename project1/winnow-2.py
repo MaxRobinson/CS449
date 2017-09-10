@@ -15,7 +15,15 @@ def read_file(path=None):
         csv_list = list(reader)
 
     for inner_list in csv_list:
-        inner_list[:] = list(int(feature) for feature in inner_list)
+        new_values = []
+        for feature in inner_list:
+            try:
+                new_feature = int(feature)
+                new_values.append(new_feature)
+            except Exception:
+                new_values.append(feature)
+
+        inner_list[:] = new_values
 
     return csv_list
 # </editor-fold>
@@ -95,8 +103,8 @@ def validate_winnow_2(model, test, threshold):
     return (error, results, model)
 
 
-def test_winnow_2(data_set_name):
-    records = read_file(data_set_name)
+def test_winnow_2(records):
+    # records = read_file(data_set_name)
     random.shuffle(records)
 
     one_third_data_length = int(math.floor(len(records)/3))
@@ -111,17 +119,35 @@ def test_winnow_2(data_set_name):
 
 # </editor-fold>
 
-# <editor-fold desc="Tests">
-# toy_values = read_file("data/toyExample.txt")
-# print(toy_values)
-#
-# model = winnow_2(toy_values, .75, 2)
-# print(model)
+# <editor-fold desc="preprocess">
+def pre_process(data, positive_class_name):
+    new_data = []
+    for record in data:
+        current_class = get_class(record)
+        if current_class == positive_class_name:
+            record[-1] = 1
+        else:
+            record[-1] = 0
+        new_data.append(record)
+    return new_data
+# </editor-fold>
 
-# value = test_winnow_2("data/toyExample.txt")
-# print(value)
-
-value = test_winnow_2("data/breast-cancer-wisconsin.data.new.txt")
-print(value)
+# <editor-fold desc="Experiment">
+def run_experiment(data_set_path, positive_class_name):
+    print("Running {0} Experiment with positive class {1}".format(data_set_path, positive_class_name))
+    test_records = read_file(data_set_path)
+    test_records = pre_process(test_records, positive_class_name)
+    results = test_winnow_2(test_records)
+    print("Error = {}".format(results))
 
 # </editor-fold>
+
+
+sys.stdout = open('TestOutput', 'w')
+
+run_experiment("data/breast-cancer-wisconsin.data.new.txt", 1)
+run_experiment("data/soybean-small.data.new.txt", "D1")
+run_experiment("data/soybean-small.data.new.txt", "D2")
+run_experiment("data/soybean-small.data.new.txt", "D3")
+run_experiment("data/soybean-small.data.new.txt", "D4")
+
