@@ -215,3 +215,6 @@ run_experiment("data/soybean-small.data.new.txt", "D2")
 run_experiment("data/soybean-small.data.new.txt", "D3")
 run_experiment("data/soybean-small.data.new.txt", "D4")
 
+run_experiment("data/house-votes-84.data.new.txt", "democrat")
+run_experiment("data/house-votes-84.data.new.txt", "republican")
+
