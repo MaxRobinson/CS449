@@ -1,0 +1,1496 @@
+Running data/house-votes-84.data.new.txt Experiment with positive class=democrat
+Learned Winnow-2 Model: 
+[ 0.25,
+  0.0625,
+  1.0,
+  7.62939453125e-06,
+  0.0009765625,
+  0.0078125,
+  0.03125,
+  0.25,
+  0.25,
+  0.00390625,
+  1.0,
+  0.0001220703125,
+  0.000244140625,
+  0.00048828125,
+  0.5,
+  0.0078125]
+Results for Test Set: 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1] 
+
+Error Rate for entire test set = 0.18620689655172415 
+
+
+Running data/house-votes-84.data.new.txt Experiment with positive class=republican
+Learned Winnow-2 Model: 
+[ 0.03125,
+  0.00048828125,
+  0.000244140625,
+  1.0,
+  0.0625,
+  0.00048828125,
+  0.03125,
+  0.015625,
+  0.125,
+  0.0625,
+  3.0517578125e-05,
+  0.0625,
+  0.0625,
+  0.125,
+  0.03125,
+  0.03125]
+Results for Test Set: 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0] 
+
+Error Rate for entire test set = 0.06896551724137931 
+
+

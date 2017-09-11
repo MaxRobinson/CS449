@@ -1,0 +1,1071 @@
+Running data/iris.data.new.txt Experiment with positive class=Iris-setosa
+Learned Naive Bayes Distribution: 
+Keys are structured as follows: (feature#, possible domain values 0 or 1, 'label', label value)
+Special Key's that are ('label', possible_class_value) are the percentage of the distribution with that class label
+{ (0, 0, 'label', 0): 1.0,
+  (0, 0, 'label', 1): 0.975,
+  (0, 1, 'label', 0): 0.016129032258064516,
+  (0, 1, 'label', 1): 0.05,
+  (1, 0, 'label', 0): 0.9516129032258065,
+  (1, 0, 'label', 1): 0.5,
+  (1, 1, 'label', 0): 0.06451612903225806,
+  (1, 1, 'label', 1): 0.525,
+  (2, 0, 'label', 0): 0.7741935483870968,
+  (2, 0, 'label', 1): 0.575,
+  (2, 1, 'label', 0): 0.24193548387096775,
+  (2, 1, 'label', 1): 0.45,
+  (3, 0, 'label', 0): 0.6129032258064516,
+  (3, 0, 'label', 1): 0.975,
+  (3, 1, 'label', 0): 0.4032258064516129,
+  (3, 1, 'label', 1): 0.05,
+  (4, 0, 'label', 0): 0.7741935483870968,
+  (4, 0, 'label', 1): 1.0,
+  (4, 1, 'label', 0): 0.24193548387096775,
+  (4, 1, 'label', 1): 0.025,
+  (5, 0, 'label', 0): 0.9032258064516129,
+  (5, 0, 'label', 1): 1.0,
+  (5, 1, 'label', 0): 0.11290322580645161,
+  (5, 1, 'label', 1): 0.025,
+  (6, 0, 'label', 0): 0.9838709677419355,
+  (6, 0, 'label', 1): 1.0,
+  (6, 1, 'label', 0): 0.03225806451612903,
+  (6, 1, 'label', 1): 0.025,
+  (7, 0, 'label', 0): 0.9032258064516129,
+  (7, 0, 'label', 1): 0.975,
+  (7, 1, 'label', 0): 0.11290322580645161,
+  (7, 1, 'label', 1): 0.05,
+  (8, 0, 'label', 0): 0.5645161290322581,
+  (8, 0, 'label', 1): 0.975,
+  (8, 1, 'label', 0): 0.45161290322580644,
+  ('label', 1): 0.39,
+  (8, 1, 'label', 1): 0.05,
+  (9, 0, 'label', 0): 0.5967741935483871,
+  (9, 0, 'label', 1): 0.5,
+  (9, 1, 'label', 0): 0.41935483870967744,
+  (9, 1, 'label', 1): 0.525,
+  (10, 0, 'label', 0): 0.967741935483871,
+  (10, 0, 'label', 1): 0.65,
+  (10, 1, 'label', 0): 0.04838709677419355,
+  (10, 1, 'label', 1): 0.375,
+  (11, 0, 'label', 0): 1.0,
+  (11, 0, 'label', 1): 0.925,
+  (11, 1, 'label', 0): 0.016129032258064516,
+  (11, 1, 'label', 1): 0.1,
+  (12, 0, 'label', 0): 1.0,
+  (12, 0, 'label', 1): 0.975,
+  (12, 1, 'label', 0): 0.016129032258064516,
+  (12, 1, 'label', 1): 0.05,
+  (13, 0, 'label', 0): 1.0,
+  (13, 0, 'label', 1): 0.05,
+  (13, 1, 'label', 0): 0.016129032258064516,
+  (13, 1, 'label', 1): 0.975,
+  (14, 0, 'label', 0): 0.9516129032258065,
+  (14, 0, 'label', 1): 1.0,
+  (14, 1, 'label', 0): 0.06451612903225806,
+  (14, 1, 'label', 1): 0.025,
+  (15, 0, 'label', 0): 0.6774193548387096,
+  (15, 0, 'label', 1): 1.0,
+  (15, 1, 'label', 0): 0.3387096774193548,
+  (16, 0, 'label', 1): 1.0,
+  (16, 1, 'label', 0): 0.4838709677419355,
+  (17, 0, 'label', 0): 0.8548387096774194,
+  (17, 0, 'label', 1): 1.0,
+  ('label', 0): 0.61,
+  (15, 1, 'label', 1): 0.025,
+  (16, 0, 'label', 0): 0.532258064516129,
+  (16, 1, 'label', 1): 0.025,
+  (17, 1, 'label', 0): 0.16129032258064516,
+  (17, 1, 'label', 1): 0.025,
+  (18, 0, 'label', 0): 1.0,
+  (18, 0, 'label', 1): 1.0,
+  (18, 1, 'label', 0): 0.016129032258064516,
+  (18, 1, 'label', 1): 0.025,
+  (19, 0, 'label', 0): 1.0,
+  (19, 0, 'label', 1): 0.225,
+  (19, 1, 'label', 0): 0.016129032258064516,
+  (19, 1, 'label', 1): 0.8,
+  (20, 0, 'label', 0): 1.0,
+  (20, 0, 'label', 1): 0.8,
+  (20, 1, 'label', 0): 0.016129032258064516,
+  (20, 1, 'label', 1): 0.225,
+  (21, 0, 'label', 0): 0.6451612903225806,
+  (21, 0, 'label', 1): 1.0,
+  (21, 1, 'label', 0): 0.3709677419354839,
+  (21, 1, 'label', 1): 0.025,
+  (22, 0, 'label', 0): 0.6290322580645161,
+  (22, 0, 'label', 1): 1.0,
+  (22, 1, 'label', 0): 0.3870967741935484,
+  (22, 1, 'label', 1): 0.025,
+  (23, 0, 'label', 0): 0.7419354838709677,
+  (23, 0, 'label', 1): 1.0,
+  (23, 1, 'label', 0): 0.27419354838709675,
+  (23, 1, 'label', 1): 0.025}
+
+Results for Test Set: 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Error Rate = 0.0
+
+Running data/iris.data.new.txt Experiment with positive class=Iris-versicolor
+Learned Naive Bayes Distribution: 
+Keys are structured as follows: (feature#, possible domain values 0 or 1, 'label', label value)
+Special Key's that are ('label', possible_class_value) are the percentage of the distribution with that class label
+{ (0, 0, 'label', 0): 0.9830508474576272,
+  (0, 0, 'label', 1): 1.0,
+  (0, 1, 'label', 0): 0.03389830508474576,
+  (1, 0, 'label', 0): 0.6610169491525424,
+  (1, 0, 'label', 1): 0.9302325581395349,
+  (1, 1, 'label', 0): 0.3559322033898305,
+  (1, 1, 'label', 1): 0.09302325581395349,
+  (2, 0, 'label', 0): 0.8305084745762712,
+  (2, 0, 'label', 1): 0.627906976744186,
+  (2, 1, 'label', 0): 0.1864406779661017,
+  (2, 1, 'label', 1): 0.3953488372093023,
+  (3, 0, 'label', 0): 0.7796610169491526,
+  (3, 0, 'label', 1): 0.627906976744186,
+  (3, 1, 'label', 0): 0.23728813559322035,
+  (3, 1, 'label', 1): 0.3953488372093023,
+  (4, 0, 'label', 0): 0.9152542372881356,
+  (4, 0, 'label', 1): 0.8372093023255814,
+  (4, 1, 'label', 0): 0.1016949152542373,
+  (5, 0, 'label', 0): 0.847457627118644,
+  (5, 0, 'label', 1): 1.0,
+  (5, 1, 'label', 0): 0.1694915254237288,
+  (6, 0, 'label', 0): 1.0,
+  (6, 0, 'label', 1): 0.9767441860465116,
+  (6, 1, 'label', 0): 0.01694915254237288,
+  (6, 1, 'label', 1): 0.046511627906976744,
+  (7, 0, 'label', 0): 0.9830508474576272,
+  (7, 1, 'label', 0): 0.03389830508474576,
+  (7, 1, 'label', 1): 0.20930232558139536,
+  ('label', 1): 0.42,
+  (0, 1, 'label', 1): 0.023255813953488372,
+  (4, 1, 'label', 1): 0.18604651162790697,
+  (5, 1, 'label', 1): 0.023255813953488372,
+  (7, 0, 'label', 1): 0.813953488372093,
+  (8, 0, 'label', 0): 0.7966101694915254,
+  (8, 0, 'label', 1): 0.5813953488372093,
+  (8, 1, 'label', 0): 0.22033898305084745,
+  (8, 1, 'label', 1): 0.4418604651162791,
+  (9, 0, 'label', 0): 0.5084745762711864,
+  (9, 0, 'label', 1): 0.6511627906976745,
+  (9, 1, 'label', 0): 0.5084745762711864,
+  (9, 1, 'label', 1): 0.37209302325581395,
+  (10, 0, 'label', 0): 0.7627118644067796,
+  (10, 0, 'label', 1): 1.0,
+  (10, 1, 'label', 0): 0.2542372881355932,
+  (10, 1, 'label', 1): 0.023255813953488372,
+  (11, 0, 'label', 0): 0.9661016949152542,
+  (11, 0, 'label', 1): 1.0,
+  (11, 1, 'label', 0): 0.05084745762711865,
+  (11, 1, 'label', 1): 0.023255813953488372,
+  (12, 0, 'label', 0): 0.9830508474576272,
+  (12, 0, 'label', 1): 1.0,
+  (12, 1, 'label', 0): 0.03389830508474576,
+  (12, 1, 'label', 1): 0.023255813953488372,
+  (13, 0, 'label', 0): 0.4915254237288136,
+  (13, 0, 'label', 1): 1.0,
+  (13, 1, 'label', 0): 0.5254237288135594,
+  (13, 1, 'label', 1): 0.023255813953488372,
+  (14, 0, 'label', 0): 1.0,
+  (14, 0, 'label', 1): 0.9302325581395349,
+  (14, 1, 'label', 0): 0.01694915254237288,
+  (14, 1, 'label', 1): 0.09302325581395349,
+  (15, 0, 'label', 0): 0.9830508474576272,
+  (15, 0, 'label', 1): 0.3488372093023256,
+  (15, 1, 'label', 0): 0.03389830508474576,
+  (15, 1, 'label', 1): 0.6744186046511628,
+  (16, 0, 'label', 0): 0.7457627118644068,
+  (16, 0, 'label', 1): 0.7441860465116279,
+  (16, 1, 'label', 0): 0.2711864406779661,
+  (16, 1, 'label', 1): 0.27906976744186046,
+  (17, 0, 'label', 0): 0.8135593220338984,
+  (17, 0, 'label', 1): 1.0,
+  (17, 1, 'label', 0): 0.2033898305084746,
+  (17, 1, 'label', 1): 0.023255813953488372,
+  (18, 0, 'label', 0): 1.0,
+  (18, 0, 'label', 1): 1.0,
+  (18, 1, 'label', 0): 0.01694915254237288,
+  (18, 1, 'label', 1): 0.023255813953488372,
+  (19, 0, 'label', 0): 0.576271186440678,
+  (19, 0, 'label', 1): 1.0,
+  (19, 1, 'label', 0): 0.4406779661016949,
+  (19, 1, 'label', 1): 0.023255813953488372,
+  (20, 0, 'label', 0): 0.8983050847457628,
+  (20, 0, 'label', 1): 1.0,
+  (20, 1, 'label', 0): 0.11864406779661017,
+  (20, 1, 'label', 1): 0.023255813953488372,
+  (21, 0, 'label', 0): 1.0,
+  (21, 0, 'label', 1): 0.3023255813953488,
+  (21, 1, 'label', 0): 0.01694915254237288,
+  (21, 1, 'label', 1): 0.7209302325581395,
+  (22, 0, 'label', 1): 0.7209302325581395,
+  (22, 1, 'label', 0): 0.22033898305084745,
+  (22, 1, 'label', 1): 0.3023255813953488,
+  (23, 0, 'label', 0): 0.7457627118644068,
+  (23, 0, 'label', 1): 1.0,
+  (23, 1, 'label', 0): 0.2711864406779661,
+  ('label', 0): 0.58,
+  (22, 0, 'label', 0): 0.7966101694915254,
+  (23, 1, 'label', 1): 0.023255813953488372}
+
+Results for Test Set: 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0] 
+
+Error Rate = 0.14
+
+Running data/iris.data.new.txt Experiment with positive class=Iris-virginica
+Learned Naive Bayes Distribution: 
+Keys are structured as follows: (feature#, possible domain values 0 or 1, 'label', label value)
+Special Key's that are ('label', possible_class_value) are the percentage of the distribution with that class label
+{ ('label', 0): 0.66,
+  (0, 0, 'label', 0): 1.0,
+  (0, 0, 'label', 1): 1.0,
+  (0, 1, 'label', 0): 0.014925373134328358,
+  (0, 1, 'label', 1): 0.02857142857142857,
+  (1, 0, 'label', 0): 0.7014925373134329,
+  (1, 0, 'label', 1): 1.0,
+  (1, 1, 'label', 0): 0.31343283582089554,
+  (1, 1, 'label', 1): 0.02857142857142857,
+  (2, 0, 'label', 0): 0.5970149253731343,
+  (2, 0, 'label', 1): 0.9428571428571428,
+  (2, 1, 'label', 0): 0.417910447761194,
+  (2, 1, 'label', 1): 0.08571428571428572,
+  (3, 0, 'label', 0): 0.8208955223880597,
+  (3, 0, 'label', 1): 0.6,
+  (3, 1, 'label', 0): 0.19402985074626866,
+  (3, 1, 'label', 1): 0.42857142857142855,
+  (4, 0, 'label', 0): 0.8955223880597015,
+  (4, 0, 'label', 1): 0.6857142857142857,
+  (4, 1, 'label', 0): 0.11940298507462686,
+  (4, 1, 'label', 1): 0.34285714285714286,
+  (5, 0, 'label', 0): 1.0,
+  (5, 0, 'label', 1): 0.8,
+  (5, 1, 'label', 0): 0.014925373134328358,
+  (5, 1, 'label', 1): 0.22857142857142856,
+  (6, 0, 'label', 0): 1.0,
+  (6, 0, 'label', 1): 1.0,
+  (6, 1, 'label', 0): 0.014925373134328358,
+  (6, 1, 'label', 1): 0.02857142857142857,
+  (7, 0, 'label', 0): 0.8955223880597015,
+  (7, 0, 'label', 1): 0.9714285714285714,
+  (7, 1, 'label', 0): 0.11940298507462686,
+  (7, 1, 'label', 1): 0.05714285714285714,
+  (8, 0, 'label', 0): 0.746268656716418,
+  (8, 0, 'label', 1): 0.5714285714285714,
+  (8, 1, 'label', 0): 0.26865671641791045,
+  (8, 1, 'label', 1): 0.45714285714285713,
+  (9, 0, 'label', 0): 0.5970149253731343,
+  (9, 0, 'label', 1): 0.5714285714285714,
+  (9, 1, 'label', 0): 0.417910447761194,
+  (9, 1, 'label', 1): 0.45714285714285713,
+  (10, 0, 'label', 0): 0.8208955223880597,
+  (10, 0, 'label', 1): 0.9142857142857143,
+  (10, 1, 'label', 0): 0.19402985074626866,
+  (10, 1, 'label', 1): 0.11428571428571428,
+  (11, 0, 'label', 0): 0.9552238805970149,
+  (11, 0, 'label', 1): 1.0,
+  (11, 1, 'label', 0): 0.05970149253731343,
+  (11, 1, 'label', 1): 0.02857142857142857,
+  (12, 0, 'label', 0): 0.9850746268656716,
+  (12, 0, 'label', 1): 1.0,
+  (12, 1, 'label', 0): 0.029850746268656716,
+  (12, 1, 'label', 1): 0.02857142857142857,
+  (13, 0, 'label', 0): 0.5074626865671642,
+  (13, 0, 'label', 1): 1.0,
+  (13, 1, 'label', 0): 0.5074626865671642,
+  (13, 1, 'label', 1): 0.02857142857142857,
+  (14, 0, 'label', 0): 0.9850746268656716,
+  (14, 0, 'label', 1): 1.0,
+  (14, 1, 'label', 0): 0.029850746268656716,
+  (14, 1, 'label', 1): 0.02857142857142857,
+  (15, 0, 'label', 0): 0.6865671641791045,
+  (15, 1, 'label', 0): 0.3283582089552239,
+  (15, 1, 'label', 1): 0.02857142857142857,
+  (16, 0, 'label', 0): 0.8507462686567164,
+  (16, 0, 'label', 1): 0.34285714285714286,
+  ('label', 1): 0.34,
+  (15, 0, 'label', 1): 1.0,
+  (16, 1, 'label', 0): 0.16417910447761194,
+  (16, 1, 'label', 1): 0.6857142857142857,
+  (17, 0, 'label', 0): 1.0,
+  (17, 0, 'label', 1): 0.6857142857142857,
+  (17, 1, 'label', 0): 0.014925373134328358,
+  (17, 1, 'label', 1): 0.34285714285714286,
+  (18, 0, 'label', 0): 1.0,
+  (18, 0, 'label', 1): 1.0,
+  (18, 1, 'label', 0): 0.014925373134328358,
+  (18, 1, 'label', 1): 0.02857142857142857,
+  (19, 0, 'label', 0): 0.5671641791044776,
+  (19, 0, 'label', 1): 1.0,
+  (19, 1, 'label', 0): 0.44776119402985076,
+  (19, 1, 'label', 1): 0.02857142857142857,
+  (20, 0, 'label', 0): 0.9253731343283582,
+  (20, 0, 'label', 1): 1.0,
+  (20, 1, 'label', 0): 0.08955223880597014,
+  (20, 1, 'label', 1): 0.02857142857142857,
+  (21, 0, 'label', 0): 0.6567164179104478,
+  (21, 0, 'label', 1): 0.9714285714285714,
+  (21, 1, 'label', 0): 0.3582089552238806,
+  (21, 1, 'label', 1): 0.05714285714285714,
+  (22, 0, 'label', 0): 0.8656716417910447,
+  (22, 0, 'label', 1): 0.5714285714285714,
+  (22, 1, 'label', 0): 0.14925373134328357,
+  (22, 1, 'label', 1): 0.45714285714285713,
+  (23, 0, 'label', 0): 1.0,
+  (23, 0, 'label', 1): 0.4857142857142857,
+  (23, 1, 'label', 0): 0.014925373134328358,
+  (23, 1, 'label', 1): 0.5428571428571428}
+
+Results for Test Set: 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 1
+Actual Class: 1
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0] 
+
+Predicted Class: 0
+Actual Class: 0
+Test feature Vector (last feature is actual class): 
+[1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] 
+
+Error Rate = 0.1
+
