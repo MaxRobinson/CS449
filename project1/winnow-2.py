@@ -4,6 +4,7 @@ import csv
 import math
 import random
 import sys
+import pprint
 
 
 # <editor-fold desc="Init Data">
@@ -75,7 +76,7 @@ def winnow_2(training_set, theta, learning_rate):
     random.shuffle(training_set)
 
     count = 0
-    print("Iteration #{0} (Initial Weights) : {1}".format(count, weights))
+    # print("Iteration #{0} (Initial Weights) : {1}".format(count, weights))
     for record in training_set:
         prediction = calculate_model_prediction(record, weights, threshold)
         actual_class = get_class(record)
@@ -85,7 +86,7 @@ def winnow_2(training_set, theta, learning_rate):
             else:
                 weights = update_weights(record, weights, alpha, False)
         count += 1
-        print("Iteration #{0} : {1}".format(count, weights))
+        # print("Iteration #{0} : {1}".format(count, weights))
 
     return weights
 # </editor-fold>
@@ -136,7 +137,7 @@ def pre_process(data, positive_class_name):
 
 # <editor-fold desc="Experiment">
 def run_experiment(data_set_path, positive_class_name):
-    print("Running {0} Experiment with positive class {1}".format(data_set_path, positive_class_name))
+    print("Running {0} Experiment with positive class={1}".format(data_set_path, positive_class_name))
     records = read_file(data_set_path)
     records = pre_process(records, positive_class_name)
     # results = test_winnow_2(test_records)
@@ -151,28 +152,41 @@ def run_experiment(data_set_path, positive_class_name):
 
     model = winnow_2(training, .75, 2)
 
+    pp = pprint.PrettyPrinter(indent=2)
+    print("Learned Winnow-2 Model: ")
+    pp.pprint(model)
+
     results = evaluate_winnow_2(model, test, threshold)
-    print("Results: \n model: {0} \n classifications on test set: {1}".format(results[2], results[1]))
-    print("Error Rate = {} \n".format(results[0]))
+    # print("Results: \n model: {0} \n classifications on test set: {1}".format(results[2], results[1]))
+    print("Results for Test Set: \n")
+    for predicted_class, test_record in zip(results[1], test):
+        print("Predicted Class: {}".format(predicted_class))
+        print("Actual Class: {}".format(get_class(test_record)))
+        print("Test feature Vector (last feature is actual class): \n{} \n".format(test_record))
+    print("Error Rate for entire test set = {} \n".format(results[0]))
+    print()
 
 
 
 # </editor-fold>
 
 
-# sys.stdout = open('TestOutput', 'w')
-#
-# run_experiment("data/breast-cancer-wisconsin.data.new.txt", 1)
-# run_experiment("data/breast-cancer-wisconsin.data.new.txt", 0)
-#
-# run_experiment("data/soybean-small.data.new.txt", "D1")
-# run_experiment("data/soybean-small.data.new.txt", "D2")
-# run_experiment("data/soybean-small.data.new.txt", "D3")
-# run_experiment("data/soybean-small.data.new.txt", "D4")
-#
-# run_experiment("data/house-votes-84.data.new.txt", "democrat")
-# run_experiment("data/house-votes-84.data.new.txt", "republican")
+sys.stdout = open('results/Winnow-Bresat-Cancer-results.txt', 'w')
 
+run_experiment("data/breast-cancer-wisconsin.data.new.txt", 1)
+run_experiment("data/breast-cancer-wisconsin.data.new.txt", 0)
+#
+sys.stdout = open('results/Winnow-soybean-small-results.txt', 'w')
+run_experiment("data/soybean-small.data.new.txt", "D1")
+run_experiment("data/soybean-small.data.new.txt", "D2")
+run_experiment("data/soybean-small.data.new.txt", "D3")
+run_experiment("data/soybean-small.data.new.txt", "D4")
+
+sys.stdout = open('results/Winnow-house-votes-84-results.txt', 'w')
+run_experiment("data/house-votes-84.data.new.txt", "democrat")
+run_experiment("data/house-votes-84.data.new.txt", "republican")
+
+sys.stdout = open('results/Winnow-iris-results.txt', 'w')
 run_experiment("data/iris.data.new.txt", "Iris-setosa")
 run_experiment("data/iris.data.new.txt", "Iris-versicolor")
 run_experiment("data/iris.data.new.txt", "Iris-virginica")

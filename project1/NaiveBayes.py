@@ -184,7 +184,7 @@ def pre_process(data, positive_class_name):
 
 # <editor-fold desc="Experiment">
 def run_experiment(data_set_path, positive_class_name):
-    print("Running {0} Experiment with positive class {1}".format(data_set_path, positive_class_name))
+    print("Running {0} Experiment with positive class={1}".format(data_set_path, positive_class_name))
     test_records = read_file(data_set_path)
     test_records = pre_process(test_records, positive_class_name)
 
@@ -196,36 +196,43 @@ def run_experiment(data_set_path, positive_class_name):
 
     distro_1 = learn(set_1)
 
-    # print("Learned Distribution: \n {}".format(distro_1))
     pp = pprint.PrettyPrinter(indent=2)
-    print("Learned Distribution: ")
+    print("Learned Naive Bayes Distribution: ")
+    print("Keys are structured as follows: (feature#, possible domain values 0 or 1, 'label', label value)")
+    print("Special Key's that are ('label', possible_class_value) are the percentage of the distribution with that class label")
     pp.pprint(distro_1)
+    print()
 
-    # Evalutate
-    c2 = classify(distro_1, set_1)
-    evaluation_1 = evaluate(set_1, c2)
-    print("Error Rate = {}".format(evaluation_1))
-
+    # Evaluate
     c2 = classify(distro_1, set_2)
+
+    print("Results for Test Set: \n")
+    for predicted_class, test_record in zip(c2, set_2):
+        print("Predicted Class: {}".format(predicted_class[0][0]))
+        print("Actual Class: {}".format(get_class(test_record)))
+        print("Test feature Vector (last feature is actual class): \n{} \n".format(test_record))
+
     evaluation_1 = evaluate(set_2, c2)
     print("Error Rate = {}".format(evaluation_1))
     print()
 # </editor-fold>
 
 
-sys.stdout = open('NaiveBayesOutput.txt', 'w')
-
+sys.stdout = open('results/NB-Bresat-Cancer-results.txt', 'w')
 run_experiment("data/breast-cancer-wisconsin.data.new.txt", 1)
 run_experiment("data/breast-cancer-wisconsin.data.new.txt", 0)
 
+sys.stdout = open('results/NB-soybean-small-results.txt', 'w')
 run_experiment("data/soybean-small.data.new.txt", "D1")
 run_experiment("data/soybean-small.data.new.txt", "D2")
 run_experiment("data/soybean-small.data.new.txt", "D3")
 run_experiment("data/soybean-small.data.new.txt", "D4")
 
+sys.stdout = open('results/NB-house-votes-84-results.txt', 'w')
 run_experiment("data/house-votes-84.data.new.txt", "democrat")
 run_experiment("data/house-votes-84.data.new.txt", "republican")
 
+sys.stdout = open('results/NB-iris-results.txt', 'w')
 run_experiment("data/iris.data.new.txt", "Iris-setosa")
 run_experiment("data/iris.data.new.txt", "Iris-versicolor")
 run_experiment("data/iris.data.new.txt", "Iris-virginica")
