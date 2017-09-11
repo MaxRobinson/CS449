@@ -287,10 +287,133 @@ def iris_data():
 
         for record in new_data:
             csv_writer.writerow(record)
+    pass
+
+def glass_munge(data):
+    new_data = []
+
+    for record in data:
+        new_record = []
+        for index in range(len(record)):
+            feature = record[index]
+            new_feature = [0]
+
+            if index == 0:
+                continue
+
+            elif index == 1:
+                feature = float(feature)
+                new_feature = [0] * 6
+                max_value = 1.5339
+
+                feature_diff = max_value - feature
+                if feature_diff < 0:
+                    feature_diff = 0
+                binn = math.floor(feature_diff / 0.00454)
+
+                new_feature[5 - binn] = 1
+
+            elif index == 2:
+                feature = float(feature)
+                new_feature = [0] * 6
+                max_value = 17.38
+
+                feature_diff = max_value - feature
+                binn = math.floor(feature_diff / 1.33)
+
+                new_feature[5 - binn] = 1
+            elif index == 3:
+                feature = float(feature)
+                new_feature = [0] * 6
+                max_value = 4.49
+
+                feature_diff = max_value - feature
+                binn = math.floor(feature_diff / .898)
+
+                new_feature[5 - binn] = 1
+            elif index == 4:
+                feature = float(feature)
+                new_feature = [0] * 6
+                max_value = 3.5
+
+                feature_diff = max_value - feature
+                binn = math.floor(feature_diff / .642)
+
+                new_feature[5 - binn] = 1
+            elif index == 5:
+                feature = float(feature)
+                new_feature = [0] * 6
+                max_value = 75.41
+
+                feature_diff = max_value - feature
+                binn = math.floor(feature_diff / 1.12)
+
+                new_feature[5 - binn] = 1
+            elif index == 6:
+                feature = float(feature)
+                new_feature = [0] * 6
+                max_value = 6.21
+
+                feature_diff = max_value - feature
+                binn = math.floor(feature_diff / 1.242)
+
+                new_feature[5 - binn] = 1
+            elif index == 7:
+                feature = float(feature)
+                new_feature = [0] * 6
+                max_value = 16.19
+
+                feature_diff = max_value - feature
+                binn = math.floor(feature_diff / 2.152)
+
+                new_feature[5 - binn] = 1
+            elif index == 8:
+                feature = float(feature)
+                new_feature = [0] * 6
+                max_value = 3.15
+
+                feature_diff = max_value - feature
+                binn = math.floor(feature_diff / .63)
+
+                new_feature[5 - binn] = 1
+
+            elif index == 9:
+                feature = float(feature)
+                new_feature = [0] * 6
+                max_value = .51
+
+                feature_diff = max_value - feature
+                binn = math.floor(feature_diff / .102)
+
+                new_feature[5 - binn] = 1
+
+            else:
+                new_feature = [record[index]]
+                # new_record.append(record[index])
+                # continue
+
+            for data_point in new_feature:
+                new_record.append(data_point)
+
+        new_data.append(new_record)
+    return new_data
+
+def glass_data():
+    data = read_file_string('data/glass.data.txt')
+    path = 'data/glass.data.new.txt'
+
+    new_data = glass_munge(data)
+
+    with open(path, 'w') as f:
+        csv_writer = csv.writer(f, lineterminator='\n')
+
+        for record in new_data:
+            csv_writer.writerow(record)
 
 
 
 # breast_cancer_data()
 # soybean_data()
 # house_votes_data()
-iris_data()
+# iris_data()
+glass_data()
