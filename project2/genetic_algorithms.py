@@ -1,6 +1,3 @@
-from IPython.core.display import *
-from StringIO import StringIO
-
 import sys, random
 
 
@@ -41,7 +38,7 @@ def encode_512_range_to_binary(float_value):
 
 def perform_mutate_binary(str_value, position):
     mutated_gene = ''
-    for x in xrange(0, len(str_value)):
+    for x in range(0, len(str_value)):
         if x == position: 
             if str_value[x] == '1':
                 mutated_gene = mutated_gene + '0'
@@ -61,7 +58,7 @@ def mutate_binary(str_value, mutate_rate):
 
 def get_phenotype_bin(genotype_str):
     phenotype = []
-    for x in xrange(0,10):
+    for x in range(0,10):
         genotype_sub = genotype_str[10*x : 10*(x+1)]
         geno_value = decode_binary_to_512_range(genotype_sub)
         phenotype.append(geno_value)
@@ -69,7 +66,7 @@ def get_phenotype_bin(genotype_str):
 
 def generate_valid_gene(max_value, number_of_items):
     gene = ''
-    for x in xrange(0, number_of_items):
+    for x in range(0, number_of_items):
         value = random.randint(0, max_value)
         gene = gene + int_to_bin_str(value) 
 
@@ -77,7 +74,7 @@ def generate_valid_gene(max_value, number_of_items):
 
 def generate_valid_gene_real(min_value, max_value, number_of_items):
     gene = []
-    for x in xrange(0, number_of_items):
+    for x in range(0, number_of_items):
         value = random.uniform(min_value, max_value)
         gene.append(value)
     return gene
@@ -120,15 +117,15 @@ Using tournament style selection
 def pick_parents(population):
     
     parents = []
-    for num_par in xrange(0,2):
+    for num_par in range(0,2):
         random_index_selection = []
-        for x in xrange(0, 7):
+        for x in range(0, 7):
             index = random.randint(0, len(population)-1)
             while index in random_index_selection:
                 index = random.randint(0, len(population)-1)
             random_index_selection.append(index)
         
-        # print "Random index_selection: {}".format(random_index_selection)
+        # print( "Random index_selection: {}".format(random_index_selection)
         
         possible_parents = []
         for index in random_index_selection:
@@ -208,20 +205,20 @@ def mutate_real(genotype, mutation_rate, standard_deviation):
 def print_gene(gene, generation, parameters, should_print):
     if not should_print:
         return
-    print "Generation: {}".format(generation)
-    print "Genotype of Max: {}".format(gene["genotype"])
-    print "Phenotype of Max: {}".format(gene["phenotype"])
-    print "Fitness of Max: {}".format(gene["evaluation"])
-    print "Function Value: {}".format(parameters["f"](gene["phenotype"]))
+    print( "Generation: {}".format(generation))
+    print( "Genotype of Max: {}".format(gene["genotype"]))
+    print( "Phenotype of Max: {}".format(gene["phenotype"]))
+    print( "Fitness of Max: {}".format(gene["evaluation"]))
+    print( "Function Value: {}".format(parameters["f"](gene["phenotype"])))
 
 
 def binary_ga( parameters):
     population = generate_random_population_binary(parameters["population_size"])
     evaluate_population(population, parameters["f"], parameters["minimization"])
     best_all_time = get_max_gene(population)
-    for generation in xrange(0, parameters["num_gens"]):
+    for generation in range(0, parameters["num_gens"]):
         next_population = []
-        for n in xrange(0, len(population)/2):
+        for n in range(0, len(population)/2):
             parents = pick_parents(population)
             children = reproduce(parents[0]["genotype"], parents[1]["genotype"], 100, parameters["crossover_rate"])
             
@@ -260,9 +257,9 @@ def real_ga( parameters):
     population = generate_random_population_real(parameters["population_size"])
     evaluate_population(population, parameters["f"], parameters["minimization"])
     best_all_time = get_max_gene(population)
-    for generation in xrange(0, parameters["num_gens"]):
+    for generation in range(0, parameters["num_gens"]):
         next_population = []
-        for n in xrange(0, len(population)/2):
+        for n in range(0, len(population)/2):
             parents = pick_parents(population)
             children = reproduce(parents[0]["genotype"], parents[1]["genotype"], 10, parameters["crossover_rate"])
             
@@ -300,12 +297,12 @@ parameters = {
 
 max_gene = binary_ga(parameters)
 
-print "  "
-print "FINAL!!!!"
-print "Genotype of Max: {}".format(max_gene["genotype"])
-print "Phenotype of Max: {}".format(max_gene["phenotype"])
-print "Fitness of Max: {}".format(max_gene["evaluation"])
-print "Function Value: {}".format(parameters["f"](max_gene["phenotype"]))
+print("  ")
+print("FINAL!!!!")
+print( "Genotype of Max: {}".format(max_gene["genotype"]))
+print( "Phenotype of Max: {}".format(max_gene["phenotype"]))
+print( "Fitness of Max: {}".format(max_gene["evaluation"]))
+print( "Function Value: {}".format(parameters["f"](max_gene["phenotype"])))
 
 parameters = {
    "f": lambda xs: sphere( 0.5, xs),
@@ -323,9 +320,9 @@ parameters = {
 
 # max_gene = real_ga(parameters)
 #
-# print "  "
-# print "FINAL!!!!"
-# print "Genotype of Max: {}".format(max_gene["genotype"])
-# print "Phenotype of Max: {}".format(max_gene["phenotype"])
-# print "Fitness of Max: {}".format(max_gene["evaluation"])
-# print "Function Value: {}".format(parameters["f"](max_gene["phenotype"]))
+# print( "  ")
+# print( "FINAL!!!!")
+# print( "Genotype of Max: {}".format(max_gene["genotype"]))
+# print( "Phenotype of Max: {}".format(max_gene["phenotype"]))
+# print( "Fitness of Max: {}".format(max_gene["evaluation"]))
+# print( "Function Value: {}".format(parameters["f"](max_gene["phenotype"])))
