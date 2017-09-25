@@ -37,7 +37,15 @@ class KMeans:
 
 
     def evaluate(self, model, selected_features, data_test):
-        pass
+        clusters = kMeans.create_clusters(3)
+
+        for data in trimmed_data:
+            cluster_index = self.argmin_cluster(data, means)
+            clusters[cluster_index].append(data)
+
+        # TODO: Finish Implementation
+
+
 
 
     def calculate_means(self, clusters, means):

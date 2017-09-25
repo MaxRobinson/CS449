@@ -2,6 +2,7 @@
 import sys
 import copy
 from testLearner import TestLeaner
+from k_means import KMeans
 from customCsvReader import CustomCSVReader
 
 
@@ -48,15 +49,16 @@ class SFS:
 
 
 all_data = CustomCSVReader.read_file("data/iris.data.txt", float)
-data_training = all_data[:2*int(len(all_data)/3)]
-data_test = all_data[2*int(len(all_data)/3):]
+# data_training = all_data[:2*int(len(all_data)/3)]
+# data_test = all_data[2*int(len(all_data)/3):]
 feature_length = len(all_data[0]) - 1
 
 Features = list(range(feature_length))
 
-testLearner = TestLeaner()
+# testLearner = TestLeaner()
+kLearner = KMeans(3) # TODO: Finish Implementation
 
-best_features = SFS.select_features(Features, data_training, data_test, testLearner)
+best_features = SFS.select_features(Features, all_data, all_data, kLearner)
 
 print(best_features)
 
