@@ -6,6 +6,7 @@ import copy
 import numpy as np
 import matplotlib.pyplot as plt
 from customCsvReader import CustomCSVReader
+from FischerScore import fisher_score
 
 
 class KMeans:
@@ -20,9 +21,9 @@ class KMeans:
         means = self.init_k_means(data, self.k)
         previous_means = None
 
-        itter = 0
+        # itter = 0
         while not self.has_stopped_changing(means, previous_means, mu):
-            print(itter)
+            # print(itter)
             clusters = self.create_clusters(self.k)
             previous_means = copy.deepcopy(means)
 
@@ -31,19 +32,23 @@ class KMeans:
                 clusters[closest_mean_index].append(datapoint)
 
             means = self.calculate_means(clusters, means)
-            itter += 1
+            # itter += 1
 
         return means
 
 
-    def evaluate(self, model, selected_features, data_test):
-        clusters = kMeans.create_clusters(3)
+    def evaluate(self, means, selected_features, data_test):
+        data = self.data_munge(selected_features, data_test)
+        clusters = self.create_clusters(len(means))
 
-        for data in trimmed_data:
+        for data in data:
             cluster_index = self.argmin_cluster(data, means)
             clusters[cluster_index].append(data)
 
-        # TODO: Finish Implementation
+
+        score = fisher_score(means, clusters)
+        # print("Fisher Score = {}".format(score))
+        return score
 
 
 
@@ -109,7 +114,7 @@ class KMeans:
         data_length = len(data)
 
         for x in range(num_k_s):
-            random_data_index = random.randint(0, data_length)
+            random_data_index = random.randint(0, data_length-1)
             selected_datapoint = data[random_data_index]
 
             while selected_datapoint in means:
@@ -166,26 +171,26 @@ def distance(datapoint, mean):
 
     return math.sqrt(running_sum)
 
-
-all_data = CustomCSVReader.read_file("data/iris.data.txt", float)
-
-kMeans = KMeans(3)
-means = kMeans.learn([2], all_data)
-print(means)
-
-
-trimmed_data = kMeans.data_munge([2], all_data)
-
-clusters = kMeans.create_clusters(3)
-
-for data in trimmed_data:
-    cluster_index = closest_cluster(data, means)
-    clusters[cluster_index].append(data)
-
-
-plt.plot(clusters[0], np.zeros_like(clusters[0]), 'x', color='red')
-plt.plot(clusters[1], np.zeros_like(clusters[1]), 'x', color='blue')
-plt.plot(clusters[2], np.zeros_like(clusters[2]), 'x', color='green')
-plt.show()
+#
+# all_data = CustomCSVReader.read_file("data/iris.data.txt", float)
+#
+# kMeans = KMeans(3)
+# means = kMeans.learn([2], all_data)
+# print(means)
+#
+#
+# trimmed_data = kMeans.data_munge([2], all_data)
+#
+# clusters = kMeans.create_clusters(3)
+#
+# for data in trimmed_data:
+#     cluster_index = closest_cluster(data, means)
+#     clusters[cluster_index].append(data)
+#
+#
+# plt.plot(clusters[0], np.zeros_like(clusters[0]), 'x', color='red')
+# plt.plot(clusters[1], np.zeros_like(clusters[1]), 'x', color='blue')
+# plt.plot(clusters[2], np.zeros_like(clusters[2]), 'x', color='green')
+# plt.show()
 
 
