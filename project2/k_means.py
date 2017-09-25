@@ -3,6 +3,8 @@ import random
 import sys
 import math
 import copy
+import numpy as np
+import matplotlib.pyplot as plt
 from customCsvReader import CustomCSVReader
 
 
@@ -135,8 +137,47 @@ class KMeans:
         
         return means 
     """
+
+def closest_cluster(datapoint, means):
+    min_distance = sys.maxsize
+    selected_mean_index = -1
+
+    for index_of_mean in range(len(means)):
+        mean = means[index_of_mean]
+        dist = distance(datapoint, mean)
+        if dist < min_distance:
+            min_distance = dist
+            selected_mean_index = index_of_mean
+
+    return selected_mean_index
+
+def distance(datapoint, mean):
+    running_sum = 0
+    for feature_value, feature_value_mean in zip(datapoint, mean):
+        running_sum += (feature_value - feature_value_mean)**2
+
+    return math.sqrt(running_sum)
+
+
 all_data = CustomCSVReader.read_file("data/iris.data.txt", float)
 
 kMeans = KMeans(3)
-means = kMeans.learn([0], all_data)
+means = kMeans.learn([2], all_data)
 print(means)
+
+
+trimmed_data = kMeans.data_munge([2], all_data)
+
+clusters = kMeans.create_clusters(3)
+
+for data in trimmed_data:
+    cluster_index = closest_cluster(data, means)
+    clusters[cluster_index].append(data)
+
+
+plt.plot(clusters[0], np.zeros_like(clusters[0]), 'x', color='red')
+plt.plot(clusters[1], np.zeros_like(clusters[1]), 'x', color='blue')
+plt.plot(clusters[2], np.zeros_like(clusters[2]), 'x', color='green')
+plt.show()
+
+
