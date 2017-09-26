@@ -1,3 +1,4 @@
+Running data/iris.data.txt Experiment with k clusters = 3
 The Final Selected Features are: (features are zero indexed) 
 [0, 2, 3]
 
