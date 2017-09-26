@@ -34,18 +34,26 @@ class HAC:
 
     # <editor-fold desc="Evaluate">
     def evaluate(self, clustered_datapoints, selected_features, data_test):
+        data = self.data_munge(selected_features, data_test)
         num_features = len(selected_features)
-        # data = self.data_munge(selected_features, data_test)
-        clusters = self.create_clusters(len(clustered_datapoints))
 
+        model_clusters = self.create_clusters(len(clustered_datapoints))
+
+        # Calculate means for fisher score
         for index_of_cluster_of_datapoints in range(len(clustered_datapoints)):
             cluster_of_datapoints = clustered_datapoints[index_of_cluster_of_datapoints]
-            clusters[index_of_cluster_of_datapoints] = cluster_of_datapoints
+            model_clusters[index_of_cluster_of_datapoints] = cluster_of_datapoints
 
-        means = [[0]*num_features]*self.k
-        means = self.calculate_means(clusters, means)
+        means = [[0] * num_features] * self.k
+        means = self.calculate_means(model_clusters, means)
 
-        score = fisher_score(means, clusters)
+        # Cluster all of the datapoints based on means
+        full_clusters = self.create_clusters(len(means))
+        for data in data:
+            cluster_index = self.argmin_cluster(data, means)
+            full_clusters[cluster_index].append(data)
+
+        score = fisher_score(means, full_clusters)
         # print("Fisher Score = {}".format(score))
         return score
 
@@ -234,10 +242,10 @@ class HAC:
 
 
 # <editor-fold desc="Tests">
-all_data = CustomCSVReader.read_file("data/iris.data.txt", float)
-hac = HAC(3)
-
-data_id_clusters = hac.learn([2], all_data)
+# all_data = CustomCSVReader.read_file("data/iris.data.txt", float)
+# hac = HAC(3)
+#
+# data_id_clusters = hac.learn([2], all_data)
 
 # trimmed_data = hac.data_munge([2], all_data)
 #
@@ -253,22 +261,22 @@ data_id_clusters = hac.learn([2], all_data)
 # plt.plot(clusters[2], np.zeros_like(clusters[2]), 'x', color='green')
 # plt.show()
 
-score = hac.evaluate(data_id_clusters, [2], all_data)
-
-print("SCORE")
-print(score)
-# </editor-fold>
-
-
-all_data = CustomCSVReader.read_file("data/glass.data.txt", float)
-hac = HAC(6)
-
-data_id_clusters = hac.learn([2], all_data)
-
-score = hac.evaluate(data_id_clusters, [2], all_data)
-
-print("SCORE")
-print(score)
+# score = hac.evaluate(data_id_clusters, [2], all_data)
+#
+# print("SCORE")
+# print(score)
+# # </editor-fold>
+#
+#
+# all_data = CustomCSVReader.read_file("data/glass.data.txt", float)
+# hac = HAC(6)
+#
+# data_id_clusters = hac.learn([2], all_data)
+#
+# score = hac.evaluate(data_id_clusters, [2], all_data)
+#
+# print("SCORE")
+# print(score)
 
 
 #####
@@ -277,8 +285,10 @@ all_data = CustomCSVReader.read_file("data/spambase.data.txt", float)
 hac = HAC(2)
 
 random.shuffle(all_data)
+training_data = all_data[: int(len(all_data)/10)]
 
-data_id_clusters = hac.learn([2], all_data)
+data_id_clusters = hac.learn([2], training_data)
+print("NOW EVALUATING")
 
 score = hac.evaluate(data_id_clusters, [2], all_data)
 
