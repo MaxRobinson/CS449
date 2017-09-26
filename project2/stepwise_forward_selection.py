@@ -136,9 +136,9 @@ run_hac_experiment("data/iris.data.txt", 3, HAC(3))
 
 sys.stdout = open('results/SFS-HAC-glass-results.txt', 'w')
 run_hac_experiment("data/glass.data.txt", 6, HAC(6))
-#
-# sys.stdout = open('results/SFS-HAC-spambase-results.txt', 'w')
-# run_kmeans_experiment("data/spambase.data.txt", 2, HAC(2), fraction_of_data_used=10)
+
+sys.stdout = open('results/SFS-HAC-spambase-results2.txt', 'w')
+run_hac_experiment("data/spambase.data.txt", 2, HAC(2), fraction_of_data_used=100)
 
 
 
