@@ -171,26 +171,26 @@ def distance(datapoint, mean):
 
     return math.sqrt(running_sum)
 
-#
-# all_data = CustomCSVReader.read_file("data/iris.data.txt", float)
-#
-# kMeans = KMeans(3)
-# means = kMeans.learn([2], all_data)
-# print(means)
-#
-#
-# trimmed_data = kMeans.data_munge([2], all_data)
-#
-# clusters = kMeans.create_clusters(3)
-#
-# for data in trimmed_data:
-#     cluster_index = closest_cluster(data, means)
-#     clusters[cluster_index].append(data)
-#
-#
-# plt.plot(clusters[0], np.zeros_like(clusters[0]), 'x', color='red')
-# plt.plot(clusters[1], np.zeros_like(clusters[1]), 'x', color='blue')
-# plt.plot(clusters[2], np.zeros_like(clusters[2]), 'x', color='green')
-# plt.show()
+
+all_data = CustomCSVReader.read_file("data/iris.data.txt", float)
+
+kMeans = KMeans(3)
+means = kMeans.learn([2], all_data)
+print(means)
+
+
+trimmed_data = kMeans.data_munge([2], all_data)
+
+clusters = kMeans.create_clusters(3)
+
+for data in trimmed_data:
+    cluster_index = closest_cluster(data, means)
+    clusters[cluster_index].append(data)
+
+
+plt.plot(clusters[0], np.zeros_like(clusters[0]), 'x', color='red')
+plt.plot(clusters[1], np.zeros_like(clusters[1]), 'x', color='blue')
+plt.plot(clusters[2], np.zeros_like(clusters[2]), 'x', color='green')
+plt.show()
 
 
