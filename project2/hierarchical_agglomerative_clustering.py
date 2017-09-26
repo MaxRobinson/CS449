@@ -76,6 +76,28 @@ class HAC:
 
         return mean
 
+    def get_full_clusters_of_data(self, clustered_datapoints, selected_features, data_to_cluster):
+        data = self.data_munge(selected_features, data_to_cluster)
+        num_features = len(selected_features)
+
+        model_clusters = self.create_clusters(len(clustered_datapoints))
+
+        # Calculate means for fisher score
+        for index_of_cluster_of_datapoints in range(len(clustered_datapoints)):
+            cluster_of_datapoints = clustered_datapoints[index_of_cluster_of_datapoints]
+            model_clusters[index_of_cluster_of_datapoints] = cluster_of_datapoints
+
+        means = [[0] * num_features] * self.k
+        means = self.calculate_means(model_clusters, means)
+
+        # Cluster all of the datapoints based on means
+        full_clusters = self.create_clusters(len(means))
+        for datum_index in range(len(data)):
+            datum = data[datum_index]
+            cluster_index = self.argmin_cluster(datum, means)
+            full_clusters[cluster_index].append(data_to_cluster[datum_index])
+
+        return full_clusters
     # </editor-fold>
 
     def agglomerate(self, distance_matrix, clusters):
@@ -281,16 +303,16 @@ class HAC:
 
 #####
 
-all_data = CustomCSVReader.read_file("data/spambase.data.txt", float)
-hac = HAC(2)
-
-random.shuffle(all_data)
-training_data = all_data[: int(len(all_data)/10)]
-
-data_id_clusters = hac.learn([2], training_data)
-print("NOW EVALUATING")
-
-score = hac.evaluate(data_id_clusters, [2], all_data)
-
-print("SCORE")
-print(score)
+# all_data = CustomCSVReader.read_file("data/spambase.data.txt", float)
+# hac = HAC(2)
+#
+# random.shuffle(all_data)
+# training_data = all_data[: int(len(all_data)/10)]
+#
+# data_id_clusters = hac.learn([2], training_data)
+# print("NOW EVALUATING")
+#
+# score = hac.evaluate(data_id_clusters, [2], all_data)
+#
+# print("SCORE")
+# print(score)
