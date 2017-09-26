@@ -54,7 +54,11 @@ def covariance(datapoints, num_features,  mean_feature_vector_for_c):
                 jth_diff = datapoint[feature_number_j] - mean_feature_vector_for_c[feature_number_j]
                 running_sum += ith_diff * jth_diff
 
-            running_sum = running_sum / float(len(datapoints))
+            if len(datapoints) <= 0:
+                running_sum = 0
+            else:
+                running_sum = running_sum / float(len(datapoints))
+
             cov_matrix[feature_number_i][feature_number_j] = running_sum
     return cov_matrix
 
