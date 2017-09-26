@@ -69,6 +69,6 @@ def create_mean_of_mean_vector(mean_vectors):
 
 ######### Tests ##########
 
-test_mean_vectors = [[0,1,2,3,4], [0,1,2,3,4]]
-mm = create_mean_of_mean_vector(test_mean_vectors)
-print(mm)
+# test_mean_vectors = [[0,1,2,3,4], [0,1,2,3,4]]
+# mm = create_mean_of_mean_vector(test_mean_vectors)
+# print(mm)
