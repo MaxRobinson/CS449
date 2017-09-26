@@ -50,7 +50,16 @@ class KMeans:
         # print("Fisher Score = {}".format(score))
         return score
 
+    def get_clusters_for_means(self, means, selected_features, data_to_cluster):
+        data = self.data_munge(selected_features, data_to_cluster)
+        clusters = self.create_clusters(len(means))
 
+        for data_index in range(len(data)):
+            datum = data[data_index]
+            cluster_index = self.argmin_cluster(datum, means)
+            clusters[cluster_index].append(data_to_cluster[data_index])
+
+        return clusters
 
 
     def calculate_means(self, clusters, means):
@@ -118,7 +127,7 @@ class KMeans:
             selected_datapoint = data[random_data_index]
 
             while selected_datapoint in means:
-                random_data_index = random.randint(0, data_length)
+                random_data_index = random.randint(0, data_length-1)
                 selected_datapoint = data[random_data_index]
             means.append(selected_datapoint)
 
@@ -176,21 +185,48 @@ all_data = CustomCSVReader.read_file("data/iris.data.txt", float)
 
 kMeans = KMeans(3)
 means = kMeans.learn([2], all_data)
-print(means)
+# print(means)
 
 
-trimmed_data = kMeans.data_munge([2], all_data)
-
-clusters = kMeans.create_clusters(3)
-
-for data in trimmed_data:
-    cluster_index = closest_cluster(data, means)
-    clusters[cluster_index].append(data)
-
-
-plt.plot(clusters[0], np.zeros_like(clusters[0]), 'x', color='red')
-plt.plot(clusters[1], np.zeros_like(clusters[1]), 'x', color='blue')
-plt.plot(clusters[2], np.zeros_like(clusters[2]), 'x', color='green')
-plt.show()
-
-
+# trimmed_data = kMeans.data_munge([2], all_data)
+#
+# clusters = kMeans.create_clusters(3)
+#
+# for data in trimmed_data:
+#     cluster_index = closest_cluster(data, means)
+#     clusters[cluster_index].append(data)
+#
+#
+# plt.plot(clusters[0], np.zeros_like(clusters[0]), 'x', color='red')
+# plt.plot(clusters[1], np.zeros_like(clusters[1]), 'x', color='blue')
+# plt.plot(clusters[2], np.zeros_like(clusters[2]), 'x', color='green')
+# plt.show()
+#
+# score = kMeans.evaluate(means, [2], all_data)
+#
+# print("SCORE")
+# print(score)
+#
+# ######
+#
+# all_data = CustomCSVReader.read_file("data/glass.data.txt", float)
+#
+# kMeans = KMeans(6)
+# means = kMeans.learn([2], all_data)
+#
+# score = kMeans.evaluate(means, [2], all_data)
+#
+# print("SCORE")
+# print(score)
+#
+# #########
+#
+# all_data = CustomCSVReader.read_file("data/spambase.data.txt", float)
+#
+# kMeans = KMeans(2)
+# means = kMeans.learn([2], all_data)
+#
+# score = kMeans.evaluate(means, [2], all_data)
+#
+# print("SCORE")
+# print(score)
