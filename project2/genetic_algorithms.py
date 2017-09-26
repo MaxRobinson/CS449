@@ -1,7 +1,10 @@
 import sys
 import random
+import pprint
 from testLearner import TestLeaner
 from customCsvReader import CustomCSVReader
+from k_means import KMeans
+from hierarchical_agglomerative_clustering import HAC
 
 
 class GeneticAlgorithmFeatureSelection:
@@ -36,8 +39,8 @@ class GeneticAlgorithmFeatureSelection:
     # </editor-fold>
 
     # <editor-fold desc="Main">
-    def select_features_ga(self, learner, data_training, data_test, feature_length, population_size=200, crossover_rate=.8,
-                           mutation_rate=.6, number_of_generations=100):
+    def select_features_ga(self, learner, data_training, data_test, feature_length, population_size=25, crossover_rate=.8,
+                           mutation_rate=.6, number_of_generations=20):
 
         population = self.generate_random_population(population_size, feature_length)
         self.evaluate_population(population, learner, data_training, data_test)
@@ -167,18 +170,55 @@ class GeneticAlgorithmFeatureSelection:
     # </editor-fold>
 
 
-all_data = CustomCSVReader.read_file("data/iris.data.txt", float)
-data_training = all_data[:2*int(len(all_data)/3)]
-data_test = all_data[2*int(len(all_data)/3):]
-feature_length = len(all_data[0]) - 1
+# all_data = CustomCSVReader.read_file("data/iris.data.txt", float)
+# data_training = all_data[:2*int(len(all_data)/3)]
+# data_test = all_data[2*int(len(all_data)/3):]
+# feature_length = len(all_data[0]) - 1
+#
+# testLearner = TestLeaner()
+#
+# GA = GeneticAlgorithmFeatureSelection()
+# best_features = GA.select_features_ga(testLearner, data_training, data_test, feature_length, number_of_generations=5)
+#
+# print("  ")
+# print("FINAL!!!!")
+# print("Genotype of Max: {}".format(best_features["genotype"]))
+# print("Phenotype of Max: {}".format(best_features["phenotype"]))
+# print("Fitness of Max: {}".format(best_features["evaluation"]))
 
-testLearner = TestLeaner()
+def run_ga_kmeans_experiment(data_set_path, number_of_clusters, learner, fraction_of_data_used=1, data_type=float):
+    print("Running {0} Experiment with k clusters = {1}".format(data_set_path, number_of_clusters))
+    all_data = CustomCSVReader.read_file(data_set_path, data_type)
+    feature_selection_data = all_data[:int(len(all_data)/fraction_of_data_used)]
+    feature_length = len(all_data[0]) - 1
 
-GA = GeneticAlgorithmFeatureSelection()
-best_features = GA.select_features_ga(testLearner, data_training, data_test, feature_length, number_of_generations=5)
+    Features = list(range(feature_length))
+    GA = GeneticAlgorithmFeatureSelection()
+    best_features = GA.select_features_ga(learner, feature_selection_data, all_data, feature_length)
 
-print("  ")
-print("FINAL!!!!")
-print("Genotype of Max: {}".format(best_features["genotype"]))
-print("Phenotype of Max: {}".format(best_features["phenotype"]))
-print("Fitness of Max: {}".format(best_features["evaluation"]))
+    # feature_ones_hot = best_features["genotype"]
+    selected_features = GA.get_selected_features(best_features)
+
+    means = learner.learn(selected_features, all_data)
+    data_clusters = learner.get_clusters_for_means(means, selected_features, all_data)
+
+    print("The Final Selected Features are: (features are zero indexed) ")
+    print("{}\n".format(selected_features))
+    print("The Fisher Score for the clustering is: ")
+    print("{}\n".format(best_features["evaluation"]))
+
+    pp = pprint.PrettyPrinter(indent=2, width=400)
+    print("For Clustered points, the key in the dictionary represents the cluster each data point belongs to. ")
+    print("Clustered points: ")
+    pp.pprint(data_clusters)
+
+
+
+# sys.stdout = open('results/GA-Kmeans-iris-results.txt', 'w')
+run_ga_kmeans_experiment("data/iris.data.txt", 3, KMeans(3))
+
+# sys.stdout = open('results/GA-Kmeans-glass-results.txt', 'w')
+# run_ga_kmeans_experiment("data/glass.data.txt", 6, KMeans(6))
+#
+# sys.stdout = open('results/GA-Kmeans-spambase-results.txt', 'w')
+# run_ga_kmeans_experiment("data/spambase.data.txt", 2, KMeans(2))
