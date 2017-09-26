@@ -1,6 +1,7 @@
 """ Created by Max 9/22/2017 """
 import sys
 import math
+import random
 import numpy as np
 import matplotlib.pyplot as plt
 from customCsvReader import CustomCSVReader
@@ -22,26 +23,52 @@ class HAC:
 
         while len(distance_matrix) > self.k:
             distance_matrix, clusters = self.agglomerate(distance_matrix, clusters)
-            print(clusters)
+            # print(clusters)
 
-        print("Initial distance Matrix: ")
-        print(distance_matrix)
-        print(clusters)
-        return clusters
+        # print("Initial distance Matrix: ")
+        # print(distance_matrix)
+        # print(clusters)
+        clusters_with_datapoints = self.create_datapoint_clusters(clusters, data)
 
+        return clusters_with_datapoints
 
+    # <editor-fold desc="Evaluate">
+    def evaluate(self, clustered_datapoints, selected_features, data_test):
+        num_features = len(selected_features)
+        # data = self.data_munge(selected_features, data_test)
+        clusters = self.create_clusters(len(clustered_datapoints))
 
-    def evaluate(self, means, selected_features, data_test):
-        data = self.data_munge(selected_features, data_test)
-        # clusters = self.create_clusters(len(means))
-        #
-        # for data in data:
-        #     cluster_index = self.argmin_cluster(data, means)
-        #     clusters[cluster_index].append(data)
+        for index_of_cluster_of_datapoints in range(len(clustered_datapoints)):
+            cluster_of_datapoints = clustered_datapoints[index_of_cluster_of_datapoints]
+            clusters[index_of_cluster_of_datapoints] = cluster_of_datapoints
 
-        # score = fisher_score(means, clusters)
+        means = [[0]*num_features]*self.k
+        means = self.calculate_means(clusters, means)
+
+        score = fisher_score(means, clusters)
         # print("Fisher Score = {}".format(score))
-        # return score
+        return score
+
+    def calculate_means(self, clusters, means):
+        for cluster_number, datapoints_in_cluster in clusters.items():
+            new_mean = self.calculate_mean_vector(datapoints_in_cluster, len(means[0]))
+            means[cluster_number] = new_mean
+        return means
+
+    def calculate_mean_vector(self, datapoints_in_cluster, vector_length):
+        mean = [0] * vector_length
+        for datapoint in datapoints_in_cluster:
+            for feature_index in range(len(datapoint)):
+                mean[feature_index] += datapoint[feature_index]
+
+        for mean_feature_index in range(len(mean)):
+            # if not datapoints_in_cluster:
+            #     continue
+            mean[mean_feature_index] = mean[mean_feature_index] / float(len(datapoints_in_cluster))
+
+        return mean
+
+    # </editor-fold>
 
     def agglomerate(self, distance_matrix, clusters):
         argmin_item = self.matrix_argmin(distance_matrix)
@@ -50,8 +77,8 @@ class HAC:
 
         clusters = self.adjust_clusters(clusters, i, j)
 
-        print("Min item: {}".format(distance_matrix[argmin_item[0]][argmin_item[1]]))
-        print("argminMin item: {}".format(argmin_item))
+        # print("Min item: {}".format(distance_matrix[argmin_item[0]][argmin_item[1]]))
+        # print("argminMin item: {}".format(argmin_item))
 
         ith_row = distance_matrix[i]
         ith_col = distance_matrix[:, i]
@@ -150,6 +177,18 @@ class HAC:
 
 
     # <editor-fold desc="Helpers">
+    def create_datapoint_clusters(self, clusters_with_ids, data):
+        datapoint_clusters = []
+
+        for cluster_index in range(len(clusters_with_ids)):
+            cluster_with_ids = clusters_with_ids[cluster_index]
+
+            datapoint_clusters.append([])
+            for id in cluster_with_ids:
+                datapoint_clusters[cluster_index].append(data[id])
+
+        return datapoint_clusters
+
     def init_clusters(self, num_data_points):
         clusters = []
         for index in range(num_data_points):
@@ -200,18 +239,48 @@ hac = HAC(3)
 
 data_id_clusters = hac.learn([2], all_data)
 
-trimmed_data = hac.data_munge([2], all_data)
+# trimmed_data = hac.data_munge([2], all_data)
+#
+# clusters = [[]]*3
+# for cluster_index in range(len(data_id_clusters)):
+#     cluster = data_id_clusters[cluster_index]
+#     for id in cluster:
+#         clusters[cluster_index] = clusters[cluster_index] + trimmed_data[id]
+#
+#
+# plt.plot(clusters[0], np.zeros_like(clusters[0]), 'x', color='red')
+# plt.plot(clusters[1], np.zeros_like(clusters[1]), 'x', color='blue')
+# plt.plot(clusters[2], np.zeros_like(clusters[2]), 'x', color='green')
+# plt.show()
 
-clusters = [[]]*3
-for cluster_index in range(len(data_id_clusters)):
-    cluster = data_id_clusters[cluster_index]
-    for id in cluster:
-        clusters[cluster_index] = clusters[cluster_index] + trimmed_data[id]
+score = hac.evaluate(data_id_clusters, [2], all_data)
 
-
-plt.plot(clusters[0], np.zeros_like(clusters[0]), 'x', color='red')
-plt.plot(clusters[1], np.zeros_like(clusters[1]), 'x', color='blue')
-plt.plot(clusters[2], np.zeros_like(clusters[2]), 'x', color='green')
-plt.show()
-
+print("SCORE")
+print(score)
 # </editor-fold>
+
+
+all_data = CustomCSVReader.read_file("data/glass.data.txt", float)
+hac = HAC(6)
+
+data_id_clusters = hac.learn([2], all_data)
+
+score = hac.evaluate(data_id_clusters, [2], all_data)
+
+print("SCORE")
+print(score)
+
+
+#####
+
+all_data = CustomCSVReader.read_file("data/spambase.data.txt", float)
+hac = HAC(2)
+
+random.shuffle(all_data)
+
+data_id_clusters = hac.learn([2], all_data)
+
+score = hac.evaluate(data_id_clusters, [2], all_data)
+
+print("SCORE")
+print(score)
