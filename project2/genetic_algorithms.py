@@ -213,12 +213,49 @@ def run_ga_kmeans_experiment(data_set_path, number_of_clusters, learner, fractio
     pp.pprint(data_clusters)
 
 
+def run_hac_experiment(data_set_path, number_of_clusters, hac, fraction_of_data_used=1, data_type=float):
+    print("Running {0} Experiment with k clusters = {1}".format(data_set_path, number_of_clusters))
+    all_data = CustomCSVReader.read_file(data_set_path, data_type)
+    feature_selection_data = all_data[:int(len(all_data)/fraction_of_data_used)]
+    feature_length = len(all_data[0]) - 1
 
-# sys.stdout = open('results/GA-Kmeans-iris-results.txt', 'w')
+    Features = list(range(feature_length))
+    GA = GeneticAlgorithmFeatureSelection()
+    best_features = GA.select_features_ga(hac, feature_selection_data, all_data, feature_length)
+
+    selected_features = GA.get_selected_features(best_features)
+
+    clusters_of_datapoint_ids = hac.learn(selected_features, feature_selection_data)
+    full_clusters = hac.get_full_clusters_of_data(clusters_of_datapoint_ids, selected_features, all_data)
+
+    print("The Final Selected Features are: (features are zero indexed) ")
+    print("{}\n".format(selected_features))
+    print("The Fisher Score for the clustering is: ")
+    print("{}\n".format(best_features["evaluation"]))
+
+    pp = pprint.PrettyPrinter(indent=2, width=400)
+    print("For Clustered points, the key in the dictionary represents the cluster each data point belongs to. ")
+    print("Clustered points: ")
+    pp.pprint(full_clusters)
+
+
+# KMeans experiments
+sys.stdout = open('results/GA-Kmeans-iris-results.txt', 'w')
 run_ga_kmeans_experiment("data/iris.data.txt", 3, KMeans(3))
 
-# sys.stdout = open('results/GA-Kmeans-glass-results.txt', 'w')
-# run_ga_kmeans_experiment("data/glass.data.txt", 6, KMeans(6))
-#
-# sys.stdout = open('results/GA-Kmeans-spambase-results.txt', 'w')
-# run_ga_kmeans_experiment("data/spambase.data.txt", 2, KMeans(2))
+sys.stdout = open('results/GA-Kmeans-glass-results.txt', 'w')
+run_ga_kmeans_experiment("data/glass.data.txt", 6, KMeans(6))
+
+sys.stdout = open('results/GA-Kmeans-spambase-results.txt', 'w')
+run_ga_kmeans_experiment("data/spambase.data.txt", 2, KMeans(2), fraction_of_data_used=100)
+
+# HAC experiments
+sys.stdout = open('results/GA-HAC-iris-results.txt', 'w')
+run_hac_experiment("data/iris.data.txt", 3, HAC(3))
+
+sys.stdout = open('results/GA-HAC-glass-results.txt', 'w')
+run_hac_experiment("data/glass.data.txt", 6, HAC(6))
+
+sys.stdout = open('results/GA-HAC-spambase-results.txt', 'w')
+run_hac_experiment("data/spambase.data.txt", 2, HAC(2), fraction_of_data_used=100)
+
