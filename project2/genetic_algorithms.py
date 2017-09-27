@@ -10,6 +10,11 @@ from hierarchical_agglomerative_clustering import HAC
 class GeneticAlgorithmFeatureSelection:
     # <editor-fold desc="Init Population">
     def create_gene(self, genotype):
+        """
+        Create gene with the below structure
+        :param genotype: The genotype to use
+        :return: dict, gene
+        """
         gene = {
             'genotype': genotype,
             'phenotype': genotype,
@@ -18,6 +23,12 @@ class GeneticAlgorithmFeatureSelection:
         return gene
 
     def generate_valid_gene(self, number_of_items):
+        """
+        generates valid genes.
+        Geno type is a 1's hot encoding for features.
+        :param number_of_items: int, number of items in a gene
+        :return: gene.
+        """
         gene = []
         for x in range(0, number_of_items):
             # value = random.uniform(min_value, max_value)
@@ -26,6 +37,12 @@ class GeneticAlgorithmFeatureSelection:
         return gene
 
     def generate_random_population(self, size_of_pop, number_of_features):
+        """
+        Gerneates a random population to start the GA with.
+        :param size_of_pop: int
+        :param number_of_features: int, how big the gense should be.
+        :return: list of genes, population
+        """
         population = []
         for x in range(size_of_pop):
             genotype = self.generate_valid_gene(number_of_features)
@@ -41,6 +58,25 @@ class GeneticAlgorithmFeatureSelection:
     # <editor-fold desc="Main">
     def select_features_ga(self, learner, data_training, data_test, feature_length, population_size=25, crossover_rate=.8,
                            mutation_rate=.6, number_of_generations=20):
+        """
+        This is the main work horse of the GA.
+        Works by evaluating a population, then creating the next generation and so on until all generations have been
+        completed.
+        It uses the learner to learn the model that we are using for selection, and then it uses the evaluation of that
+        learner to get the fitness of a gene.
+
+        Uses a 1's hot encoding for the genotype and which feature is being used.
+
+        :param learner: A clustering algorithm that has "learn" and "evaluate" functions
+        :param data_training: list of list traing data
+        :param data_test: list of list test data
+        :param feature_length: int, length of a given data point, minus the class
+        :param population_size: int
+        :param crossover_rate: float
+        :param mutation_rate: float
+        :param number_of_generations: int
+        :return: Best Feature found
+        """
 
         population = self.generate_random_population(population_size, feature_length)
         self.evaluate_population(population, learner, data_training, data_test)
@@ -75,6 +111,15 @@ class GeneticAlgorithmFeatureSelection:
 
     # <editor-fold desc="Population Manipulation">
     def evaluate_population(self, population, learner, data_training, data_test):
+        """
+        Evaluates a population.
+        Uses the LEARNER to learn based on training data, and evaluates with test data.
+        :param population: list of genes, population
+        :param learner: Clustering algorithm being used.
+        :param data_training: list of list
+        :param data_test: list of list
+        :return: gene with evaluation
+        """
         for gene in population:
             selected_features = self.get_selected_features(gene)
             model = learner.learn(selected_features, data_training)
@@ -83,6 +128,11 @@ class GeneticAlgorithmFeatureSelection:
             gene["evaluation"] = score
 
     def get_max_gene(self, population):
+        """
+        Gets the gene with the best fitness.
+        :param population: list of list, pop
+        :return: gene with max score.
+        """
         max_value = -sys.maxsize
         max_gene = None
         for gene in population:
@@ -93,9 +143,10 @@ class GeneticAlgorithmFeatureSelection:
 
     def pick_parents(self, population):
         """
-        Tournament Selection
-        :param population:
-        :return:
+        Tournament Selection to pick two parent genes.
+        uses a tournament of 7 genes and then picks the best of those.
+        :param population: list of list, pop
+        :return: tuple, two genes
         """
         parents = []
         for num_par in range(0,2):
@@ -126,6 +177,14 @@ class GeneticAlgorithmFeatureSelection:
 
     # <editor-fold desc="Children">
     def reproduce(self, parent1_genotype, parent2_genotype, crossover_len, crossover_rate):
+        """
+        A function that does the crossover part of GA
+        :param parent1_genotype: list a genotype
+        :param parent2_genotype: list a genotyp
+        :param crossover_len: length of gene
+        :param crossover_rate: probability of crossover happening
+        :return: a tuple of children
+        """
         children = ()
         if random.random() < crossover_rate:
             crossover_point = random.randint(0, crossover_len)
@@ -143,6 +202,12 @@ class GeneticAlgorithmFeatureSelection:
         return children
 
     def mutate(self, genotype, mutation_rate):
+        """
+        Performs the mutate function for GA
+        :param genotype: list genotype
+        :param mutation_rate: float, rate of mutation
+        :return: mutated genotype.
+        """
         if random.random() < mutation_rate:
             position = random.randint(0, len(genotype)-1)
             genotype[position] = random.randint(0, 1)
@@ -152,6 +217,11 @@ class GeneticAlgorithmFeatureSelection:
 
     # <editor-fold desc="Helpers">
     def get_selected_features(self, gene):
+        """
+        Changes the 1's hot encoding of the gene to a list of selected features, 0 indexed.
+        :param gene: dict as described by create gene
+        :return: the selected features 0 indexed in an array
+        """
         selected_features = []
         genotype = gene["genotype"]
         for index in range(len(genotype)):
@@ -160,6 +230,13 @@ class GeneticAlgorithmFeatureSelection:
         return selected_features
 
     def print_gene(self, gene, generation, should_print):
+        """
+        A debug function to print the gene
+        :param gene: dict as described in create gene
+        :param generation: int, generation number
+        :param should_print: boolean
+        :return: nothing
+        """
         if not should_print:
             return
         print("Generation: {}".format(generation))
@@ -169,24 +246,17 @@ class GeneticAlgorithmFeatureSelection:
         return
     # </editor-fold>
 
-
-# all_data = CustomCSVReader.read_file("data/iris.data.txt", float)
-# data_training = all_data[:2*int(len(all_data)/3)]
-# data_test = all_data[2*int(len(all_data)/3):]
-# feature_length = len(all_data[0]) - 1
-#
-# testLearner = TestLeaner()
-#
-# GA = GeneticAlgorithmFeatureSelection()
-# best_features = GA.select_features_ga(testLearner, data_training, data_test, feature_length, number_of_generations=5)
-#
-# print("  ")
-# print("FINAL!!!!")
-# print("Genotype of Max: {}".format(best_features["genotype"]))
-# print("Phenotype of Max: {}".format(best_features["phenotype"]))
-# print("Fitness of Max: {}".format(best_features["evaluation"]))
-
 def run_ga_kmeans_experiment(data_set_path, number_of_clusters, learner, fraction_of_data_used=1, data_type=float):
+    """
+    The main work horse for running the experiments and output the approriate information into a file
+
+    Works by reading in the data, trainnig and test data.
+
+    Creates the GA and pass the needed data to it. It returns a list of selected features.
+    The mean is then retrieved for those features, and we cluster all of the data based on the means
+
+    Finally, I print all information needed in a human readable way.
+    """
     print("Running {0} Experiment with k clusters = {1}".format(data_set_path, number_of_clusters))
     all_data = CustomCSVReader.read_file(data_set_path, data_type)
     feature_selection_data = all_data[:int(len(all_data)/fraction_of_data_used)]
@@ -214,6 +284,19 @@ def run_ga_kmeans_experiment(data_set_path, number_of_clusters, learner, fractio
 
 
 def run_hac_experiment(data_set_path, number_of_clusters, hac, fraction_of_data_used=1, data_type=float):
+    """
+    The main work horse for running the experiments and output the approriate information into a file
+
+    Works by reading in the data, trainnig and test data.
+
+    Creates the HAC and pass the needed data to it. It returns a list of selected features.
+    The cluster of datapoints by HAC is then retrieved for those features on the test data. (Cluster if datapoint Ids = model)
+    We then retrieve the full clustering of the data from HAC by passing in the "model" it returned.
+
+    Results in all of the datapoint being clustered by HAC
+
+    Finally, I print all information needed in a human readable way.
+    """
     print("Running {0} Experiment with k clusters = {1}".format(data_set_path, number_of_clusters))
     all_data = CustomCSVReader.read_file(data_set_path, data_type)
     feature_selection_data = all_data[:int(len(all_data)/fraction_of_data_used)]
