@@ -12,10 +12,25 @@ from FischerScore import fisher_score
 class KMeans:
 
     def __init__(self, k):
+        """
+        Init with K clusters
+        :param k: int, k clusters.
+        """
         self.k = k
 
 
     def learn(self, selected_features, data_training, mu=.00001):
+        """
+        The main work horse for the Kmeans algorithm
+
+        First thing we do, is given the training data, we strip out all features that we don't need.
+        We then run the kMeans algorithm on the data.
+
+        :param selected_features: a list of unique integers i.e [0,1,2] that specify the features to use.
+        :param data_training: list of list trainig data
+        :param mu: the difference in means before stopping.
+        :return: returns a list of mean vectors.
+        """
         data = self.data_munge(selected_features, data_training)
 
         means = self.init_k_means(data, self.k)
@@ -38,6 +53,17 @@ class KMeans:
 
 
     def evaluate(self, means, selected_features, data_test):
+        """
+        Evaluates a given set of mean vectors using the Fisher Score
+        Given the means, selected_features and data:
+        Trim the data to just the selected features, then caclulate the clusters based on the means.
+        Calculate the socre by passing the clusters and the means to the Fisher score.
+
+        :param means: list of mean vectors of length "selected Features"
+        :param selected_features: the features selected to score.
+        :param data_test: list of list, data points.
+        :return: the Fisher Score.
+        """
         data = self.data_munge(selected_features, data_test)
         clusters = self.create_clusters(len(means))
 
@@ -51,6 +77,14 @@ class KMeans:
         return score
 
     def get_clusters_for_means(self, means, selected_features, data_to_cluster):
+        """
+        A helper function that, given mean vectors, will cluster all of the data into clusters based on those means.
+        Returns the clustered data
+        :param means:
+        :param selected_features:
+        :param data_to_cluster:
+        :return: dict of clusterd data in k clusters
+        """
         data = self.data_munge(selected_features, data_to_cluster)
         clusters = self.create_clusters(len(means))
 
@@ -63,12 +97,25 @@ class KMeans:
 
 
     def calculate_means(self, clusters, means):
+        """
+        Helper function to calculate all the mean vector for each cluster
+        :param clusters: dict of clusters
+        :param means: list of means
+        :return: updated list of means
+        """
         for cluster_number, datapoints_in_cluster in clusters.items():
             new_mean = self.calculate_mean_vector(datapoints_in_cluster, len(means[0]))
             means[cluster_number] = new_mean
         return means
 
     def calculate_mean_vector(self, datapoints_in_cluster, vector_length):
+        """
+        Calculates the mean vector for a cluster.
+
+        :param datapoints_in_cluster: list of list
+        :param vector_length: int
+        :return: the mean vector for the cluster
+        """
         mean = [0]*vector_length
         for datapoint in datapoints_in_cluster:
             for feature_index in range(len(datapoint)):
@@ -82,6 +129,15 @@ class KMeans:
         return mean
 
     def argmin_cluster(self, datapoint, means):
+        """
+        Gets the cluster that is the closests to a data point.
+
+        the corresponding mean vector corresponds to the cluster the point belongs too.
+
+        :param datapoint: list of float
+        :param means: a list of mean vectors.
+        :return: int index of Selected_mean
+        """
         min_distance = sys.maxsize
         selected_mean_index = -1
 
@@ -95,6 +151,12 @@ class KMeans:
         return selected_mean_index
 
     def distance(self, datapoint, mean):
+        """
+        Euclidean distance measure, for all dimensions in data point, from point to mean vector
+        :param datapoint: list float
+        :param mean: list float
+        :return: float, distance
+        """
         running_sum = 0
         for feature_value, feature_value_mean in zip(datapoint, mean):
             running_sum += (feature_value - feature_value_mean)**2
@@ -103,6 +165,14 @@ class KMeans:
 
     # <editor-fold desc="Helpers">
     def has_stopped_changing(self, means, previous_means, mu):
+        """
+        Used to tell if all means have stopped changing.
+        The difference in all values in the mean have to be less than mu for that mean.
+        :param means: list of mean vectors
+        :param previous_means: the means list from the previous itteration.
+        :param mu: value to stop changing at. float
+        :return: boolean, true if has stopped changing.
+        """
         if previous_means is None:
             return False
         for mean, previous_mean in zip(means, previous_means):
@@ -113,12 +183,23 @@ class KMeans:
 
 
     def create_clusters(self, number_of_clusters):
+        """
+        creates a dictionary of clusters, where a single cluster is a list
+        :param number_of_clusters: int
+        :return: dict cluster
+        """
         cluster = {}
         for cluster_number in range(number_of_clusters):
             cluster[cluster_number] = []
         return cluster
 
     def init_k_means(self, data, num_k_s):
+        """
+        Init's k means. Choosed k means based on randomly selecting points in the data set.
+        :param data: list list
+        :param num_k_s: int
+        :return: list of k means ( selected data poinst to start the mean at).
+        """
         means = []
         data_length = len(data)
 
@@ -137,6 +218,13 @@ class KMeans:
 
 
     def data_munge(self, selected_features, data):
+        """
+        Modifies the data set to only contain the selected features.
+
+        :param selected_features: list of ints of selected features.
+        :param data: list of list of points
+        :return: munged data, list of list.
+        """
         new_data = []
         for data_point in data:
             new_data_point = []
@@ -160,73 +248,3 @@ class KMeans:
         return means 
     """
 
-def closest_cluster(datapoint, means):
-    min_distance = sys.maxsize
-    selected_mean_index = -1
-
-    for index_of_mean in range(len(means)):
-        mean = means[index_of_mean]
-        dist = distance(datapoint, mean)
-        if dist < min_distance:
-            min_distance = dist
-            selected_mean_index = index_of_mean
-
-    return selected_mean_index
-
-def distance(datapoint, mean):
-    running_sum = 0
-    for feature_value, feature_value_mean in zip(datapoint, mean):
-        running_sum += (feature_value - feature_value_mean)**2
-
-    return math.sqrt(running_sum)
-
-
-all_data = CustomCSVReader.read_file("data/iris.data.txt", float)
-
-kMeans = KMeans(3)
-means = kMeans.learn([2], all_data)
-# print(means)
-
-
-# trimmed_data = kMeans.data_munge([2], all_data)
-#
-# clusters = kMeans.create_clusters(3)
-#
-# for data in trimmed_data:
-#     cluster_index = closest_cluster(data, means)
-#     clusters[cluster_index].append(data)
-#
-#
-# plt.plot(clusters[0], np.zeros_like(clusters[0]), 'x', color='red')
-# plt.plot(clusters[1], np.zeros_like(clusters[1]), 'x', color='blue')
-# plt.plot(clusters[2], np.zeros_like(clusters[2]), 'x', color='green')
-# plt.show()
-#
-# score = kMeans.evaluate(means, [2], all_data)
-#
-# print("SCORE")
-# print(score)
-#
-# ######
-#
-# all_data = CustomCSVReader.read_file("data/glass.data.txt", float)
-#
-# kMeans = KMeans(6)
-# means = kMeans.learn([2], all_data)
-#
-# score = kMeans.evaluate(means, [2], all_data)
-#
-# print("SCORE")
-# print(score)
-#
-# #########
-#
-# all_data = CustomCSVReader.read_file("data/spambase.data.txt", float)
-#
-# kMeans = KMeans(2)
-# means = kMeans.learn([2], all_data)
-#
-# score = kMeans.evaluate(means, [2], all_data)
-#
-# print("SCORE")
-# print(score)
