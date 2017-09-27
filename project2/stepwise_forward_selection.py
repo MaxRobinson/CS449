@@ -13,6 +13,8 @@ class SFS:
     @staticmethod
     def select_features(Features, data_training, data_test, learner):
         """
+        Main work horse for SFS
+        Follows the Psuedo code from Lecture.
 
         :param Features: an Array of unique integers that correspond to a feature number
         in a data point in the data_training and data_test data sets.
@@ -33,8 +35,6 @@ class SFS:
                 selected_features.append(feature)
                 model = learner.learn(selected_features, data_training)
                 curr_perf = learner.evaluate(model, selected_features, data_test)
-                # print("Selected Features: {}".format(selected_features))
-                # print("Score: {}".format(curr_perf))
 
 
                 if curr_perf > best_perf:
@@ -47,29 +47,23 @@ class SFS:
                 base_preference_f = best_perf
                 Features.remove(best_feature)
                 selected_features.append(best_feature)
-                # print()
-                # print("Setting BEST selected Features")
-                # print("Best Selected Features: {}".format(selected_features))
-                # print("Score: {}".format(curr_perf))
-                # print()
 
 
             else:
                 break
         return selected_features, base_preference_f
-        # return selected_features
-
-
-# all_data = CustomCSVReader.read_file("data/iris.data.txt", float)
-# feature_length = len(all_data[0]) - 1
-#
-# kLearner = KMeans(3)
-# Features = list(range(feature_length))
-# best_features = SFS.select_features(Features, all_data, all_data, kLearner)
-#
-# print("\nBest Features Selected: {}\n".format(best_features))
 
 def run_kmeans_experiment(data_set_path, number_of_clusters, learner, fraction_of_data_used=1, data_type=float):
+    """
+    The main work horse for running the experiments and output the approriate information into a file
+
+    Works by reading in the data, trainnig and test data.
+
+    Creates the KMeans and pass the needed data to it. It returns a list of selected features.
+    The mean is then retrieved for those features, and we cluster all of the data based on the means
+
+    Finally, I print all information needed in a human readable way.
+    """
     print("Running {0} Experiment with k clusters = {1}".format(data_set_path, number_of_clusters))
     all_data = CustomCSVReader.read_file(data_set_path, data_type)
     feature_selection_data = all_data[:int(len(all_data)/fraction_of_data_used)]
@@ -94,6 +88,19 @@ def run_kmeans_experiment(data_set_path, number_of_clusters, learner, fraction_o
 
 
 def run_hac_experiment(data_set_path, number_of_clusters, hac, fraction_of_data_used=1, data_type=float):
+    """
+    The main work horse for running the experiments and output the approriate information into a file
+
+    Works by reading in the data, training and test data.
+
+    Creates the HAC and pass the needed data to it. It returns a list of selected features.
+    The cluster of datapoints by HAC is then retrieved for those features on the test data. (Cluster if datapoint Ids = model)
+    We then retrieve the full clustering of the data from HAC by passing in the "model" it returned.
+
+    Results in all of the datapoint being clustered by HAC
+
+    Finally, I print all information needed in a human readable way.
+    """
     print("Running {0} Experiment with k clusters = {1}".format(data_set_path, number_of_clusters))
     all_data = CustomCSVReader.read_file(data_set_path, data_type)
     feature_selection_data = all_data[:int(len(all_data)/fraction_of_data_used)]
@@ -138,36 +145,5 @@ sys.stdout = open('results/SFS-HAC-glass-results.txt', 'w')
 run_hac_experiment("data/glass.data.txt", 6, HAC(6))
 
 sys.stdout = open('results/SFS-HAC-spambase-results2.txt', 'w')
-run_hac_experiment("data/spambase.data.txt", 2, HAC(2), fraction_of_data_used=100)
+run_hac_experiment("data/spambase.data.txt", 2, HAC(2), fraction_of_data_used=10)
 
-
-
-"""
-Pseudo code
-
-function SFS(Features, D_train, D_valid, Learn()): 
-    F_0 = <>
-    basePerf = -inf
-    do:
-        bestPerf = - inf
-        for all Features in FeatureSpace do: 
-            F_0 = F_0 + F
-            h = Learn(F_0, D_train)
-            currPerf = Perf(h, D_valid)
-            if currPerf > bestPerf then:
-                bestPerf = currPerf
-                bestF = F
-            end if
-            F_0 = F_0 - F
-        end for
-        if bestPerf > basePerf then 
-            basePerf = bestPerf
-            F = F - bestF 
-            F_0 = F_0 + bestF
-        else
-            exit (Break)
-        end if
-    until F = <> (is empty)
-    return F_0
-
-"""
