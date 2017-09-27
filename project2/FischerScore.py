@@ -3,6 +3,12 @@ import numpy as np
 
 
 def fisher_score(mean_vectors, clustered_data):
+    """
+    Calculates the fisher score as described by the Fisher Score PDF for the project.
+    :param mean_vectors: list of mean vectors
+    :param clustered_data: The data clustered into len(mean_vectors) clusters
+    :return: float, Fisher Score
+    """
     k_clusters = len(mean_vectors)
     number_of_features = len(mean_vectors[0])
 
@@ -43,8 +49,15 @@ def fisher_score(mean_vectors, clustered_data):
     return SCORE
 
 
-# TODO: TEST ME
 def covariance(datapoints, num_features,  mean_feature_vector_for_c):
+    """
+    Calculates the Covariance Matrix that is needed for each cluster of data.
+    The covariance matrix is calculated as described by the Fisher Score PDF for the project
+    :param datapoints: datapoints in cluster
+    :param num_features: number of features per datapoint.
+    :param mean_feature_vector_for_c: the mean feature vector for the cluster
+    :return: The covariance matrix for the cluster.
+    """
     cov_matrix = [[0]*num_features]*num_features
     for feature_number_i in range(num_features):
         for feature_number_j in range(num_features):
@@ -64,6 +77,11 @@ def covariance(datapoints, num_features,  mean_feature_vector_for_c):
 
 
 def create_mean_of_mean_vector(mean_vectors):
+    """
+    Helper function to create the mean of means vector for the Fisher score.
+    :param mean_vectors: list of mean vectors.
+    :return: mean of mean vector (list)
+    """
     mean_vector_matrix = np.array(mean_vectors)
     vector_sums = np.sum(mean_vector_matrix, axis=0)
     mean_of_mean_vector = vector_sums / len(mean_vectors)

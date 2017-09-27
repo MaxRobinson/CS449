@@ -6,6 +6,12 @@ class CustomCSVReader:
 
     @staticmethod
     def read_file(path=None, data_type=float):
+        """
+        Helper function to read in CSV data and parse the correct type.
+        :param path: Path to file to read
+        :param data_type: type of the data in the file
+        :return: list of list of data points from csv file.
+        """
         if path is None:
             path = 'data/breast-cancer-wisconsin.data.txt'
         with open(path, 'r') as f:
