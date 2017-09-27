@@ -14,6 +14,19 @@ class HAC:
 
 
     def learn(self, selected_features, data_training):
+        """
+        The top level for HAC.
+
+        First thing we do, is given the training data, we strip out all features that we don't need.
+        We then run the HAC algorithm on the data.
+        The main work work is done in agglomerate.
+
+        Continue till we have K clusters
+
+        :param selected_features: list of integers that describe the features to
+        :param data_training: list of list training data
+        :return: a list of list of datapoints that correspond to the index of data points in the traing data.
+        """
         data = self.data_munge(selected_features, data_training)
 
         distance_matrix = np.zeros((len(data), len(data)))
@@ -23,17 +36,29 @@ class HAC:
 
         while len(distance_matrix) > self.k:
             distance_matrix, clusters = self.agglomerate(distance_matrix, clusters)
-            # print(clusters)
 
-        # print("Initial distance Matrix: ")
-        # print(distance_matrix)
-        # print(clusters)
         clusters_with_datapoints = self.create_datapoint_clusters(clusters, data)
 
         return clusters_with_datapoints
 
     # <editor-fold desc="Evaluate">
     def evaluate(self, clustered_datapoints, selected_features, data_test):
+        """
+        Evaluates the clusters from HAC
+        we first:
+        Trim the data to just the selected features, then caclulate the clusters based on the means.
+
+        Then we construct the clusters of ACTUAL datapoints. Then we find the mean vectors
+
+        WE then create the FULL Clusters based on the mean vectors.
+
+        Then we calculate the fisher score.
+
+        :param clustered_datapoints:  a list of list of DATAPOINT ID'S that correspond to the index of data points in the traing data.
+        :param selected_features:
+        :param data_test:
+        :return:
+        """
         data = self.data_munge(selected_features, data_test)
         num_features = len(selected_features)
 
@@ -58,12 +83,24 @@ class HAC:
         return score
 
     def calculate_means(self, clusters, means):
+        """
+        A helper function to calculate the mean vectors based on clusters of data
+        :param clusters: dict of list, for clustsers
+        :param means: list of mean vectors
+        :return: list of mean vectors.
+        """
         for cluster_number, datapoints_in_cluster in clusters.items():
             new_mean = self.calculate_mean_vector(datapoints_in_cluster, len(means[0]))
             means[cluster_number] = new_mean
         return means
 
     def calculate_mean_vector(self, datapoints_in_cluster, vector_length):
+        """
+        Calcualtes the mean vector for a cluster
+        :param datapoints_in_cluster:
+        :param vector_length:
+        :return:
+        """
         mean = [0] * vector_length
         for datapoint in datapoints_in_cluster:
             for feature_index in range(len(datapoint)):
@@ -77,6 +114,16 @@ class HAC:
         return mean
 
     def get_full_clusters_of_data(self, clustered_datapoints, selected_features, data_to_cluster):
+        """
+        Helper function to get all of the data for a given Model from HAC (clustered Data points)
+
+        Uses the ENTIRE data point this time when constructing full cluster.
+
+        :param clustered_datapoints:
+        :param selected_features:
+        :param data_to_cluster:
+        :return: dict of list, Clusters of the data.
+        """
         data = self.data_munge(selected_features, data_to_cluster)
         num_features = len(selected_features)
 
@@ -101,6 +148,21 @@ class HAC:
     # </editor-fold>
 
     def agglomerate(self, distance_matrix, clusters):
+        """
+        Main work horse for HAC.
+
+        Works by keeping a matrix of distances, (top right triangle) from every point to every other point.
+
+        Each time 2 points are clustered, the data is removed from the matrix, and a new col in the far right is created
+        that repreents the cluster. The distances are then calculated for that cluster.
+
+        A list of clusters is kept in parallel and the same logic is used when joint points in clusters.
+        Thus we are keeping track of which data points are in what cluster at any given stage.
+
+        :param distance_matrix:
+        :param clusters:
+        :return: the final distance matrix, and the clusters (list of list)
+        """
         argmin_item = self.matrix_argmin(distance_matrix)
         i = argmin_item[0]
         j = argmin_item[1]
@@ -126,6 +188,14 @@ class HAC:
         return distance_matrix, clusters
 
     def adjust_clusters(self, clusters, i, j):
+        """
+        Adjust which datapoints are in which cluster in the list.
+        Removes the items and appends a last point the the cluster list. appends both data points.
+        :param clusters:
+        :param i:
+        :param j:
+        :return: Updated clusters (list of list)
+        """
         points_in_i = clusters[i]
         points_in_j = clusters[j]
         new_cluster_points = points_in_i + points_in_j
@@ -141,6 +211,13 @@ class HAC:
 
 
     def delete_closest_points_from_matrix(self, distance_matrix, i, j):
+        """
+        Deletes the points that have been selected as the 2 closest points in the matrix.
+        :param distance_matrix:
+        :param i:
+        :param j:
+        :return: distance matrix
+        """
         distance_matrix = np.delete(distance_matrix, i, axis=0)
         distance_matrix = np.delete(distance_matrix, i, axis=1)
 
@@ -154,6 +231,11 @@ class HAC:
         return distance_matrix
 
     def add_cluster_to_matrix(self, distance_matrix):
+        """
+        Adds a new col to the far right of the matrix which is the new cluster.
+        :param distance_matrix: matrix
+        :return:
+        """
         matrix_length = len(distance_matrix)
         new_row = np.zeros(matrix_length)
         new_col = np.zeros(matrix_length+1)
@@ -163,6 +245,16 @@ class HAC:
         return distance_matrix
 
     def calculate_new_cluster_distances(self, distance_matrix, i, j, ith_distances, jth_distances):
+        """
+        Calculates the distances to be used for the new cluster, using Single Linkage, aka min of either clusters.
+
+        :param distance_matrix:
+        :param i:
+        :param j:
+        :param ith_distances:
+        :param jth_distances:
+        :return: distanc_matrix
+        """
         ith_distances = np.delete(ith_distances, i)
         jth_distances = np.delete(jth_distances, i)
 
@@ -185,6 +277,11 @@ class HAC:
 
 
     def matrix_argmin(self, distance_matrix):
+        """
+        Gets the i,j coordinates of the smallest value in the matrix.
+        :param distance_matrix:
+        :return:
+        """
         min_value = sys.maxsize
         min_ith = -1
         min_jth = -1
@@ -199,6 +296,12 @@ class HAC:
 
 
     def compute_initial_distances(self, distance_matrix, data):
+        """
+        Computes the intial distances for the maxtrix
+        :param distance_matrix:
+        :param data:
+        :return:
+        """
         for datapoint_index_i in range(len(data)):
             for datapoint_index_j in range(datapoint_index_i, len(data)):
                 distance = self.distance(data[datapoint_index_i], data[datapoint_index_j])
@@ -208,6 +311,12 @@ class HAC:
 
     # <editor-fold desc="Helpers">
     def create_datapoint_clusters(self, clusters_with_ids, data):
+        """
+        Helper function to create a cluster of actual data points rather than datapoint Id's from the distance matrix.
+        :param clusters_with_ids:
+        :param data:
+        :return: list of list of datapoints. representing clusters.
+        """
         datapoint_clusters = []
 
         for cluster_index in range(len(clusters_with_ids)):
@@ -220,12 +329,23 @@ class HAC:
         return datapoint_clusters
 
     def init_clusters(self, num_data_points):
+        """
+        Initializes the list of clusters with each datapoint being a cluster (using an id as the value)
+        :param num_data_points:
+        :return: list of clusters
+        """
         clusters = []
         for index in range(num_data_points):
             clusters.append([index])
         return clusters
 
     def distance(self, datapoint, mean):
+        """
+        Euclidean distance calculation.
+        :param datapoint:
+        :param mean:
+        :return:
+        """
         running_sum = 0
         for feature_value, feature_value_mean in zip(datapoint, mean):
             running_sum += (feature_value - feature_value_mean)**2
@@ -233,12 +353,23 @@ class HAC:
         return math.sqrt(running_sum)
 
     def create_clusters(self, number_of_clusters):
+        """
+        Inits the "Standard" dictionary cluster represention used in Kmeans.
+        :param number_of_clusters:
+        :return: dict clusters
+        """
         cluster = {}
         for cluster_number in range(number_of_clusters):
             cluster[cluster_number] = []
         return cluster
 
     def argmin_cluster(self, datapoint, means):
+        """
+        returns the index of which cluster a datapoint belongs too.
+        :param datapoint:
+        :param means:
+        :return:
+        """
         min_distance = sys.maxsize
         selected_mean_index = -1
 
@@ -252,6 +383,13 @@ class HAC:
         return selected_mean_index
 
     def data_munge(self, selected_features, data):
+        """
+        Modifies the data set to only contain the selected features.
+
+        :param selected_features: list of ints of selected features.
+        :param data: list of list of points
+        :return: munged data, list of list.
+        """
         new_data = []
         for data_point in data:
             new_data_point = []
@@ -263,56 +401,3 @@ class HAC:
     # </editor-fold>
 
 
-# <editor-fold desc="Tests">
-# all_data = CustomCSVReader.read_file("data/iris.data.txt", float)
-# hac = HAC(3)
-#
-# data_id_clusters = hac.learn([2], all_data)
-
-# trimmed_data = hac.data_munge([2], all_data)
-#
-# clusters = [[]]*3
-# for cluster_index in range(len(data_id_clusters)):
-#     cluster = data_id_clusters[cluster_index]
-#     for id in cluster:
-#         clusters[cluster_index] = clusters[cluster_index] + trimmed_data[id]
-#
-#
-# plt.plot(clusters[0], np.zeros_like(clusters[0]), 'x', color='red')
-# plt.plot(clusters[1], np.zeros_like(clusters[1]), 'x', color='blue')
-# plt.plot(clusters[2], np.zeros_like(clusters[2]), 'x', color='green')
-# plt.show()
-
-# score = hac.evaluate(data_id_clusters, [2], all_data)
-#
-# print("SCORE")
-# print(score)
-# # </editor-fold>
-#
-#
-# all_data = CustomCSVReader.read_file("data/glass.data.txt", float)
-# hac = HAC(6)
-#
-# data_id_clusters = hac.learn([2], all_data)
-#
-# score = hac.evaluate(data_id_clusters, [2], all_data)
-#
-# print("SCORE")
-# print(score)
-
-
-#####
-
-# all_data = CustomCSVReader.read_file("data/spambase.data.txt", float)
-# hac = HAC(2)
-#
-# random.shuffle(all_data)
-# training_data = all_data[: int(len(all_data)/10)]
-#
-# data_id_clusters = hac.learn([2], training_data)
-# print("NOW EVALUATING")
-#
-# score = hac.evaluate(data_id_clusters, [2], all_data)
-#
-# print("SCORE")
-# print(score)

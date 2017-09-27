@@ -5,6 +5,11 @@ import numpy as np
 def fisher_score(mean_vectors, clustered_data):
     """
     Calculates the fisher score as described by the Fisher Score PDF for the project.
+
+    NOTE: the W vector is always 1's because the data that is in each of the clusters is only has the selected features
+    in it any ways, and the mean vector is only the length of the selected features. Thus we do not need to use the W
+    vector to prune out data that doesn't matter. Instead we can use it to transform out data to a scalar.
+
     :param mean_vectors: list of mean vectors
     :param clustered_data: The data clustered into len(mean_vectors) clusters
     :return: float, Fisher Score
