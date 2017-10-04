@@ -61,7 +61,7 @@ def add_to_smallest_distances(k_smallest_distances, distance_of_features, datapo
 
 def knn(k, dataset, query):
     # distances = []
-    k_smallest_distances = [(sys.maxint, []) for x in xrange(k)]
+    k_smallest_distances = [(sys.maxint, []) for x in range(k)]
 
     for datapoint in dataset:
         datapoint_features_only = datapoint[:-1]
@@ -209,7 +209,7 @@ def cross_validation(k):
 
     # run cross validation
     mse_list = []
-    for i in xrange(10):
+    for i in range(10):
         test_set = cross_validation_dataset[i]
         training_set = cross_validation_dataset[:i] + cross_validation_dataset[i+1:]
         training_set = [item for sublist in training_set for item in sublist]
@@ -219,8 +219,8 @@ def cross_validation(k):
     average_mse = sum(mse_list) / len(mse_list)
     sd = calc_standard_deviation(average_mse, mse_list)
 
-    print "Average MSE: {}".format(average_mse)
-    print "Standard Deviation: {}".format(sd)
+    print("Average MSE: {}".format(average_mse))
+    print("Standard Deviation: {}".format(sd))
     # print mse_list
     # plot_normal_distribution(average_mse, sd)
 
@@ -247,7 +247,7 @@ def cross_validation(k):
 # print distance(x1, y1)
 
 best_k = get_best_k_for_data()
-print best_k
+print(best_k)
 
 learning_curves(best_k)
 
