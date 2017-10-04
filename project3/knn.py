@@ -61,7 +61,7 @@ def add_to_smallest_distances(k_smallest_distances, distance_of_features, datapo
 
 def knn(k, dataset, query):
     # distances = []
-    k_smallest_distances = [(sys.maxint, []) for x in range(k)]
+    k_smallest_distances = [(sys.maxsize, []) for x in range(k)]
 
     for datapoint in dataset:
         datapoint_features_only = datapoint[:-1]
