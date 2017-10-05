@@ -5,82 +5,95 @@ import datetime
 import numpy as np
 import matplotlib.mlab as mlab
 
+from customCsvReader import CustomCSVReader
+
 __author__ = 'Max'
 
 
-# <editor-fold desc="Init Data">
-def read_file(path=None):
-    if path is None:
-        path = 'concrete_compressive_strength.csv'
-    with open(path, 'r') as f:
-        reader = csv.reader(f)
-        csv_list = list(reader)
-
-    records = list(map(lambda inner_list: map(lambda value: float(value), inner_list), csv_list))
-
-    return records
-
-# </editor-fold>
-
 # <editor-fold desc="k-NN">
 
+class Knn:
+    def __init__(self, k, classification=True):
+        """
+        Constructor
+        :param k: int, number of nearest neighboors to look at
+        :param classification: boolean, true if classification, else regression
+        """
+        self.k = k
+        self.classification = classification
 
-def feature_distance(datapoint_feature, query_feature):
-    feature_diff = datapoint_feature - query_feature
-    feature_diff *= feature_diff
-    return feature_diff
-
-
-def distance(datapoint, query):
-    dist_sum = 0
-    for datapoint_feature, query_feature in zip(datapoint, query):
-        dist_sum += feature_distance(datapoint_feature, query_feature)
-
-    dist = math.sqrt(dist_sum)
-
-    return dist
-
-
-def processing(k_nearest):
-    y_sum = 0
-    for dist, features in k_nearest:
-        y_sum += features[-1]
-
-    average = y_sum / len(k_nearest)
-
-    return average
+    def feature_distance(self, datapoint_feature, query_feature):
+        feature_diff = datapoint_feature - query_feature
+        feature_diff *= feature_diff
+        return feature_diff
 
 
-def add_to_smallest_distances(k_smallest_distances, distance_of_features, datapoint):
-    if distance_of_features <= k_smallest_distances[-1][0]:
-        k_smallest_distances[-1] = (distance_of_features, datapoint)
-        k_smallest_distances.sort(key=lambda tup: tup[0])
+    def distance(self, datapoint, query):
+        dist_sum = 0
+        for datapoint_feature, query_feature in zip(datapoint, query):
+            dist_sum += self.feature_distance(datapoint_feature, query_feature)
 
-    return k_smallest_distances
+        dist = math.sqrt(dist_sum)
 
-
-def knn(k, dataset, query):
-    # distances = []
-    k_smallest_distances = [(sys.maxsize, []) for x in range(k)]
-
-    for datapoint in dataset:
-        datapoint_features_only = datapoint[:-1]
-        distance_of_features = distance(datapoint_features_only, query)
-        # distances.append((distance_of_features, datapoint))
-        k_smallest_distances = add_to_smallest_distances(k_smallest_distances, distance_of_features, datapoint)
-
-    # distances.sort(key=lambda tup: tup[0])
-    # k_nearest = distances[:k]
-
-    return processing(k_smallest_distances)
-    # return processing(k_nearest)
+        return dist
 
 
-def knn_with_query_set(k, dataset, query_set):
-    results = []
-    for item in query_set:
-        results.append(knn(k, dataset, item))
-    return results
+    def process_for_regression(self, k_nearest):
+        y_sum = 0
+        for dist, features in k_nearest:
+            y_sum += features[-1]
+
+        average = y_sum / len(k_nearest)
+
+        return average
+
+    def process_for_classification(self, k_nearest):
+        """
+
+        :param k_nearest: a list of tuples where tuples are (distance, feature_vector)
+        :return: the class label with the majority votes for that class.
+        """
+        labels = {}
+        for dist, feature_vector in k_nearest:
+            classLabel = feature_vector[-1]
+            if classLabel not in labels:
+                labels[classLabel] = 1
+            else:
+                labels[classLabel] += 1
+        return max(labels, key=labels.get)
+
+
+    def add_to_smallest_distances(self, k_smallest_distances, distance_of_features, datapoint):
+        if distance_of_features <= k_smallest_distances[-1][0]:
+            k_smallest_distances[-1] = (distance_of_features, datapoint)
+            k_smallest_distances.sort(key=lambda tup: tup[0])
+
+        return k_smallest_distances
+
+
+    def learn(self, dataset, query):
+        # distances = []
+        k_smallest_distances = [(sys.maxsize, []) for x in range(self.k)]
+
+        for datapoint in dataset:
+            datapoint_features_only = datapoint[:-1]
+            distance_of_features = self.distance(datapoint_features_only, query)
+            # distances.append((distance_of_features, datapoint))
+            k_smallest_distances = self.add_to_smallest_distances(k_smallest_distances, distance_of_features, datapoint)
+
+        # distances.sort(key=lambda tup: tup[0])
+        # k_nearest = distances[:k]
+
+        if self.classification:
+            return self.process_for_classification(k_smallest_distances)
+        else:
+            return self.process_for_regression(k_smallest_distances)
+
+    def learn_many(self, dataset, query_set):
+        results = []
+        for item in query_set:
+            results.append(self.learn(dataset, item))
+        return results
 
 # </editor-fold>
 
@@ -100,6 +113,7 @@ def generate_validation_curves(x_axis_values, values_line_1, values_line_2, labe
 
 # </editor-fold>
 
+
 # <editor-fold desc="Procedure">
 def get_squared_error(predicted_value, item):
     actual_value = item[-1]
@@ -112,7 +126,8 @@ def calculate_mse(k, training_data, test_data):
     # for item in test_data:
     #     value = knn(k, training_data, item)
     #     squared_error.append(get_squared_error(value, item))
-    predictions = knn_with_query_set(k, training_data, test_data)
+    knn = Knn(k, classification=False)
+    predictions = knn.learn_many(training_data, test_data)
     for prediction, test_item in zip(predictions, test_data):
         squared_error.append(get_squared_error(prediction, test_item))
 
@@ -123,10 +138,10 @@ def calculate_mse(k, training_data, test_data):
     return mse
 
 
-def get_best_k_for_data():
+def get_best_k_for_data_mse(dataset):
     k_list = range(1, 11)
 
-    dataset = read_file()
+    # dataset = read_file()
     random.shuffle(dataset)
 
     two_thirds = 2 * int(math.floor(len(dataset)/3))
@@ -147,8 +162,8 @@ def get_best_k_for_data():
     return test_mse_list.index(min_error) + 1
 
 
-def learning_curves(k):
-    dataset = read_file()
+def learning_curves(k, dataset):
+    # dataset = read_file()
     random.shuffle(dataset)
 
     two_thirds = 2 * int(math.floor(len(dataset)/3))
@@ -197,8 +212,8 @@ def plot_normal_distribution(mu, sigma):
     plt.close()
 
 
-def cross_validation(k):
-    dataset = read_file()
+def cross_validation(k, dataset):
+    # dataset = read_file()
     random.shuffle(dataset)
 
     tenth_length = int(math.floor(len(dataset)/10))
@@ -246,12 +261,15 @@ def cross_validation(k):
 #
 # print distance(x1, y1)
 
-best_k = get_best_k_for_data()
+data = CustomCSVReader.read_file("data/machine.data.new.txt")
+
+
+best_k = get_best_k_for_data_mse(data)
 print(best_k)
 
-learning_curves(best_k)
+# learning_curves(best_k)
 
 
-cross_validation(2)
+# cross_validation(2)
 
 # </editor-fold>
