@@ -2,9 +2,9 @@
 import sys
 import pprint
 
-import CustomCSVReader
-import CrossValidation
-import Knn
+from customCsvReader import CustomCSVReader
+from CrossValidation import CrossValidation
+from knn import Knn
 # import CondensedKnn
 
 
@@ -20,7 +20,7 @@ def run_experiment(data_set_path, k_nearest, learner, classification, fraction_o
 
     Finally, I print all information needed in a human readable way.
     """
-    print("Running {0} Experiment with k clusters = {1}".format(data_set_path, k_nearest))
+    print("Running {0} Experiment with k nearest = {1}".format(data_set_path, k_nearest))
     all_data = CustomCSVReader.read_file(data_set_path, data_type)
     # feature_selection_data = all_data[:int(len(all_data)/fraction_of_data_used)]
     # feature_length = len(all_data[0]) - 1
@@ -28,9 +28,11 @@ def run_experiment(data_set_path, k_nearest, learner, classification, fraction_o
 
     # For algorithms knn Cross Validation
     cv = CrossValidation(5, learner, classification)
-    average_error = cv.cross_validation(all_data)
+    average_mse = cv.cross_validation_regression(all_data)
 
-    print(average_error)
+    print("Average MSE: {}".format(average_mse[0]))
+    print("Standard Deviation: {}".format(average_mse[1]))
+    print(average_mse)
 
     # print("The Final Selected Features are: (features are zero indexed) ")
     # print("{}\n".format(selected_features))
@@ -41,10 +43,25 @@ def run_experiment(data_set_path, k_nearest, learner, classification, fraction_o
     # print("For Clustered points, the key in the dictionary represents the cluster each data point belongs to. ")
     # print("Clustered points: ")
     # pp.pprint(data_clusters)
+
+def run_classification_experiment(data_set_path, k_nearest, learner, classification, fraction_of_data_used=1, data_type=float):
+    print("Running {0} Experiment with k nearest = {1}".format(data_set_path, k_nearest))
+    all_data = CustomCSVReader.read_file(data_set_path, data_type)
+
+    cv = CrossValidation(5, learner, classification)
+    average_error_rate = cv.cross_validation_classification(all_data)
+
+    print("Average Error Rate: {}".format(average_error_rate[0]))
+    print("Standard Deviation: {}".format(average_error_rate[1]))
+    print(average_error_rate)
+
 # </editor-fold>
 
 
 
 # KMeans experiments
 # sys.stdout = open('results/SFS-Kmeans-iris-results.txt', 'w')
-run_experiment("data/machine.data.new.txt", 3, Knn(3), False)
+run_experiment("data/machine.data.new.txt", 2, Knn(2), False)
+print()
+
+# run_classification_experiment("data/ecoli.data.new.txt", 6, Knn(6), False)
