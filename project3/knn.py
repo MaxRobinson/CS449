@@ -22,6 +22,12 @@ class Knn:
 
     # <editor-fold desc="Learn">
     def learn(self, dataset, query):
+        """
+
+        :param dataset:
+        :param query:
+        :return:
+        """
         # distances = []
         k_smallest_distances = [(sys.maxsize, []) for x in range(self.k)]
 
@@ -40,6 +46,12 @@ class Knn:
             return self.process_for_regression(k_smallest_distances)
 
     def test(self, dataset, query_set):
+        """
+
+        :param dataset:
+        :param query_set:
+        :return:
+        """
         results = []
         for item in query_set:
             results.append(self.learn(dataset, item))
@@ -49,6 +61,13 @@ class Knn:
 
     # <editor-fold desc="Helpers">
     def add_to_smallest_distances(self, k_smallest_distances, distance_of_features, datapoint):
+        """
+
+        :param k_smallest_distances:
+        :param distance_of_features:
+        :param datapoint:
+        :return:
+        """
         if distance_of_features <= k_smallest_distances[-1][0]:
             k_smallest_distances[-1] = (distance_of_features, datapoint)
             k_smallest_distances.sort(key=lambda tup: tup[0])
@@ -56,6 +75,13 @@ class Knn:
         return k_smallest_distances
 
     def distance(self, datapoint, query):
+        """
+        Calculates the Euclidean distance between a datapoint in the training set and a query point.
+
+        :param datapoint: A feature Vector that is a datapoint in the training data
+        :param query:
+        :return:
+        """
         dist_sum = 0
         for datapoint_feature, query_feature in zip(datapoint, query):
             dist_sum += self.feature_distance(datapoint_feature, query_feature)
@@ -74,8 +100,8 @@ class Knn:
     def process_for_regression(self, k_nearest):
         """
 
-        :param k_nearest:
-        :return:
+        :param k_nearest: a list of tuples where tuples are (distance, feature_vector)
+        :return: the average value of the k nearest neighbors.
         """
         y_sum = 0
         for dist, features in k_nearest:
