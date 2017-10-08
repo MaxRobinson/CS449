@@ -31,6 +31,8 @@ class CrossValidation:
 
             # mse_list.append(self.calculate_mse(self.learner, training_set, test_set))
             mse = self.calculate_mse(self.learner, training_set, test_set)
+
+            # Store results
             mse_list.append(mse[0])
             predictions.append(mse[1])
             actuals.append(mse[2])
@@ -38,8 +40,6 @@ class CrossValidation:
         average_mse = sum(mse_list) / len(mse_list)
         sd = self.calc_standard_deviation(average_mse, mse_list)
 
-        # print("Average MSE: {}".format(average_mse))
-        # print("Standard Deviation: {}".format(sd))
         return (average_mse, sd, predictions, actuals)
 
     def cross_validation_classification(self, dataset):
@@ -48,9 +48,6 @@ class CrossValidation:
         fold_length = int(math.floor(len(dataset)/self.folds))
 
         cross_validation_dataset = self.get_stratified_data(dataset, fold_length, self.folds)
-        # cross_validation_dataset = []
-        # for i in range(0, len(dataset), fold_length):
-        #     cross_validation_dataset.append(dataset[i:i + fold_length])
 
         # run cross validation
         error_list = []
@@ -64,6 +61,8 @@ class CrossValidation:
 
             # calculate the error rate for the test set with the training set
             error_rate = self.calculate_error_rate(self.learner, training_set, test_set)
+
+            # Store results
             error_list.append(error_rate[0])
             predictions.append(error_rate[1])
             actuals.append(error_rate[2])
@@ -80,10 +79,7 @@ class CrossValidation:
 
         fold_length = int(math.floor(len(dataset) / self.folds))
 
-        # cross_validation_dataset = self.getStratifiedData(dataset, fold_length)
-        cross_validation_dataset = []
-        for i in range(0, len(dataset), fold_length):
-            cross_validation_dataset.append(dataset[i:i + fold_length])
+        cross_validation_dataset = self.get_stratified_data(dataset, fold_length, self.folds)
 
         # run cross validation
         error_list = []
@@ -102,6 +98,8 @@ class CrossValidation:
 
             # calculate the error rate on the condensed set
             error_rate = self.calculate_error_rate(self.learner, condensed_dataset, test_set)
+
+            # Store results
             error_list.append(error_rate[0])
             predictions.append(error_rate[1])
             actuals.append(error_rate[2])
@@ -114,9 +112,6 @@ class CrossValidation:
 
     def calculate_mse(self, learner, training_data, test_data):
         squared_error = []
-        # for item in test_data:
-        #     value = knn(k, training_data, item)
-        #     squared_error.append(get_squared_error(value, item))
         predictions = learner.test(training_data, test_data)
         actual = []
 
@@ -158,7 +153,6 @@ class CrossValidation:
         error_rate = num_errors / len(predictions)
         return (error_rate, predictions, actuals)
 
-
     def get_stratified_data(self, dataset, fold_length, num_folds):
         # for all data
         unique_labels = {}
@@ -183,9 +177,6 @@ class CrossValidation:
             fold_data_set.append(single_fold)
 
         return fold_data_set
-
-
-
 
     def build_single_fold(self, distribution, labeled_datapoints, fold_length):
         # build a single fold
