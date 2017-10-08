@@ -36,6 +36,8 @@ def run_experiment_regression(data_set_path, k_nearest, learner, data_type=float
     for predicted, actual in zip(cv_predicted_values[4], cv_actual_values[4]):
         print("{0}, {1}".format(predicted, actual))
 
+    return average_mse[0]
+
 
 def run_classification_experiment(data_set_path, k_nearest, learner, data_type=float):
     """
@@ -60,6 +62,8 @@ def run_classification_experiment(data_set_path, k_nearest, learner, data_type=f
     cv_actual_values = average_error_rate[3]
     for predicted, actual in zip(cv_predicted_values[4], cv_actual_values[4]):
         print("{0}, {1}".format(predicted, actual))
+
+    return average_error_rate[0]
 
 
 def run_classification_experiment_condensed(data_set_path, k_nearest, learner, condenser, data_type=float):
@@ -92,6 +96,7 @@ def run_classification_experiment_condensed(data_set_path, k_nearest, learner, c
     for predicted, actual in zip(cv_predicted_values[4], cv_actual_values[4]):
         print("{0}, {1}".format(predicted, actual))
 
+    return average_error_rate[0]
 
 # </editor-fold>
 
@@ -110,11 +115,11 @@ def run_classification_experiment_condensed(data_set_path, k_nearest, learner, c
 # run_classification_experiment("data/ecoli.data.new.txt", 6, Knn(6))
 #
 # sys.stdout = open('results/knn-segmentation-results.txt', 'w')
-run_classification_experiment("data/segmentation.data.new.txt", 3, Knn(3))
+# run_classification_experiment("data/segmentation.data.new.txt", 3, Knn(3))
 
 # Condensed KNN
 # sys.stdout = open('results/condensed-knn-ecoli-results.txt', 'w')
-# run_classification_experiment_condensed("data/ecoli.data.new.txt", 7, Knn(7), CondensedNN())
+# run_classification_experiment_condensed("data/ecoli.data.new.txt", 6, Knn(6), CondensedNN())
 #
 # sys.stdout = open('results/condensed-knn-segmentation-results.txt', 'w')
 # run_classification_experiment_condensed("data/segmentation.data.new.txt", 3, Knn(3), CondensedNN())
