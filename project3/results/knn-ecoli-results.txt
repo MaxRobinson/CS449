@@ -1,4 +1,4 @@
-Running data/ecoli.data.new.txt Experiment with k nearest = 8
+Running data/ecoli.data.new.txt Experiment with k nearest = 6
 Average Error Rate: 0.12903225806451613
 Standard Deviation: 0.01442624501612768
 Last Cross Validation Set Predicted Values: 

@@ -116,14 +116,14 @@ run_experiment_regression("data/forestfires.data.new.txt", 10, Knn(10))
 
 # Classification
 sys.stdout = open('results/knn-ecoli-results.txt', 'w')
-run_classification_experiment("data/ecoli.data.new.txt", 8, Knn(8))
+run_classification_experiment("data/ecoli.data.new.txt", 6, Knn(6))
 
 sys.stdout = open('results/knn-segmentation-results.txt', 'w')
 run_classification_experiment("data/segmentation.data.new.txt", 1, Knn(1))
 
 # Condensed KNN
 sys.stdout = open('results/condensed-knn-ecoli-results.txt', 'w')
-run_classification_experiment_condensed("data/ecoli.data.new.txt", 6, Knn(6), CondensedNN())
+run_classification_experiment_condensed("data/ecoli.data.new.txt", 8, Knn(8), CondensedNN())
 
 sys.stdout = open('results/condensed-knn-segmentation-results.txt', 'w')
 run_classification_experiment_condensed("data/segmentation.data.new.txt", 1, Knn(1), CondensedNN())
