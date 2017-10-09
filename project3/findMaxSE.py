@@ -4,10 +4,10 @@ import sys
 from customCsvReader import CustomCSVReader
 
 
-def feature_distance(datapoint_feature, query_feature):
-    feature_diff = datapoint_feature - query_feature
-    feature_diff *= feature_diff
-    return feature_diff
+"""
+This file was used to calculate the Max MSE that exists in the data sets for comparison of how well
+the k-NN regression algorithm did when comparing MSE
+"""
 
 def distance(datapoint, query):
     """
@@ -33,7 +33,6 @@ max_dist_points = ()
 for datapoint_i in all_data:
     for datapoint_j in all_data:
         dist = (datapoint_i[-1] - datapoint_j[-1])**2
-        # dist = distance(datapoint_i[:-1], datapoint_j[:-1])
         if dist > max_distance:
             max_distance = dist
             max_dist_points = (datapoint_i, datapoint_j)
