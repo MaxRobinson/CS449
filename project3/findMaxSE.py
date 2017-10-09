@@ -3,27 +3,10 @@ import math
 import sys
 from customCsvReader import CustomCSVReader
 
-
 """
 This file was used to calculate the Max MSE that exists in the data sets for comparison of how well
 the k-NN regression algorithm did when comparing MSE
 """
-
-def distance(datapoint, query):
-    """
-    Calculates the Euclidean distance between a datapoint in the training set and a query point.
-
-    :param datapoint: A feature Vector that is a datapoint in the training data
-    :param query:
-    :return:
-    """
-    dist_sum = 0
-    for datapoint_feature, query_feature in zip(datapoint, query):
-        dist_sum += feature_distance(datapoint_feature, query_feature)
-
-    dist = math.sqrt(dist_sum)
-
-    return dist
 
 all_data = CustomCSVReader.read_file("D:\\Documents\\JHU-Masters\\605.449 Intro to Machine Learning\\projects\\project3\\data\\machine.data.new.txt", float)
 # all_data = CustomCSVReader.read_file("D:\\Documents\\JHU-Masters\\605.449 Intro to Machine Learning\\projects\\project3\\data\\forestfires.data.new.txt", float)
