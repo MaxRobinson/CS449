@@ -15,8 +15,8 @@ def run_experiment_regression(data_set_path, k_nearest, learner, data_type=float
 
     Works by reading in the data, trainnig and test data.
 
-    Creates the GA and pass the needed data to it. It returns a list of selected features.
-    The mean is then retrieved for those features, and we cluster all of the data based on the means
+    Creates the Cross validation objects with the correct k-NN algorithm (classification k-NN)
+    Then runs the cross validation and gets the outputs from the cross validation
 
     Finally, I print all information needed in a human readable way.
     """
@@ -41,12 +41,14 @@ def run_experiment_regression(data_set_path, k_nearest, learner, data_type=float
 
 def run_classification_experiment(data_set_path, k_nearest, learner, data_type=float):
     """
+    The main work horse for running the experiments and output the approriate information into a file
 
-    :param data_set_path:
-    :param k_nearest:
-    :param learner:
-    :param data_type:
-    :return:
+    Works by reading in the data, trainnig and test data.
+
+    Creates the Cross validation objects with the correct k-NN algorithm (classification k-NN)
+    Then runs the cross validation (classificaiton) and gets the outputs from the cross validation
+
+    Finally, I print all information needed in a human readable way.
     """
     print("Running {0} Experiment with k nearest = {1}".format(data_set_path, k_nearest))
     all_data = CustomCSVReader.read_file(data_set_path, data_type)
@@ -68,12 +70,14 @@ def run_classification_experiment(data_set_path, k_nearest, learner, data_type=f
 
 def run_classification_experiment_condensed(data_set_path, k_nearest, learner, condenser, data_type=float):
     """
+    The main work horse for running the experiments and output the approriate information into a file
 
-    :param data_set_path:
-    :param k_nearest:
-    :param learner:
-    :param data_type:
-    :return:
+    Works by reading in the data, trainnig and test data.
+
+    Creates the Cross validation objects with the correct k-NN algorithm (condensed k-NN)
+    Then runs the cross validation (condensed) and gets the outputs from the cross validation
+
+    Finally, I print all information needed in a human readable way.
     """
     print("Running {0} Experiment with k nearest = {1}".format(data_set_path, k_nearest))
     all_data = CustomCSVReader.read_file(data_set_path, data_type)
@@ -103,23 +107,23 @@ def run_classification_experiment_condensed(data_set_path, k_nearest, learner, c
 
 
 # KNN & Condensed KNN experiments
-# sys.stdout = open('results/knn-machine-results.txt', 'w')
-# run_experiment_regression("data/machine.data.new.txt", 2, Knn(2))
+sys.stdout = open('results/knn-machine-results.txt', 'w')
+run_experiment_regression("data/machine.data.new.txt", 2, Knn(2))
 
-# sys.stdout = open('results/knn-forestfires-results.txt', 'w')
-# run_experiment_regression("data/forestfires.data.new.txt", 2, Knn(2))
+sys.stdout = open('results/knn-forestfires-results.txt', 'w')
+run_experiment_regression("data/forestfires.data.new.txt", 10, Knn(10))
 
 
-# # Classification
-# sys.stdout = open('results/knn-ecoli-results.txt', 'w')
-# run_classification_experiment("data/ecoli.data.new.txt", 6, Knn(6))
-#
-# sys.stdout = open('results/knn-segmentation-results.txt', 'w')
-# run_classification_experiment("data/segmentation.data.new.txt", 3, Knn(3))
+# Classification
+sys.stdout = open('results/knn-ecoli-results.txt', 'w')
+run_classification_experiment("data/ecoli.data.new.txt", 8, Knn(8))
+
+sys.stdout = open('results/knn-segmentation-results.txt', 'w')
+run_classification_experiment("data/segmentation.data.new.txt", 1, Knn(1))
 
 # Condensed KNN
-# sys.stdout = open('results/condensed-knn-ecoli-results.txt', 'w')
-# run_classification_experiment_condensed("data/ecoli.data.new.txt", 6, Knn(6), CondensedNN())
-#
-# sys.stdout = open('results/condensed-knn-segmentation-results.txt', 'w')
-# run_classification_experiment_condensed("data/segmentation.data.new.txt", 3, Knn(3), CondensedNN())
+sys.stdout = open('results/condensed-knn-ecoli-results.txt', 'w')
+run_classification_experiment_condensed("data/ecoli.data.new.txt", 6, Knn(6), CondensedNN())
+
+sys.stdout = open('results/condensed-knn-segmentation-results.txt', 'w')
+run_classification_experiment_condensed("data/segmentation.data.new.txt", 1, Knn(1), CondensedNN())
