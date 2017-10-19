@@ -1,0 +1,23 @@
+Machine
+
+1285956.0
+
+4225.461914368932
+
+.00328585  -> proportion of max distance off
+--------------
+
+1308736.0   -> largest squared error in the data set
+
+0.0038681 --> proportion of max error in dataset 
+
+ 
+----------------------------
+Forest 
+
+1189931.9055999997 -> largest squared error
+
+0.0035510115 -> percent of largest error
+
+
+ 
