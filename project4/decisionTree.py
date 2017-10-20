@@ -4,12 +4,25 @@ import math
 import copy
 import random
 
+import matplotlib.pyplot as plt
+import networkx as nx
+# from networkx.drawing.nx_agraph import graphviz_layout
+
 from customCsvReader import CustomCSVReader
 
 class Node:
-    def __init__(self, attribute_name):
+    def __init__(self, parent, decision=None, attribute_name=None, class_label=None, is_terminal=False):
+        self.parent = parent
         self.children = []
         self.attribute = attribute_name
+        self.class_label = class_label
+        self.decision = decision
+        self.is_terminal = is_terminal
+
+        if is_terminal:
+            self.attribute = None
+        else:
+            self.class_label = None
         # self.majority_label = majority_label
 
     def set_children(self, children):
@@ -21,11 +34,21 @@ class Node:
     def get_attribute(self):
         return self.attribute
 
+    def get_is_terminal(self):
+        return self.is_terminal
+
+    def set_parent(self, parent):
+        self.parent = parent
+
+    def set_decision(self, decision):
+        self.decision = decision
+
 
 class ID3:
     def __init(self):
         self.attribute_domains = {}
         self.label_index = -1
+        self.possible_classes = set()
 
 
     # <editor-fold desc="Init Data">
@@ -45,6 +68,13 @@ class ID3:
 
         return attributes
 
+    def create_possible_class_list(self, dataset: list) -> set:
+        classes = set()
+
+        for datapoint in dataset:
+            classes.add(datapoint[-1])
+
+        return classes
 
     # def attributes_domains(self):
     #     return {
@@ -88,30 +118,31 @@ class ID3:
             'domain': domain
         }
 
-    def get_domain(self, attribute):
-        attributes = self.attributes_domains()
-        return attributes[attribute]
+    # def get_domain(self, attribute):
+    #     attributes = self.attributes_domains()
+    #     return attributes[attribute]
     # </editor-fold>
 
     # <editor-fold desc="ID3">
     def learn(self, training_data):
         attributes = self.create_attributes_domains(training_data)
+        self.possible_classes = self.create_possible_class_list(training_data)
+
         return self.id3(training_data, attributes, "")
 
-
-    def id3(self, data, attributes, default):
+    def id3(self, data, attributes, default, parent=None):
         if len(data) == 0:
-            return default
+            return Node(parent, class_label=default, is_terminal=True)
 
         if self.is_homogeneous(data):
-            return data[0][-1]
+            return Node(parent, class_label=data[0][-1], is_terminal=True)
 
         if len(attributes) == 0:
-            self.majority_label(data)
+            return Node(parent, class_label=self.majority_label(data), is_terminal=True)
 
         best_attr_name = self.pick_best_attribute(data, attributes)
 
-        node = Node(best_attr_name)
+        node = Node(parent, attribute_name=best_attr_name)
         default_label = self.majority_label(data)
 
         for domain_value in attributes[best_attr_name]:
@@ -119,9 +150,12 @@ class ID3:
             subset = copy.deepcopy(subset)
             attributes_copy = copy.deepcopy(attributes)
             del attributes_copy[best_attr_name]
+            # child = self.id3(subset, attributes_copy, default_label, node)
+            # child.set_decision(domain_value)
             child = self.id3(subset, attributes_copy, default_label)
             child_dict = {"decision": domain_value, "child": child, "parent": node}
             node.add_child(child_dict)
+            node.add_child(child)
 
         return node
 
@@ -130,6 +164,7 @@ class ID3:
         information_gained = {}
         for attribute_name, domain in attributes.items():
             attribute = self.create_attribute(attribute_name, domain)
+            # information_gain = self.get_information_gain(data, attribute_name, domain)
             information_gain = self.get_information_gain(data, attribute)
             information_gained[attribute_name] = information_gain
 
@@ -176,7 +211,7 @@ class ID3:
     def get_label_count(self, records, label):
         count = 0
         for record in records:
-            if record['label'] == label:
+            if record[-1] == label:
                 count += 1
         return count
 
@@ -198,20 +233,20 @@ class ID3:
         for domain in domains:
             domain_data = self.get_data_for_domain(data, attribute['attribute_name'], domain)
             if len(domain_data) > 0:
-                # TODO -> Generalize to n possible classes
-                positive_count = self.get_label_count(domain_data, self.get_positive_label())
-                negative_count = self.get_label_count(domain_data, self.get_negative_label())
-                e_a = self.entropy(positive_count, negative_count, positive_count + negative_count)
+                e_a = self.total_entropy(self.possible_classes, domain_data)
                 domain_with_proportion = {'domain_data_count': len(domain_data), 'domain_entropy': e_a}
                 domain_entropy.append(domain_with_proportion)
 
         # weighted_entropy  = sum([(x['domain_data_count']/len(data) * x['domain_entropy']) for x in domain_entropy])
         weighted_entropy = self.calculate_weighted_entropy(domain_entropy, len(data))
 
-        positive_count = self.get_label_count(data, self.get_positive_label())
-        negative_count = self.get_label_count(data, self.get_negative_label())
+        # positive_count = self.get_label_count(data, self.get_positive_label())
+        # negative_count = self.get_label_count(data, self.get_negative_label())
+        clazz_entropy = []
+        for clazz in self.possible_classes:
+            clazz_entropy.append(self.get_label_count(data, clazz))
 
-        curr_entropy = self.entropy(positive_count, negative_count, len(data))
+        curr_entropy = self.sum_entropy(clazz_entropy, len(data))
 
         info_gain = curr_entropy - weighted_entropy
 
@@ -224,16 +259,35 @@ class ID3:
             weighted_entropy += weighted_sum
         return weighted_entropy
 
-    def entropy(self, x, y, size):
+    def total_entropy(self, list_of_classes, domain_data) -> float:
+        entropy_sum = 0.0
+        for clazz in list_of_classes:
+            count = self.get_label_count(domain_data, clazz)
+            single_entropy = self.entropy(count, len(domain_data))
+            entropy_sum += single_entropy
+
+        return entropy_sum
+
+    def sum_entropy(self, counts: list, total_length) -> float:
+        entropy_sum = 0.0
+        for count in counts:
+            entropy_sum += self.entropy(count, total_length)
+
+        return entropy_sum
+
+
+    # TODO: make this generic for n number of classes
+    def entropy(self, x, size):
         part_1 = 0
-        part_2 = 0
+        # part_2 = 0
         if x/size > 0:
             part_1 = -1 * x/size * math.log(x/size, 2)
 
-        if y/size > 0:
-            part_2 = -1 * y/size * math.log(y/size, 2)
-
-        return part_1 + part_2
+        # if y/size > 0:
+        #     part_2 = -1 * y/size * math.log(y/size, 2)
+        #
+        # return part_1 + part_2
+        return part_1
 
     # </editor-fold>
 
@@ -292,6 +346,9 @@ class ID3:
                     node['parent_id'] = node_id
                 frontier += children_to_add
 
+            # if current_node.get_is_terminal():
+            #     node_value = current_node.get
+
             if isinstance(current_node, dict):
                 node_value = current_node['child']
 
@@ -318,26 +375,26 @@ class ID3:
         return graph
 
 
-    # def view(tree):
-    #     graph = nx.DiGraph()
-    #     graph = add_nodes_to_graph(tree, graph)
-    #
-    #     pos = nx.spring_layout(graph)
-    #     nx.draw(graph, pos, arrows=False)
-    #
-    #     edge_labels = dict([((u,v,),d['title']) for u,v,d in graph.edges(data=True)])
-    #     node_labels = dict([(u, d['title']) for u,d in graph.nodes(data=True)])
-    #
-    #     nx.draw_networkx_edge_labels(graph, pos, edge_labels=edge_labels)
-    #     nx.draw_networkx_labels(graph, pos, labels=node_labels)
-    #
-    #     plt.show()
-    #     #
-    #     # dot = Digraph()
-    #     # dot = add_nodes_to_graph(tree, dot)
-    #     # return dot
-    #
-    #
+    def view(self, tree):
+        graph = nx.DiGraph()
+        graph = self.add_nodes_to_graph(tree, graph)
+
+        pos = nx.spring_layout(graph)
+        nx.draw(graph, pos, arrows=False)
+
+        edge_labels = dict([((u,v,),d['title']) for u,v,d in graph.edges(data=True)])
+        node_labels = dict([(u, d['title']) for u,d in graph.nodes(data=True)])
+
+        nx.draw_networkx_edge_labels(graph, pos, edge_labels=edge_labels)
+        nx.draw_networkx_labels(graph, pos, labels=node_labels)
+
+        plt.show()
+        #
+        # dot = Digraph()
+        # dot = add_nodes_to_graph(tree, dot)
+        # return dot
+
+
 
     # </editor-fold>
 
@@ -403,6 +460,11 @@ id3 = ID3()
 attributes = id3.create_attributes_domains(data)
 
 print(attributes)
+
+model = id3.learn(data)
+print(model)
+
+# id3.view(model)
 # tree_1 = id3(set_1, attributes_domains(), 'e')
 
 
