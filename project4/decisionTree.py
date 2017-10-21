@@ -307,24 +307,27 @@ class ID3:
 
         return classifications
 
-    def get_classification(self, node, record):
-        actual_node = None
-        if isinstance(node, Node):
-            actual_node = node
-        elif isinstance(node, dict) and 'child' in node:
-            actual_node = node['child']
+    def get_classification(self, node: Node, record):
 
-        if isinstance(actual_node, str):
-            return actual_node
+        # if isinstance(node, Node):
+        #     actual_node = node
+        # elif isinstance(node, dict) and 'child' in node:
+        #     actual_node = node['child']
+        #
+        # if isinstance(actual_node, str):
+        #     return actual_node
+        if node.get_is_terminal():
+            return node.class_label
 
-        if isinstance(actual_node, Node):
-            value = record[actual_node.attribute]
+        # if isinstance(node, Node):
+        else:
+            value = record[node.attribute]
 
-            next_nodes = [x['decision'] for x in actual_node.children]
+            next_nodes = [x.get_decision() for x in node.children]
 
             if value in next_nodes:
                 next_node_index = next_nodes.index(value)
-                next_node = actual_node.children[next_node_index]
+                next_node = node.children[next_node_index]
                 return self.get_classification(next_node, record)
         return "ERROR"
     # </editor-fold>
@@ -358,33 +361,6 @@ class ID3:
                     node.parent_id = node_id
                 frontier += children_to_add
 
-            # if current_node.get_is_terminal():
-            #     node_value = current_node.get
-
-
-            # if isinstance(current_node, dict):
-            #     node_value = current_node['child']
-            #
-            #     if isinstance(node_value, Node):
-            #         node_id += 1
-            #         graph.add_node(node_id, title=node_value.attribute)
-            #         graph.add_edge(current_node['parent_id'], node_id, title=current_node['decision'])
-            #         # graph.node(str(node_id), node_value.attribute)
-            #         # graph.edge(str(current_node['parent_id']), str(node_id), label=current_node['decision'])
-            #         explored.append(node_value.attribute)
-            #         children_to_add = copy.deepcopy(node_value.children)
-            #         for node in children_to_add:
-            #             node['parent_id'] = node_id
-            #         frontier += children_to_add
-            #     if isinstance(node_value, str):
-            #         # node_id = uuid.uuid4()
-            #         node_id += 1
-            #         graph.add_node(node_id, title=node_value)
-            #         graph.add_edge(current_node['parent_id'], node_id, title=current_node['decision'])
-            #         # graph.node(str(node_id), node_value)
-            #         # graph.edge(str(current_node['parent_id']), str(node_id), label=current_node['decision'])
-            #         explored.append(node_value)
-
         return graph
 
 
@@ -411,6 +387,19 @@ class ID3:
 
     # </editor-fold>
 
+
+# <editor-fold desc="Evaluate">
+
+
+def evaluate(test_data, classifications):
+    number_of_errors = 0
+    for record, classification in zip(test_data, classifications):
+        if record[-1] != classification:
+            number_of_errors += 1
+
+    return number_of_errors/len(test_data)
+
+# </editor-fold>
 
 
 # <editor-fold desc="Tests Old">
@@ -470,17 +459,22 @@ data = reader.read_file('data/car.data.txt', str)
 # path = 'data/agaricus-lepiota.data'
 # data = reader.read_file('data/agaricus-lepiota.data', str)
 
+random.shuffle(data)
+
+half_way = int(math.floor(len(data)/3)) * 2
+set_1 = data[:half_way]
+set_2 = data[half_way:]
+
 id3 = ID3()
 
-attributes = id3.create_attributes_domains(data)
+tree_1 = id3.learn(set_1)
 
-print(attributes)
+# dot = id3.view(model)
+# dot.render('test2', view=True)
 
-model = id3.learn(data)
-print(model)
-
-dot = id3.view(model)
-dot.render('test2', view=True)
-
+# evaluate
+c2 = id3.classify(tree_1, set_2)
+evaluation = evaluate(set_2, c2)
+print("Error Rate = {}".format(evaluation))
 
 
