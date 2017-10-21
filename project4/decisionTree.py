@@ -467,6 +467,8 @@ class ID3:
 
 reader = CustomCSVReader()
 data = reader.read_file('data/car.data.txt', str)
+# path = 'data/agaricus-lepiota.data'
+# data = reader.read_file('data/agaricus-lepiota.data', str)
 
 id3 = ID3()
 
