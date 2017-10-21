@@ -3,15 +3,18 @@ from __future__ import division
 import math
 import copy
 import random
-
-import matplotlib.pyplot as plt
-import networkx as nx
+from typing import Dict, Tuple, List
 from graphviz import Digraph
-# from networkx.drawing.nx_agraph import graphviz_layout
+# import matplotlib.pyplot as plt
+# import networkx as nx
 
 from customCsvReader import CustomCSVReader
 
+
 class Node:
+    """
+    This class represents values in the Decision tree, both leaf nodes and inner nodes.
+    """
     def __init__(self, parent, decision=None, attribute_name=None, class_label=None, is_terminal=False):
         self.parent = parent
         self.parent_id = None
@@ -25,7 +28,6 @@ class Node:
             self.attribute = None
         else:
             self.class_label = None
-        # self.majority_label = majority_label
 
     def set_children(self, children):
         self.children = children
@@ -51,13 +53,21 @@ class Node:
 
 class ID3:
     def __init(self):
+        """
+        Constructor. Init's class values.
+        :return:
+        """
         self.attribute_domains = {}
         self.label_index = -1
         self.possible_classes = set()
 
-
     # <editor-fold desc="Init Data">
     def create_attributes_domains(self, dataset: list) -> dict:
+        """
+
+        :param dataset:
+        :return:
+        """
         attributes = {}
 
         for datapoint in dataset:
@@ -74,6 +84,11 @@ class ID3:
         return attributes
 
     def create_possible_class_list(self, dataset: list) -> set:
+        """
+
+        :param dataset:
+        :return:
+        """
         classes = set()
 
         for datapoint in dataset:
@@ -81,61 +96,40 @@ class ID3:
 
         return classes
 
-    # def attributes_domains(self):
-    #     return {
-    #         'label': ['e', 'p', '?'],
-    #         'cap-shape': ['b', 'c', 'x', 'f', 'k', 's', '?'],
-    #         'cap-surface': ['f', 'g', 'y', 's', '?'],
-    #         'cap-color': ['n', 'b', 'c', 'g', 'r', 'p', 'u', 'e', 'w', 'y', '?'],
-    #         'bruises?': ['t', 'f', '?'],
-    #         'odor': ['a', 'l', 'c', 'y', 'f', 'm', 'n', 'p', 's', '?'],
-    #         'gill-attachment': ['a', 'd', 'f', 'n', '?'],
-    #         'gill-spacing': ['c', 'w', 'd', '?'],
-    #         'gill-size': ['b', 'n', '?'],
-    #         'gill-color': ['k', 'n', 'b', 'h', 'g', 'r', 'o', 'p', 'u', 'e', 'w', 'y', '?'],
-    #         'stalk-shape': ['e', 't', '?'],
-    #         'salk-root': ['b', 'c', 'u', 'e', 'z', 'r', '?'],
-    #         'stalk-surface-above-ring': ['f', 'y', 'k', 's', '?'],
-    #         'stalk-surface-below-ring': ['f', 'y', 'k', 's', '?'],
-    #         'stalk-color-above-ring': ['n', 'b', 'c', 'g', 'o', 'p', 'e', 'w', 'y', '?'],
-    #         'stalk-color-below-ring': ['n', 'b', 'c', 'g', 'o', 'p', 'e', 'w', 'y', '?'],
-    #         'veil-type': ['p', 'u', '?'],
-    #         'veil-color': ['n', 'o', 'w', 'y', '?'],
-    #         'ring-number': ['n', 'o', 't', '?'],
-    #         'ring-type': ['c', 'e', 'f', 'l', 'n', 'p', 's', 'z', '?'],
-    #         'spore-print-color': ['k', 'n', 'b', 'h', 'r', 'o', 'u', 'w', 'y', '?'],
-    #         'population': ['a', 'c', 'n', 's', 'v', 'y', '?'],
-    #         'habitat': ['g', 'l', 'm', 'p', 'u', 'w', 'd', '?'],
-    #     }
-
-
-    def get_positive_label(self):
-        return 'e'
-
-
-    def get_negative_label(self):
-        return 'p'
-
-
     def create_attribute(self, attribute_name, domain):
+        """
+
+        :param attribute_name:
+        :param domain:
+        :return:
+        """
         return {
             'attribute_name': attribute_name,
             'domain': domain
         }
-
-    # def get_domain(self, attribute):
-    #     attributes = self.attributes_domains()
-    #     return attributes[attribute]
     # </editor-fold>
 
     # <editor-fold desc="ID3">
-    def learn(self, training_data):
+    def learn(self, training_data: List[list]):
+        """
+
+        :param training_data:
+        :return:
+        """
         attributes = self.create_attributes_domains(training_data)
         self.possible_classes = self.create_possible_class_list(training_data)
 
         return self.id3(training_data, attributes, "")
 
-    def id3(self, data, attributes, default, parent=None):
+    def id3(self, data: List[list], attributes: Dict, default: str, parent: Node=None):
+        """
+
+        :param data:
+        :param attributes:
+        :param default:
+        :param parent:
+        :return:
+        """
         if len(data) == 0:
             return Node(parent, class_label=default, is_terminal=True)
 
@@ -161,8 +155,13 @@ class ID3:
 
         return node
 
-    # ToDo: Test Me!
-    def pick_best_attribute(self, data: list, attributes: dict):
+    def pick_best_attribute(self, data: List[list], attributes: dict):
+        """
+
+        :param data:
+        :param attributes:
+        :return:
+        """
         information_gained = {}
         for attribute_name, domain in attributes.items():
             attribute = self.create_attribute(attribute_name, domain)
@@ -174,7 +173,7 @@ class ID3:
 
         return max_attribute_tuple[0]
 
-    def is_homogeneous(self, records: list) -> bool:
+    def is_homogeneous(self, records: List[list]) -> bool:
         """
 
         :param records:
@@ -228,7 +227,6 @@ class ID3:
     # </editor-fold>
 
     # <editor-fold desc="Information Gain">
-    # ToDo: Test Me!
     def get_information_gain(self, data, attribute):
         domains = attribute['domain']
         domain_entropy = []
@@ -239,11 +237,8 @@ class ID3:
                 domain_with_proportion = {'domain_data_count': len(domain_data), 'domain_entropy': e_a}
                 domain_entropy.append(domain_with_proportion)
 
-        # weighted_entropy  = sum([(x['domain_data_count']/len(data) * x['domain_entropy']) for x in domain_entropy])
         weighted_entropy = self.calculate_weighted_entropy(domain_entropy, len(data))
 
-        # positive_count = self.get_label_count(data, self.get_positive_label())
-        # negative_count = self.get_label_count(data, self.get_negative_label())
         clazz_entropy = []
         for clazz in self.possible_classes:
             clazz_entropy.append(self.get_label_count(data, clazz))
@@ -255,6 +250,12 @@ class ID3:
         return info_gain
 
     def calculate_weighted_entropy(self, domain_entropies, total_data_length):
+        """
+
+        :param domain_entropies:
+        :param total_data_length:
+        :return:
+        """
         weighted_entropy = 0
         for domain_info in domain_entropies:
             weighted_sum = domain_info['domain_data_count']/total_data_length * domain_info['domain_entropy']
@@ -262,6 +263,12 @@ class ID3:
         return weighted_entropy
 
     def total_entropy(self, list_of_classes, domain_data) -> float:
+        """
+
+        :param list_of_classes:
+        :param domain_data:
+        :return:
+        """
         entropy_sum = 0.0
         for clazz in list_of_classes:
             count = self.get_label_count(domain_data, clazz)
@@ -270,31 +277,42 @@ class ID3:
 
         return entropy_sum
 
-    def sum_entropy(self, counts: list, total_length) -> float:
+    def sum_entropy(self, counts: list, total_length: int) -> float:
+        """
+
+        :param counts:
+        :param total_length:
+        :return:
+        """
         entropy_sum = 0.0
         for count in counts:
             entropy_sum += self.entropy(count, total_length)
 
         return entropy_sum
 
+    def entropy(self, x: float, size: int):
+        """
 
-    # TODO: make this generic for n number of classes
-    def entropy(self, x, size):
-        part_1 = 0
-        # part_2 = 0
+        :param x:
+        :param size:
+        :return:
+        """
+        entropy_calculated = 0
         if x/size > 0:
-            part_1 = -1 * x/size * math.log(x/size, 2)
-
-        # if y/size > 0:
-        #     part_2 = -1 * y/size * math.log(y/size, 2)
-        #
-        # return part_1 + part_2
-        return part_1
+            entropy_calculated = -1 * x/size * math.log(x/size, 2)
+            
+        return entropy_calculated
 
     # </editor-fold>
 
     # <editor-fold desc="Classify">
-    def classify(self, tree, test_data):
+    def classify(self, tree: Node, test_data: List[list]):
+        """
+
+        :param tree:
+        :param test_data:
+        :return:
+        """
         classifications = []
         if type(test_data) is not list:
             classification = self.get_classification(tree, test_data)
@@ -307,19 +325,15 @@ class ID3:
 
         return classifications
 
-    def get_classification(self, node: Node, record):
+    def get_classification(self, node: Node, record: list):
+        """
 
-        # if isinstance(node, Node):
-        #     actual_node = node
-        # elif isinstance(node, dict) and 'child' in node:
-        #     actual_node = node['child']
-        #
-        # if isinstance(actual_node, str):
-        #     return actual_node
+        :param node:
+        :param record:
+        :return:
+        """
         if node.get_is_terminal():
             return node.class_label
-
-        # if isinstance(node, Node):
         else:
             value = record[node.attribute]
 
@@ -334,6 +348,12 @@ class ID3:
 
     # <editor-fold desc="Draw">
     def add_nodes_to_graph(self, tree: Node, graph: Digraph) -> Digraph:
+        """
+
+        :param tree:
+        :param graph:
+        :return:
+        """
         current_node = tree
         frontier = [current_node]
         explored = []
@@ -363,34 +383,15 @@ class ID3:
 
         return graph
 
-
     def view(self, tree):
-        # graph = nx.DiGraph()
-        # graph = self.add_nodes_to_graph(tree, graph)
-        #
-        # pos = nx.spring_layout(graph)
-        # nx.draw(graph, pos, arrows=False)
-        #
-        # edge_labels = dict([((u,v,),d['title']) for u,v,d in graph.edges(data=True)])
-        # node_labels = dict([(u, d['title']) for u,d in graph.nodes(data=True)])
-        #
-        # nx.draw_networkx_edge_labels(graph, pos, edge_labels=edge_labels)
-        # nx.draw_networkx_labels(graph, pos, labels=node_labels)
-        #
-        # plt.show()
-
         dot = Digraph()
         dot = self.add_nodes_to_graph(tree, dot)
         return dot
-
-
 
     # </editor-fold>
 
 
 # <editor-fold desc="Evaluate">
-
-
 def evaluate(test_data, classifications):
     number_of_errors = 0
     for record, classification in zip(test_data, classifications):
@@ -398,7 +399,6 @@ def evaluate(test_data, classifications):
             number_of_errors += 1
 
     return number_of_errors/len(test_data)
-
 # </editor-fold>
 
 
