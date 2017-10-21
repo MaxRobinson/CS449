@@ -6,6 +6,7 @@ import random
 
 import matplotlib.pyplot as plt
 import networkx as nx
+from graphviz import Digraph
 # from networkx.drawing.nx_agraph import graphviz_layout
 
 from customCsvReader import CustomCSVReader
@@ -13,6 +14,7 @@ from customCsvReader import CustomCSVReader
 class Node:
     def __init__(self, parent, decision=None, attribute_name=None, class_label=None, is_terminal=False):
         self.parent = parent
+        self.parent_id = None
         self.children = []
         self.attribute = attribute_name
         self.class_label = class_label
@@ -39,6 +41,9 @@ class Node:
 
     def set_parent(self, parent):
         self.parent = parent
+
+    def get_decision(self):
+        return self.decision
 
     def set_decision(self, decision):
         self.decision = decision
@@ -150,11 +155,8 @@ class ID3:
             subset = copy.deepcopy(subset)
             attributes_copy = copy.deepcopy(attributes)
             del attributes_copy[best_attr_name]
-            # child = self.id3(subset, attributes_copy, default_label, node)
-            # child.set_decision(domain_value)
-            child = self.id3(subset, attributes_copy, default_label)
-            child_dict = {"decision": domain_value, "child": child, "parent": node}
-            node.add_child(child_dict)
+            child = self.id3(subset, attributes_copy, default_label, node)
+            child.set_decision(domain_value)
             node.add_child(child)
 
         return node
@@ -328,71 +330,82 @@ class ID3:
     # </editor-fold>
 
     # <editor-fold desc="Draw">
-    def add_nodes_to_graph(self, tree, graph):
+    def add_nodes_to_graph(self, tree: Node, graph: Digraph) -> Digraph:
         current_node = tree
         frontier = [current_node]
         explored = []
         node_id = 0
 
         while frontier:
+            node_id += 1
             current_node = frontier.pop(0)
             if isinstance(current_node, Node):
-                graph.add_node(node_id, title=current_node.attribute)
-                # graph.node(str(node_id), current_node.attribute)
+                if current_node.parent is None:
+                    # graph.add_node(node_id, title=current_node.attribute)
+                    graph.node(str(node_id), str(current_node.attribute))
+                else:
+                    # graph.add_node(node_id, title=current_node.attribute)
+                    # graph.add_edge(current_node.parent_id, node_id, title=current_node.get_decision())
+                    graph.edge(str(current_node.parent_id), str(node_id), label=current_node.get_decision())
+                    if not current_node.is_terminal:
+                        graph.node(str(node_id), str(current_node.attribute))
+                    else:
+                        graph.node(str(node_id), str(current_node.class_label))
 
-                explored.append(current_node.attribute)
+                explored.append(current_node)
                 children_to_add = copy.deepcopy(current_node.children)
                 for node in children_to_add:
-                    node['parent_id'] = node_id
+                    node.parent_id = node_id
                 frontier += children_to_add
 
             # if current_node.get_is_terminal():
             #     node_value = current_node.get
 
-            if isinstance(current_node, dict):
-                node_value = current_node['child']
 
-                if isinstance(node_value, Node):
-                    node_id += 1
-                    graph.add_node(node_id, title=node_value.attribute)
-                    graph.add_edge(current_node['parent_id'], node_id, title=current_node['decision'])
-                    # graph.node(str(node_id), node_value.attribute)
-                    # graph.edge(str(current_node['parent_id']), str(node_id), label=current_node['decision'])
-                    explored.append(node_value.attribute)
-                    children_to_add = copy.deepcopy(node_value.children)
-                    for node in children_to_add:
-                        node['parent_id'] = node_id
-                    frontier += children_to_add
-                if isinstance(node_value, str):
-                    # node_id = uuid.uuid4()
-                    node_id += 1
-                    graph.add_node(node_id, title=node_value)
-                    graph.add_edge(current_node['parent_id'], node_id, title=current_node['decision'])
-                    # graph.node(str(node_id), node_value)
-                    # graph.edge(str(current_node['parent_id']), str(node_id), label=current_node['decision'])
-                    explored.append(node_value)
+            # if isinstance(current_node, dict):
+            #     node_value = current_node['child']
+            #
+            #     if isinstance(node_value, Node):
+            #         node_id += 1
+            #         graph.add_node(node_id, title=node_value.attribute)
+            #         graph.add_edge(current_node['parent_id'], node_id, title=current_node['decision'])
+            #         # graph.node(str(node_id), node_value.attribute)
+            #         # graph.edge(str(current_node['parent_id']), str(node_id), label=current_node['decision'])
+            #         explored.append(node_value.attribute)
+            #         children_to_add = copy.deepcopy(node_value.children)
+            #         for node in children_to_add:
+            #             node['parent_id'] = node_id
+            #         frontier += children_to_add
+            #     if isinstance(node_value, str):
+            #         # node_id = uuid.uuid4()
+            #         node_id += 1
+            #         graph.add_node(node_id, title=node_value)
+            #         graph.add_edge(current_node['parent_id'], node_id, title=current_node['decision'])
+            #         # graph.node(str(node_id), node_value)
+            #         # graph.edge(str(current_node['parent_id']), str(node_id), label=current_node['decision'])
+            #         explored.append(node_value)
 
         return graph
 
 
     def view(self, tree):
-        graph = nx.DiGraph()
-        graph = self.add_nodes_to_graph(tree, graph)
-
-        pos = nx.spring_layout(graph)
-        nx.draw(graph, pos, arrows=False)
-
-        edge_labels = dict([((u,v,),d['title']) for u,v,d in graph.edges(data=True)])
-        node_labels = dict([(u, d['title']) for u,d in graph.nodes(data=True)])
-
-        nx.draw_networkx_edge_labels(graph, pos, edge_labels=edge_labels)
-        nx.draw_networkx_labels(graph, pos, labels=node_labels)
-
-        plt.show()
+        # graph = nx.DiGraph()
+        # graph = self.add_nodes_to_graph(tree, graph)
         #
-        # dot = Digraph()
-        # dot = add_nodes_to_graph(tree, dot)
-        # return dot
+        # pos = nx.spring_layout(graph)
+        # nx.draw(graph, pos, arrows=False)
+        #
+        # edge_labels = dict([((u,v,),d['title']) for u,v,d in graph.edges(data=True)])
+        # node_labels = dict([(u, d['title']) for u,d in graph.nodes(data=True)])
+        #
+        # nx.draw_networkx_edge_labels(graph, pos, edge_labels=edge_labels)
+        # nx.draw_networkx_labels(graph, pos, labels=node_labels)
+        #
+        # plt.show()
+
+        dot = Digraph()
+        dot = self.add_nodes_to_graph(tree, dot)
+        return dot
 
 
 
@@ -464,8 +477,8 @@ print(attributes)
 model = id3.learn(data)
 print(model)
 
-# id3.view(model)
-# tree_1 = id3(set_1, attributes_domains(), 'e')
+dot = id3.view(model)
+dot.render('test2', view=True)
 
 
 
