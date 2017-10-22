@@ -117,8 +117,8 @@ class ID3Pruning:
 
 # reader = CustomCSVReader()
 # # data = reader.read_file('data/segmentation.data.new.txt', float)
-# # data = reader.read_file('data/car.data.txt', str)
-# data = reader.read_file('data/abalone.data.txt', float)
+# data = reader.read_file('data/car.data.txt', str)
+# # data = reader.read_file('data/abalone.data.txt', float)
 #
 # random.shuffle(data)
 #
@@ -136,6 +136,15 @@ class ID3Pruning:
 # prune = ID3Pruning()
 # pruned_tree = prune.prune(copy.deepcopy(tree_1), set_2)
 #
+# classification_original = id3.classify(tree_1, set_2)
+# classification_pruned = id3.classify(pruned_tree, set_2)
+#
+# error_rate_original = id3.evaluate(set_2, classification_original)
+# error_rate_pruned = id3.evaluate(set_2, classification_pruned)
+#
+# print(error_rate_original)
+# print(error_rate_pruned)
+
 # pruned_tree_dot = id3.view(pruned_tree)
 # pruned_tree_dot.render('test_pruned', view=True)
 #
