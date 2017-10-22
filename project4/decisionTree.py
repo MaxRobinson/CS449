@@ -23,6 +23,7 @@ class Node:
         self.class_label = class_label
         self.decision = decision
         self.is_terminal = is_terminal
+        self.mean_value = None
 
         if is_terminal:
             self.attribute = None
@@ -49,6 +50,12 @@ class Node:
 
     def set_decision(self, decision):
         self.decision = decision
+
+    def get_mean_value(self):
+        return self.mean_value
+
+    def set_mean_value(self, mean_value):
+        self.mean_value = mean_value
 
 
 class ID3:
@@ -144,14 +151,33 @@ class ID3:
         node = Node(parent, attribute_name=best_attr_name)
         default_label = self.majority_label(data)
 
-        for domain_value in attributes[best_attr_name]:
-            subset = self.get_data_for_domain(data, best_attr_name, domain_value)
-            subset = copy.deepcopy(subset)
+        if attributes[best_attr_name] == "float":
+            first_half_subset, second_half_subset, mean_value = self.split_data_on_mean(data, best_attr_name)
+            node.set_mean_value(mean_value)
+
+            first_half_subset = copy.deepcopy(first_half_subset)
             attributes_copy = copy.deepcopy(attributes)
             del attributes_copy[best_attr_name]
-            child = self.id3(subset, attributes_copy, default_label, node)
-            child.set_decision(domain_value)
+            child = self.id3(first_half_subset, attributes_copy, default_label, node)
+            child.set_decision("<=")
             node.add_child(child)
+
+            second_half_subset = copy.deepcopy(second_half_subset)
+            attributes_copy = copy.deepcopy(attributes)
+            del attributes_copy[best_attr_name]
+            child = self.id3(second_half_subset, attributes_copy, default_label, node)
+            child.set_decision(">")
+            node.add_child(child)
+
+        else:
+            for domain_value in attributes[best_attr_name]:
+                subset = self.get_data_for_domain(data, best_attr_name, domain_value)
+                subset = copy.deepcopy(subset)
+                attributes_copy = copy.deepcopy(attributes)
+                del attributes_copy[best_attr_name]
+                child = self.id3(subset, attributes_copy, default_label, node)
+                child.set_decision(domain_value)
+                node.add_child(child)
 
         return node
 
@@ -163,10 +189,13 @@ class ID3:
         :return:
         """
         information_gained = {}
-        for attribute_name, domain in attributes.items():
-            attribute = self.create_attribute(attribute_name, domain)
-            # information_gain = self.get_information_gain(data, attribute_name, domain)
-            information_gain = self.get_information_gain(data, attribute)
+        for attribute_name, domain_list in attributes.items():
+
+            if domain_list == "float":
+                information_gain = self.get_information_gain_float_domain(data, attribute_name)
+            else:
+                information_gain = self.get_information_gain(data, attribute_name, domain_list)
+
             information_gained[attribute_name] = information_gain
 
         max_attribute_tuple = max(information_gained.items(), key=lambda x: x[1])
@@ -227,11 +256,10 @@ class ID3:
     # </editor-fold>
 
     # <editor-fold desc="Information Gain">
-    def get_information_gain(self, data, attribute):
-        domains = attribute['domain']
+    def get_information_gain(self, data, attribute_name, domain_list):
         domain_entropy = []
-        for domain in domains:
-            domain_data = self.get_data_for_domain(data, attribute['attribute_name'], domain)
+        for domain in domain_list:
+            domain_data = self.get_data_for_domain(data, attribute_name, domain)
             if len(domain_data) > 0:
                 e_a = self.total_entropy(self.possible_classes, domain_data)
                 domain_with_proportion = {'domain_data_count': len(domain_data), 'domain_entropy': e_a}
@@ -248,6 +276,55 @@ class ID3:
         info_gain = curr_entropy - weighted_entropy
 
         return info_gain
+
+    def get_information_gain_float_domain(self, data, attribute_name):
+        # domains = attribute['domain']
+        domain_entropy = []
+
+        # domain_data = self.get_data_for_domain(data, attribute_name, domain)
+        split_data = self.split_data_on_mean(data, attribute_name)
+        split_data = list(split_data)
+        mean_value = split_data[-1]
+        del split_data[-1]
+        # find mean
+        # split data
+        # for each half of the split
+        #   Calculate entropy
+
+        for data_split_part in split_data:
+            if len(data_split_part) > 0:
+                e_a = self.total_entropy(self.possible_classes, data_split_part)
+                domain_with_proportion = {'domain_data_count': len(data_split_part), 'domain_entropy': e_a}
+                domain_entropy.append(domain_with_proportion)
+
+        weighted_entropy = self.calculate_weighted_entropy(domain_entropy, len(data))
+
+        clazz_entropy = []
+        for clazz in self.possible_classes:
+            clazz_entropy.append(self.get_label_count(data, clazz))
+
+        curr_entropy = self.sum_entropy(clazz_entropy, len(data))
+
+        info_gain = curr_entropy - weighted_entropy
+
+        return info_gain
+
+    def split_data_on_mean(self, data: List[list], attribute_name) -> Tuple[list, list, float]:
+        mean_attribute_value = 0
+        for datapoint in data:
+            mean_attribute_value += datapoint[attribute_name]
+        mean_attribute_value /= len(data)
+
+        first_half = []
+        second_half = []
+        for datapoint in data:
+            if datapoint[attribute_name] <= mean_attribute_value:
+                first_half.append(datapoint)
+            else:
+                second_half.append(datapoint)
+
+        return first_half, second_half, mean_attribute_value
+
 
     def calculate_weighted_entropy(self, domain_entropies, total_data_length):
         """
@@ -372,6 +449,8 @@ class ID3:
                     graph.edge(str(current_node.parent_id), str(node_id), label=current_node.get_decision())
                     if not current_node.is_terminal:
                         graph.node(str(node_id), str(current_node.attribute))
+                    elif current_node.mean_value is not None:
+                        graph.node(str(node_id), str(current_node.get_mean_value()))
                     else:
                         graph.node(str(node_id), str(current_node.class_label))
 
@@ -455,10 +534,11 @@ def evaluate(test_data, classifications):
 
 
 reader = CustomCSVReader()
-data = reader.read_file('data/car.data.txt', str)
-# path = 'data/agaricus-lepiota.data'
-# data = reader.read_file('data/agaricus-lepiota.data', str)
-
+# data = reader.read_file('data/car.data.txt', str)
+data = reader.read_file('data/abalone.data.txt', float)
+# # path = 'data/agaricus-lepiota.data'
+# # data = reader.read_file('data/agaricus-lepiota.data', str)
+#
 random.shuffle(data)
 
 half_way = int(math.floor(len(data)/3)) * 2
@@ -468,13 +548,24 @@ set_2 = data[half_way:]
 id3 = ID3()
 
 tree_1 = id3.learn(set_1)
+# print(tree_1)
 
-# dot = id3.view(model)
-# dot.render('test2', view=True)
+dot = id3.view(tree_1)
+dot.render('test2', view=True)
+#
+# # evaluate
+# c2 = id3.classify(tree_1, set_2)
+# evaluation = evaluate(set_2, c2)
+# print("Error Rate = {}".format(evaluation))
 
-# evaluate
-c2 = id3.classify(tree_1, set_2)
-evaluation = evaluate(set_2, c2)
-print("Error Rate = {}".format(evaluation))
 
-
+# Test Part
+# id3 = ID3()
+# test_data = [[1],[2],[3],[4],[5],[6]]
+# split_data = id3.split_data_on_mean(test_data, 0)
+# split_data = list(split_data)
+# del split_data[-1]
+# # print(split_data[0])
+# # print(split_data[1])
+# # print(split_data[2])
+# print(split_data)
