@@ -42,7 +42,6 @@ class ID3Pruning:
 
                 error_rate = self.get_error_rate(tree, validation_set)
                 if error_rate <= best_error_rate:
-                    print("PRUNING")
                     best_error_rate = error_rate
                     change_made_to_tree = True
                     node.children = []
@@ -117,7 +116,8 @@ class ID3Pruning:
 
 
 reader = CustomCSVReader()
-data = reader.read_file('data/segmentation.data.new.txt', float)
+# data = reader.read_file('data/segmentation.data.new.txt', float)
+data = reader.read_file('data/car.data.txt', str)
 
 random.shuffle(data)
 
@@ -130,17 +130,15 @@ id3 = ID3()
 tree_1 = id3.learn(set_1)
 tree1_dot = id3.view(tree_1)
 tree1_dot.render('test_original', view=True)
+# print("Original Tree Node Count = {}".format(id3.node_count(tree_1)))
 
 prune = ID3Pruning()
-parents = prune.get_leaf_parents(tree_1)
-print(parents)
-print(len(parents))
-
-
-pruned_tree = prune.prune(tree_1, set_2)
+pruned_tree = prune.prune(copy.deepcopy(tree_1), set_2)
 
 pruned_tree_dot = id3.view(pruned_tree)
 pruned_tree_dot.render('test_pruned', view=True)
 
+print("Original Tree Node Count = {}".format(id3.node_count(tree_1)))
+print("Pruned Tree Node Count = {}".format(id3.node_count(pruned_tree)))
 
 

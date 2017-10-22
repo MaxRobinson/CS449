@@ -443,6 +443,21 @@ class ID3:
         return number_of_errors / len(test_data)
     # </editor-fold>
 
+    # <editor-fold desc="Helper">
+    def node_count(self, tree: Node):
+        count = 0
+        current_node = tree
+        frontier = [current_node]
+
+        while frontier:
+            current_node = frontier.pop(0)
+            count += 1
+            frontier += current_node.children
+
+        return count
+
+    # </editor-fold>
+
     # <editor-fold desc="Draw">
     def add_nodes_to_graph(self, tree: Node, graph: Digraph) -> Digraph:
         """
@@ -488,59 +503,6 @@ class ID3:
         return dot
 
     # </editor-fold>
-
-
-
-# <editor-fold desc="Tests Old">
-# test_records = read_file()
-#
-# random.shuffle(test_records)
-#
-# half_way = int(math.floor(len(test_records)/2))
-# set_1 = test_records[:half_way]
-# set_2 = test_records[half_way:]
-#
-# # build
-# tree_1 = id3(set_1, attributes_domains(), 'e')
-#
-# # view
-# # dot = view(tree_1)
-# # print dot.source
-# # dot.render('test1', view=True)
-#
-#
-# # evaluate 2
-# c1 = classify(tree_1, set_1)
-# evaluation = evaluate(set_1, c1)
-# print( "Error Rate = {}".format(evaluation))
-#
-# # evaluate
-# c2 = classify(tree_1, set_2)
-# evaluation = evaluate(set_2, c2)
-# print("Error Rate = {}".format(evaluation))
-#
-#
-#
-#
-#
-# # build
-# tree_2 = id3(set_2, attributes_domains(), 'e')
-#
-# # view
-# # dot = view(tree_2)
-# # dot.render('test2', view=True)
-#
-# # evaluate 2
-# c1 = classify(tree_2, set_1)
-# evaluation = evaluate(set_1, c1)
-# print("Error Rate = {}".format(evaluation))
-#
-# # evaluate
-# c2 = classify(tree_2, set_2)
-# evaluation = evaluate(set_2, c2)
-# print("Error Rate = {}".format(evaluation))
-
-# </editor-fold>
 
 
 # reader = CustomCSVReader()
