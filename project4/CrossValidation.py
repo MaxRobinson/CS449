@@ -3,10 +3,12 @@ from __future__ import division
 import random
 import math
 
+from typing import Dict, Tuple, List
+
 
 class CrossValidation:
 
-    def __init__(self, folds, learner):
+    def __init__(self, folds, learner, pruner):
         """
         Constructor
         :param folds: num folds
@@ -14,55 +16,9 @@ class CrossValidation:
         """
         self.folds = folds
         self.learner = learner
+        self.pruner = pruner
 
-    def cross_validation_regression(self, dataset):
-        """
-        Runs cross validation, using the k-NN regression
-
-        Creates the folds for CV.
-        For each fold, creates the test and training sets.
-        Calculate the MSE for the data sets.
-        Store the results.
-
-        average the MSE over the number of folds and calc SD
-
-        return values.
-
-        :param dataset: the training data set to use.
-        :return: average MSE, Standard deviation, the predictions, and the actuals for all cv runs
-        """
-        random.shuffle(dataset)
-
-        fold_length = int(math.floor(len(dataset)/self.folds))
-
-        cross_validation_dataset = []
-        for i in range(0, len(dataset), fold_length):
-            cross_validation_dataset.append(dataset[i:i+fold_length])
-
-        # run cross validation
-        mse_list = []
-        predictions = []
-        actuals = []
-        for i in range(self.folds):
-            # construct training set.
-            test_set = cross_validation_dataset[i]
-            training_set = cross_validation_dataset[:i] + cross_validation_dataset[i+1:]
-            training_set = [item for sublist in training_set for item in sublist]
-
-            # Get the MSE
-            mse = self.calculate_mse(self.learner, training_set, test_set)
-
-            # Store results
-            mse_list.append(mse[0])
-            predictions.append(mse[1])
-            actuals.append(mse[2])
-
-        average_mse = sum(mse_list) / len(mse_list)
-        sd = self.calc_standard_deviation(average_mse, mse_list)
-
-        return (average_mse, sd, predictions, actuals)
-
-    def cross_validation_classification(self, dataset):
+    def cross_validation_classification(self, dataset, pruning=False):
         """
         Runs cross validation, using the k-NN classification
 
@@ -77,9 +33,13 @@ class CrossValidation:
         return values.
 
         :param dataset: the training data set to use.
+        :param pruning: boolean, if we are using pruning or not.
         :return: average MSE, Standard deviation, the predictions, and the actuals for all cv runs
         """
         random.shuffle(dataset)
+
+        validation_set, remaining_data_set = self.get_validation_set(dataset, 5)
+        dataset = remaining_data_set
 
         fold_length = int(math.floor(len(dataset)/self.folds))
 
@@ -89,6 +49,9 @@ class CrossValidation:
         error_list = []
         predictions = []
         actuals = []
+        difference_in_node_number = []
+        model_node_number = []
+        pruned_model_node_number = []
         for i in range(self.folds):
             # construct training set.
             test_set = cross_validation_dataset[i]
@@ -96,7 +59,18 @@ class CrossValidation:
             training_set = [item for sublist in training_set for item in sublist]
 
             # calculate the error rate for the test set with the training set
-            error_rate = self.calculate_error_rate(self.learner, training_set, test_set)
+            model = self.learner.learn(training_set)
+            model_node_count = self.learner.node_count(model)
+            model_node_number.append(model_node_count)
+            # If using pruning, prune the model
+            if pruning:
+                pruned_model = self.pruner.prune(model, validation_set)
+                pruned_model_node_count = self.learner.node_count(pruned_model)
+                difference_in_node_number.append(model_node_count - pruned_model_node_count)
+                pruned_model_node_number.append(pruned_model_node_count)
+                model = pruned_model
+
+            error_rate = self.calculate_error_rate(self.learner, model, test_set)
 
             # Store results
             error_list.append(error_rate[0])
@@ -105,103 +79,21 @@ class CrossValidation:
 
         average_error_rate = sum(error_list) / len(error_list)
         sd = self.calc_standard_deviation(average_error_rate, error_list)
+
+        average_model_node_number = sum(model_node_number) / len(model_node_number)
+
+        if pruning:
+            average_node_count_difference = sum(difference_in_node_number) / len(difference_in_node_number)
+            average_pruned_model_node_number = sum(pruned_model_node_number) / len(pruned_model_node_number)
+        else:
+            average_pruned_model_node_number = "N/A"
+            average_node_count_difference = "N/A"
 
         # print("Average Error Rate: {}".format(average_error_rate))
         # print("Standard Deviation: {}".format(sd))
-        return (average_error_rate, sd, predictions, actuals)
+        return average_error_rate, sd, average_node_count_difference, average_model_node_number,\
+               average_pruned_model_node_number, predictions, actuals
 
-    def cross_validation_classification_condensed(self, condenser, dataset):
-        """
-        Runs cross validation, using the condensed k-NN then k-NN
-
-        Creates the folds for CV. USES Stratified data for each fold
-
-        For each fold, creates the test and training sets.
-
-        CREATE THE CONDENSED k-NN model.
-
-        Calculate the error rate for the sets using the condensed model.
-        Store the results.
-
-        average the error rate over the number of folds and calc SD
-
-        return values.
-
-        :param dataset: the training data set to use.
-        :return: average MSE, Standard deviation, the predictions, and the actuals for all cv runs
-        """
-        random.shuffle(dataset)
-
-        fold_length = int(math.floor(len(dataset) / self.folds))
-
-        cross_validation_dataset = self.get_stratified_data(dataset, fold_length, self.folds)
-
-        # run cross validation
-        error_list = []
-        predictions = []
-        actuals = []
-        condensed_datasets = []
-        for i in range(self.folds):
-            # construct training set.
-            test_set = cross_validation_dataset[i]
-            training_set = cross_validation_dataset[:i] + cross_validation_dataset[i + 1:]
-            training_set = [item for sublist in training_set for item in sublist]
-
-            # Condense Data of training set
-            condensed_dataset = condenser.condense(training_set)
-            condensed_datasets.append(condensed_dataset)
-
-            # calculate the error rate on the condensed set
-            error_rate = self.calculate_error_rate(self.learner, condensed_dataset, test_set)
-
-            # Store results
-            error_list.append(error_rate[0])
-            predictions.append(error_rate[1])
-            actuals.append(error_rate[2])
-
-        average_error_rate = sum(error_list) / len(error_list)
-        sd = self.calc_standard_deviation(average_error_rate, error_list)
-
-        return (average_error_rate, sd, condensed_datasets, predictions, actuals)
-
-
-    def calculate_mse(self, learner, training_data, test_data):
-        """
-        Helper function for calculating MSE, and tracking actual and predicted values.
-
-        Calculate the squared error for each pair of points, and sum over all the squared errors.
-        Then divide by the number of squared errors.
-
-        :param learner: the k-NN regression class
-        :param training_data: the data set for the model
-        :param test_data: the query points to get predictions for.
-        :return: (MSE, list of predictions, list of corresponding actuals)
-        """
-        squared_error = []
-        predictions = learner.test(training_data, test_data)
-        actual = []
-
-        for prediction, test_item in zip(predictions, test_data):
-            actual.append(test_item[-1])
-            squared_error.append(self.get_squared_error(prediction, test_item))
-
-        squared_error_sum = sum(squared_error)
-
-        mse = squared_error_sum / len(squared_error)
-
-        return mse, predictions, actual
-
-    def get_squared_error(self, predicted_value, item):
-        """
-        Calculates the squared error of predicted points, and actual items
-
-        :param predicted_value: list of floats
-        :param item: list of query data points.
-        :return: Squared error
-        """
-        actual_value = item[-1]
-        squared_error = (predicted_value - actual_value)**2
-        return squared_error
 
     def calc_standard_deviation(self, average, list_of_values):
         """
@@ -219,7 +111,7 @@ class CrossValidation:
 
         return sd
 
-    def calculate_error_rate(self, learner, training_data, test_data):
+    def calculate_error_rate(self, learner, model, test_data):
         """
         Calculates the error rate for classification.
 
@@ -230,7 +122,7 @@ class CrossValidation:
         :param test_data: query points for k-NN
         :return: error_rate, list of predictions, the actual values.
         """
-        predictions = learner.test(training_data, test_data)
+        predictions = learner.classify(model, test_data)
         actuals = []
 
         num_errors = 0
@@ -316,3 +208,15 @@ class CrossValidation:
 
         return fold
 
+    def get_validation_set(self, dataset, percentage_of_data_for_validation) -> Tuple[List[list], List[list]]:
+        fold_length = int(math.floor(len(dataset) / percentage_of_data_for_validation))
+
+        stratified_data = self.get_stratified_data(dataset, fold_length, 1)
+        stratified_data = stratified_data[0]
+
+        for stratified_data_point in stratified_data:
+            if stratified_data_point in dataset:
+                index = dataset.index(stratified_data_point)
+                del dataset[index]
+
+        return stratified_data, dataset
