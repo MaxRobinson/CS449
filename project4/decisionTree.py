@@ -433,6 +433,14 @@ class ID3:
 
                 return self.get_classification(next_node, record)
         return "ERROR"
+
+    def evaluate(self, test_data, classifications):
+        number_of_errors = 0
+        for record, classification in zip(test_data, classifications):
+            if record[-1] != classification:
+                number_of_errors += 1
+
+        return number_of_errors / len(test_data)
     # </editor-fold>
 
     # <editor-fold desc="Draw">
@@ -461,7 +469,7 @@ class ID3:
                     graph.edge(str(current_node.parent_id), str(node_id), label=current_node.get_decision())
                     if not current_node.is_terminal:
                         graph.node(str(node_id), str(current_node.attribute))
-                    elif current_node.mean_value is not None:
+                    elif current_node.mean_value is not None and current_node.class_label is None:
                         graph.node(str(node_id), str(current_node.get_mean_value()))
                     else:
                         graph.node(str(node_id), str(current_node.class_label))
@@ -481,16 +489,6 @@ class ID3:
 
     # </editor-fold>
 
-
-# <editor-fold desc="Evaluate">
-def evaluate(test_data, classifications):
-    number_of_errors = 0
-    for record, classification in zip(test_data, classifications):
-        if record[-1] != classification:
-            number_of_errors += 1
-
-    return number_of_errors/len(test_data)
-# </editor-fold>
 
 
 # <editor-fold desc="Tests Old">
@@ -545,31 +543,31 @@ def evaluate(test_data, classifications):
 # </editor-fold>
 
 
-reader = CustomCSVReader()
-# data = reader.read_file('data/car.data.txt', str)
-# data = reader.read_file('data/abalone.data.txt', float)
-data = reader.read_file('data/segmentation.data.new.txt', float)
-# # path = 'data/agaricus-lepiota.data'
-# # data = reader.read_file('data/agaricus-lepiota.data', str)
+# reader = CustomCSVReader()
+# # data = reader.read_file('data/car.data.txt', str)
+# # data = reader.read_file('data/abalone.data.txt', float)
+# data = reader.read_file('data/segmentation.data.new.txt', float)
+# # # path = 'data/agaricus-lepiota.data'
+# # # data = reader.read_file('data/agaricus-lepiota.data', str)
+# #
+# random.shuffle(data)
 #
-random.shuffle(data)
-
-half_way = int(math.floor(len(data)/3)) * 2
-set_1 = data[:half_way]
-set_2 = data[half_way:]
-
-id3 = ID3()
-
-tree_1 = id3.learn(set_1)
-# print(tree_1)
-
-dot = id3.view(tree_1)
-dot.render('test2', view=True)
-
-# evaluate
-c2 = id3.classify(tree_1, set_2)
-evaluation = evaluate(set_2, c2)
-print("Error Rate = {}".format(evaluation))
+# half_way = int(math.floor(len(data)/3)) * 2
+# set_1 = data[:half_way]
+# set_2 = data[half_way:]
+#
+# id3 = ID3()
+#
+# tree_1 = id3.learn(set_1)
+# # print(tree_1)
+#
+# dot = id3.view(tree_1)
+# dot.render('test1', view=True)
+#
+# # evaluate
+# c2 = id3.classify(tree_1, set_2)
+# evaluation = id3.evaluate(set_2, c2)
+# print("Error Rate = {}".format(evaluation))
 
 
 # Test Part
