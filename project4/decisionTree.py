@@ -412,13 +412,25 @@ class ID3:
         if node.get_is_terminal():
             return node.class_label
         else:
-            value = record[node.attribute]
+            if node.get_mean_value() is None:
+                value = record[node.attribute]
+                next_nodes = [x.get_decision() for x in node.children]
 
-            next_nodes = [x.get_decision() for x in node.children]
+                if value in next_nodes:
+                    next_node_index = next_nodes.index(value)
+                    next_node = node.children[next_node_index]
+                    return self.get_classification(next_node, record)
+            else:
+                record_value = record[node.attribute]
+                node_mean_value = node.get_mean_value()
 
-            if value in next_nodes:
-                next_node_index = next_nodes.index(value)
-                next_node = node.children[next_node_index]
+                if record_value <= node_mean_value:
+                    next_nodes = [n for n in node.children if n.get_decision() == "<="]
+                    next_node = next_nodes[0]
+                else:
+                    next_nodes = [n for n in node.children if n.get_decision() == ">"]
+                    next_node = next_nodes[0]
+
                 return self.get_classification(next_node, record)
         return "ERROR"
     # </editor-fold>
@@ -535,7 +547,8 @@ def evaluate(test_data, classifications):
 
 reader = CustomCSVReader()
 # data = reader.read_file('data/car.data.txt', str)
-data = reader.read_file('data/abalone.data.txt', float)
+# data = reader.read_file('data/abalone.data.txt', float)
+data = reader.read_file('data/segmentation.data.new.txt', float)
 # # path = 'data/agaricus-lepiota.data'
 # # data = reader.read_file('data/agaricus-lepiota.data', str)
 #
@@ -552,11 +565,11 @@ tree_1 = id3.learn(set_1)
 
 dot = id3.view(tree_1)
 dot.render('test2', view=True)
-#
-# # evaluate
-# c2 = id3.classify(tree_1, set_2)
-# evaluation = evaluate(set_2, c2)
-# print("Error Rate = {}".format(evaluation))
+
+# evaluate
+c2 = id3.classify(tree_1, set_2)
+evaluation = evaluate(set_2, c2)
+print("Error Rate = {}".format(evaluation))
 
 
 # Test Part
