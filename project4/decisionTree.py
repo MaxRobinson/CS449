@@ -14,6 +14,10 @@ from customCsvReader import CustomCSVReader
 class Node:
     """
     This class represents values in the Decision tree, both leaf nodes and inner nodes.
+    Class label and is terminal are used to identify when this node is a terminal node.
+
+    The mean_value attribute is used to determine if the attribute corresponds to a float features domain
+        We store the mean so that we can use it during classification.
     """
     def __init__(self, parent, decision=None, attribute_name=None, class_label=None, is_terminal=False):
         self.parent = parent
@@ -62,6 +66,8 @@ class ID3:
     def __init(self):
         """
         Constructor. Init's class values.
+        possible classes is a set of all possible classes for the data set
+            used when calculating entropy
         :return:
         """
         self.attribute_domains = {}
@@ -71,9 +77,11 @@ class ID3:
     # <editor-fold desc="Init Data">
     def create_attributes_domains(self, dataset: list) -> dict:
         """
+        Looks at the data and creates a dictionary of attributes and their possible values for each domain
+        this uses the data set to construct this.
 
-        :param dataset:
-        :return:
+        If a domain value is a real value, mark it as float
+
         """
         attributes = {}
 
@@ -92,9 +100,7 @@ class ID3:
 
     def create_possible_class_list(self, dataset: list) -> set:
         """
-
-        :param dataset:
-        :return:
+        This creates the possible classes for a partition of the data.
         """
         classes = set()
 
@@ -103,39 +109,27 @@ class ID3:
 
         return classes
 
-    def create_attribute(self, attribute_name, domain):
-        """
-
-        :param attribute_name:
-        :param domain:
-        :return:
-        """
-        return {
-            'attribute_name': attribute_name,
-            'domain': domain
-        }
     # </editor-fold>
 
     # <editor-fold desc="ID3">
     def learn(self, training_data: List[list]):
         """
-
-        :param training_data:
-        :return:
+        This is a wrapper function around the ID3 algorithm that gets the attribute and domains for each attribute
+        prior to learning, and gets the possible classes in the data set.
         """
         attributes = self.create_attributes_domains(training_data)
         self.possible_classes = self.create_possible_class_list(training_data)
 
         return self.id3(training_data, attributes, "")
 
-    def id3(self, data: List[list], attributes: Dict, default: str, parent: Node=None):
+    def id3(self, data: List[list], attributes: Dict, default: str, parent: Node=None) -> Node:
         """
+        Runs the ID3 algorithm.
+        Builds the tree recursively.
+        For each step see if a leaf node.
+        if not find the best attribute according to Information gain and then build the subtrees from its domains
 
-        :param data:
-        :param attributes:
-        :param default:
-        :param parent:
-        :return:
+        return the tree built
         """
         if len(data) == 0:
             return Node(parent, class_label=default, is_terminal=True)
@@ -151,30 +145,38 @@ class ID3:
         node = Node(parent, attribute_name=best_attr_name)
         default_label = self.majority_label(data)
 
+        # treat floats differently
         if attributes[best_attr_name] == "float":
             first_half_subset, second_half_subset, mean_value = self.split_data_on_mean(data, best_attr_name)
             node.set_mean_value(mean_value)
 
+            # Binary split in data
+            # apply building of first half
             first_half_subset = copy.deepcopy(first_half_subset)
             attributes_copy = copy.deepcopy(attributes)
             del attributes_copy[best_attr_name]
+            # recursively build
             child = self.id3(first_half_subset, attributes_copy, default_label, node)
             child.set_decision("<=")
             node.add_child(child)
 
+            # apply building of second half
             second_half_subset = copy.deepcopy(second_half_subset)
             attributes_copy = copy.deepcopy(attributes)
             del attributes_copy[best_attr_name]
+            # recursively build
             child = self.id3(second_half_subset, attributes_copy, default_label, node)
             child.set_decision(">")
             node.add_child(child)
 
         else:
+            # all other domain values, for each build out a sub tree
             for domain_value in attributes[best_attr_name]:
                 subset = self.get_data_for_domain(data, best_attr_name, domain_value)
                 subset = copy.deepcopy(subset)
                 attributes_copy = copy.deepcopy(attributes)
                 del attributes_copy[best_attr_name]
+                # recursively build
                 child = self.id3(subset, attributes_copy, default_label, node)
                 child.set_decision(domain_value)
                 node.add_child(child)
@@ -183,10 +185,10 @@ class ID3:
 
     def pick_best_attribute(self, data: List[list], attributes: dict):
         """
+        Picks the best attribute based on information gain.
 
-        :param data:
-        :param attributes:
-        :return:
+        Creates a diction of attribute to information gain
+        selects the attribute with the largest information gain as best attribute.
         """
         information_gained = {}
         for attribute_name, domain_list in attributes.items():
@@ -204,9 +206,7 @@ class ID3:
 
     def is_homogeneous(self, records: List[list]) -> bool:
         """
-
-        :param records:
-        :return:
+        Helper function to check if all of the a partition has the same class label
         """
         current_label = None
         for record in records:
@@ -219,9 +219,8 @@ class ID3:
 
     def majority_label(self, records: list) -> str:
         """
-
-        :param records:
-        :return:
+        Given a partition of data, returns the class label that is the majority class
+        for the partition.
         """
 
         num_label = {}
@@ -239,6 +238,10 @@ class ID3:
 
     # <editor-fold desc="Helpers">
     def get_label_count(self, records, label):
+        """
+        Helper function that counts the number of labels in a given partition.
+        used for info gain.
+        """
         count = 0
         for record in records:
             if record[-1] == label:
@@ -246,6 +249,10 @@ class ID3:
         return count
 
     def get_data_for_domain(self, records, attribute_name, domain):
+        """
+        returns a list of records that have a given value for a particular attribute.
+        Used in partitioning data
+        """
         record_list = []
         for record in records:
             if record[attribute_name] == domain:
@@ -256,7 +263,13 @@ class ID3:
     # </editor-fold>
 
     # <editor-fold desc="Information Gain">
-    def get_information_gain(self, data, attribute_name, domain_list):
+    def get_information_gain(self, data: List[list], attribute_name: int, domain_list: List) -> float:
+        """
+        Given a partiation of data and an attribute name(usually attribute index) and a list of the domains for that
+        attribute, calculate the information gain for the attribute_name
+
+        This is used in the splitting criteria for the ID3 algorithm
+        """
         domain_entropy = []
         for domain in domain_list:
             domain_data = self.get_data_for_domain(data, attribute_name, domain)
@@ -278,10 +291,16 @@ class ID3:
         return info_gain
 
     def get_information_gain_float_domain(self, data, attribute_name):
-        # domains = attribute['domain']
+        """
+        Information gain used when calculating the info gain for a float domain.
+        This is needed for handeling and spliting the float features in half
+
+        split in half based on mean.
+        """
+
         domain_entropy = []
 
-        # domain_data = self.get_data_for_domain(data, attribute_name, domain)
+
         split_data = self.split_data_on_mean(data, attribute_name)
         split_data = list(split_data)
         mean_value = split_data[-1]
@@ -310,6 +329,10 @@ class ID3:
         return info_gain
 
     def split_data_on_mean(self, data: List[list], attribute_name) -> Tuple[list, list, float]:
+        """
+        Splits the data on a mean value into two partitions
+        also returns the mean value used
+        """
         mean_attribute_value = 0
         for datapoint in data:
             mean_attribute_value += datapoint[attribute_name]
@@ -328,10 +351,8 @@ class ID3:
 
     def calculate_weighted_entropy(self, domain_entropies, total_data_length):
         """
-
-        :param domain_entropies:
-        :param total_data_length:
-        :return:
+        Wieghts the entropy of the for a domain, based on the number of examples in that domain
+        This prioritizes splits that split the data more.
         """
         weighted_entropy = 0
         for domain_info in domain_entropies:
@@ -341,10 +362,7 @@ class ID3:
 
     def total_entropy(self, list_of_classes, domain_data) -> float:
         """
-
-        :param list_of_classes:
-        :param domain_data:
-        :return:
+        calculates the total entropy or Information for n number of classes and a given partition
         """
         entropy_sum = 0.0
         for clazz in list_of_classes:
@@ -356,10 +374,9 @@ class ID3:
 
     def sum_entropy(self, counts: list, total_length: int) -> float:
         """
+        given a list of classes, and the total length of data provides the entropy sum
 
-        :param counts:
-        :param total_length:
-        :return:
+        used to get the current entropy for the current node.
         """
         entropy_sum = 0.0
         for count in counts:
@@ -369,10 +386,7 @@ class ID3:
 
     def entropy(self, x: float, size: int):
         """
-
-        :param x:
-        :param size:
-        :return:
+        Calcualates a single entropy for a given piece of the information equation.
         """
         entropy_calculated = 0
         if x/size > 0:
@@ -385,10 +399,8 @@ class ID3:
     # <editor-fold desc="Classify">
     def classify(self, tree: Node, test_data: List[list]):
         """
-
-        :param tree:
-        :param test_data:
-        :return:
+        given a decision tree, and a list of examples, classifies the data
+        returns a list of classifications, one for each test record.
         """
         classifications = []
         if type(test_data) is not list:
@@ -404,14 +416,17 @@ class ID3:
 
     def get_classification(self, node: Node, record: list):
         """
+        the main work horse for classification.
+        Gievn a tree, traverse the tree, making the decisions for the tree based on the value
+        of the test record.
 
-        :param node:
-        :param record:
-        :return:
+        For real number features, treat them differently.
+        use a split on the mean of greater or less than or equal
         """
         if node.get_is_terminal():
             return node.class_label
         else:
+            # treat real number features differently.
             if node.get_mean_value() is None:
                 value = record[node.attribute]
                 next_nodes = [x.get_decision() for x in node.children]
@@ -434,7 +449,11 @@ class ID3:
                 return self.get_classification(next_node, record)
         return "ERROR"
 
-    def evaluate(self, test_data, classifications):
+    def evaluate(self, test_data: List, classifications: List):
+        """
+        A helper function used to return the error rate.
+        Takes a list of test data and a list of classification,
+        """
         number_of_errors = 0
         for record, classification in zip(test_data, classifications):
             if record[-1] != classification:
@@ -444,7 +463,11 @@ class ID3:
     # </editor-fold>
 
     # <editor-fold desc="Helper">
-    def node_count(self, tree: Node):
+    def node_count(self, tree: Node) -> int:
+        """
+        A helper function to count the nodes in a tree
+        Uses BFS
+        """
         count = 0
         current_node = tree
         frontier = [current_node]
@@ -461,10 +484,8 @@ class ID3:
     # <editor-fold desc="Draw">
     def add_nodes_to_graph(self, tree: Node, graph: Digraph) -> Digraph:
         """
-
-        :param tree:
-        :param graph:
-        :return:
+        A helper function to add nodes to a graph visualization library to show the graphs that are built.
+        Uses BFS
         """
         current_node = tree
         frontier = [current_node]
@@ -498,13 +519,18 @@ class ID3:
         return graph
 
     def view(self, tree):
+        """
+        Helper function to view the graph of a tree.
+        :param tree:
+        :return:
+        """
         dot = Digraph()
         dot = self.add_nodes_to_graph(tree, dot)
         return dot
 
     # </editor-fold>
 
-
+""" In file tests of functionality """
 # reader = CustomCSVReader()
 # # data = reader.read_file('data/car.data.txt', str)
 # # data = reader.read_file('data/abalone.data.txt', float)
