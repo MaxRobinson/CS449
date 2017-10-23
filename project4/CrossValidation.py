@@ -20,7 +20,9 @@ class CrossValidation:
 
     def cross_validation_classification(self, dataset, pruning=False):
         """
-        Runs cross validation, using the k-NN classification
+        Runs cross validation, using the DT classification
+
+        Pulls out a stratified sample for the validation set. 10%
 
         Creates the folds for CV. USES Stratified data for each fold
 
@@ -34,7 +36,7 @@ class CrossValidation:
 
         :param dataset: the training data set to use.
         :param pruning: boolean, if we are using pruning or not.
-        :return: average MSE, Standard deviation, the predictions, and the actuals for all cv runs
+        :return: average Error rate , Standard deviation, the predictions, and the actuals for all cv runs
         """
         random.shuffle(dataset)
 
@@ -208,7 +210,14 @@ class CrossValidation:
 
         return fold
 
-    def get_validation_set(self, dataset, percentage_of_data_for_validation) -> Tuple[List[list], List[list]]:
+    def get_validation_set(self, dataset: List[List], percentage_of_data_for_validation: int) -> Tuple[List[list], List[list]]:
+        """
+        Creates a validation set of the data and deletes the data used for validation from the original data set
+
+        :param dataset: list of lsit
+        :param percentage_of_data_for_validation:
+        :return: 
+        """
         fold_length = int(math.floor(len(dataset) / percentage_of_data_for_validation))
 
         stratified_data = self.get_stratified_data(dataset, fold_length, 1)
