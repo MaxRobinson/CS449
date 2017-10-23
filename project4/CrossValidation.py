@@ -38,7 +38,7 @@ class CrossValidation:
         """
         random.shuffle(dataset)
 
-        validation_set, remaining_data_set = self.get_validation_set(dataset, 5)
+        validation_set, remaining_data_set = self.get_validation_set(dataset, 10)
         dataset = remaining_data_set
 
         fold_length = int(math.floor(len(dataset)/self.folds))
