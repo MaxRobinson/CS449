@@ -11,6 +11,13 @@ class ID3Pruning:
 
     def prune(self, tree, validation_set):
         """
+        Main algorithm for doing Reduced error pruning
+        This is a bottom up algorithm that starts at the bottom of the tree and replaces
+        nodes with the majority label.
+        The new tree is tested to see if the error rate has improved. If so, keep the change, if not revert.
+
+        Psuedo code:
+
         change_made_to_tree = false
         while change_made_to_tree true && tree(root).class_label is None
             change_made_to_tree = false
@@ -53,10 +60,8 @@ class ID3Pruning:
 
     def get_leaf_parents(self, tree):
         """
-
-        :param tree:
-        :param graph:
-        :return:
+        A BFS algorithm that searches to find all parents of leaf nodes.
+        returns a list of nodes that are parents of leaf nodes.
         """
         current_node = tree
         frontier = [current_node]
@@ -78,6 +83,10 @@ class ID3Pruning:
         return list_of_leaf_parents
 
     def is_parent_of_only_leaf_nodes(self, node: Node):
+        """
+        A helper function to check if a node is a parent of only leaf nodes.
+        This is important so that we do not get intermediate nodes to try and replace.
+        """
         if node.is_terminal:
             return False
 
@@ -87,6 +96,11 @@ class ID3Pruning:
         return True
 
     def get_majority_label(self, node: Node) -> str:
+        """
+        returns the majority for a node that is a likely a parent node of a leaf
+        Uses a BFS
+
+        """
         num_label = {}
 
         current_node = node
@@ -108,6 +122,12 @@ class ID3Pruning:
         return max(num_label, key=num_label.get)
 
     def get_error_rate(self, tree: Node, validation_set: List[list]) -> float:
+        """
+        A helper function that calculates the error rate of a tree.
+        Uses the ID3 classificaiton and evaluation function to get the results.
+
+        Used to determine if a tree got bettter of not.
+        """
         id3 = ID3()
         classifications = id3.classify(tree, validation_set)
         error_rate = id3.evaluate(validation_set, classifications)
@@ -115,6 +135,7 @@ class ID3Pruning:
         return error_rate
 
 
+""" Local Test for correctness """
 # reader = CustomCSVReader()
 # # data = reader.read_file('data/segmentation.data.new.txt', float)
 # data = reader.read_file('data/car.data.txt', str)

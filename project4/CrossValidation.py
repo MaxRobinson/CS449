@@ -215,8 +215,8 @@ class CrossValidation:
         Creates a validation set of the data and deletes the data used for validation from the original data set
 
         :param dataset: list of lsit
-        :param percentage_of_data_for_validation:
-        :return: 
+        :param percentage_of_data_for_validation: int percentage to use
+        :return: tuple( validation set, modified data set
         """
         fold_length = int(math.floor(len(dataset) / percentage_of_data_for_validation))
 
