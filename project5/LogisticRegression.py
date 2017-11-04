@@ -119,7 +119,7 @@ class LogisticRegression:
             y_hats.append(self.compute_y_hat(thetas, feature_vector))
         return y_hats
 
-    def gradient_descent(self, data, alpha=0.1, epsilon=0.001, verbose=True):
+    def gradient_descent(self, data, alpha=0.1, epsilon=0.0001, verbose=True):
         ittor_count = 0
         thetas = self.init_thetas(len(data[0])-1)
         previous_error = 0.0
