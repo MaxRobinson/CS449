@@ -6,19 +6,46 @@ class LogisticRegression:
     def __init__(self):
         pass
 
-    def re_label(self, list_of_lists, label):
-        for value in list_of_lists:
-            value[-1] = label
-        return list_of_lists
+    # def re_label(self, list_of_lists, label):
+    #     for value in list_of_lists:
+    #         value[-1] = label
+    #     return list_of_lists
+    #
+    # def relabel_data(self, data, positive_type_name, positive_alias, negative_alias, ):
+    #     for key in data:
+    #         if key == positive_type_name:
+    #             self.re_label(data[key], positive_alias)
+    #         else:
+    #             self.re_label(data[key], negative_alias)
+    #
+    #     return data
 
-    def relabel_data(self, data, positive_type_name, positive_alias, negative_alias, ):
-        for key in data:
-            if key == positive_type_name:
-                self.re_label(data[key], positive_alias)
+    # <editor-fold desc="Data Pre-process">
+
+    def pre_process(self, data, positive_class_name):
+        """
+        Pre-processes the data for a given test run.
+
+        The data is preprocessed by taking a positive class label, and modifying the in memory data to replace the
+        positive_class_name with a 1, and all other classification names as 0, negative.
+
+        This allows for easier binary classificaiton
+
+        input:
+        + data: list of feature vecotrs
+        + positive_class_name: Stirng, class to be the positive set.
+
+        """
+        new_data = []
+        for record in data:
+            current_class = record[-1]
+            if current_class == positive_class_name:
+                record[-1] = 1
             else:
-                self.re_label(data[key], negative_alias)
-
-        return data
+                record[-1] = 0
+            new_data.append(record)
+        return new_data
+        # </editor-fold>
 
     def init_thetas(self, feature_length):
         thetas = []
@@ -92,7 +119,7 @@ class LogisticRegression:
             y_hats.append(self.compute_y_hat(thetas, feature_vector))
         return y_hats
 
-    def gradient_descent(self, data, alpha=0.1, epsilon=0.0000001, verbose=True):
+    def gradient_descent(self, data, alpha=0.1, epsilon=0.001, verbose=True):
         ittor_count = 0
         thetas = self.init_thetas(len(data[0])-1)
         previous_error = 0.0
@@ -131,12 +158,12 @@ class LogisticRegression:
 
     # Adaptive Alpha
     # Return list of thetas
-    def learn_model(self, training_data, verbose):
+    def learn(self, training_data, verbose=False):
         return self.gradient_descent(training_data, alpha=.1, verbose=verbose)
 
     # If unlabed, predict
     # if labled, return true value, and predicted
-    def apply_model(self, model, test_data, labeled=False):
+    def classify(self, model, test_data, labeled=True):
         threshold = 0.5
         list_of_predictions = []
 
@@ -151,7 +178,7 @@ class LogisticRegression:
             if not labeled:
                 list_of_predictions.append((predicted_class, probability))
             else:
-                list_of_predictions.append((feature_vector[-1], predicted_class))
+                list_of_predictions.append((predicted_class, feature_vector[-1]))
 
         return list_of_predictions
 
@@ -224,18 +251,18 @@ class LogisticRegression:
 #  Test Functions  #
 ####################
 
-lr = LogisticRegression()
-
-test_data = [[1, 1.1, 0], [0, 2.7, 1]]
-thetas = [0.8, 1.1]
-# value = calculate_error(thetas, test_data)
-# print( value)
-
-model = lr.learn_model(test_data, False)
-print(model)
-
-test_point = [[0.2, 2.9, 1]]
-print(lr.apply_model(model, test_point, True))
+# lr = LogisticRegression()
+#
+# test_data = [[1, 1.1, 0], [0, 2.7, 1]]
+# thetas = [0.8, 1.1]
+# # value = calculate_error(thetas, test_data)
+# # print( value)
+#
+# model = lr.learn(test_data, False)
+# print(model)
+#
+# test_point = [[0.2, 2.9, 1]]
+# print(lr.classify(model, test_point, True))
 
 # derivative = lr.logistic_derivative(0, thetas, test_data)
 # print( derivative)

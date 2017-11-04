@@ -188,7 +188,11 @@ class CrossValidation:
 
         num_errors = 0
         for prediction, test_item in zip(predictions, test_data):
-            actual_prediction = prediction[0][0]
+            if type(prediction) is tuple:
+                actual_prediction = prediction[0]
+            else:
+                actual_prediction = prediction[0][0]
+
             actuals.append(test_item[-1])
             if actual_prediction != test_item[-1]:
                 num_errors += 1
