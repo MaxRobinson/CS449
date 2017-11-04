@@ -1,0 +1,63 @@
+Running data/iris.data.new.txt Experiment with positive class = Iris-setosa
+Average Error Rate: 0.0
+Standard Deviation: 0.0
+Learned Naive Bayes Distribution: 
+Keys are structured as follows: (feature#, possible domain values 0 or 1, 'label', label value)
+Special Key's that are ('label', possible_class_value) are the percentage of the distribution with that class label
+[ 0.8639528300689858,
+  -0.1399909850608966,
+  -0.744849742263066,
+  -1.1417667447792008,
+  -0.9902754072521408,
+  -0.06673846854745,
+  -1.002499254565519,
+  0.20541479228290524,
+  -0.6164372252783452,
+  -0.31183374078473086,
+  1.045707280046916,
+  0.18249940724052774,
+  0.050427318740085166,
+  2.152686944387374,
+  -0.06957662984173063,
+  -0.7095782149747868,
+  -0.859900209722159,
+  -1.3663464260116303,
+  0.6801288458425669,
+  1.7738456338365163,
+  -0.0502089289437256,
+  -1.3645819093943987,
+  -1.2072087239589515,
+  -1.3552777058851648]
+
+Last Cross Validation Set Predicted Values: 
+(Predicted Value, Actual Value)
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(0, 0), 0
+(1, 1), 1
+(1, 1), 1
+(1, 1), 1
+(1, 1), 1
+(1, 1), 1
+(1, 1), 1
+(1, 1), 1
+(1, 1), 1
+(1, 1), 1
+(1, 1), 1
