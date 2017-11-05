@@ -1,26 +1,8 @@
-import numpy as np
-import matplotlib.pyplot as plt
 import random, copy, math, sys
 
 class LogisticRegression:
     def __init__(self):
         pass
-
-    # def re_label(self, list_of_lists, label):
-    #     for value in list_of_lists:
-    #         value[-1] = label
-    #     return list_of_lists
-    #
-    # def relabel_data(self, data, positive_type_name, positive_alias, negative_alias, ):
-    #     for key in data:
-    #         if key == positive_type_name:
-    #             self.re_label(data[key], positive_alias)
-    #         else:
-    #             self.re_label(data[key], negative_alias)
-    #
-    #     return data
-
-    # <editor-fold desc="Data Pre-process">
 
     def pre_process(self, data, positive_class_name):
         """
@@ -48,12 +30,23 @@ class LogisticRegression:
         # </editor-fold>
 
     def init_thetas(self, feature_length):
+        """
+        Helper function to initialize the weights, thetas
+        :param feature_length: length of the feature vector
+        :return: list of thetas
+        """
         thetas = []
         for x in range(feature_length):
             thetas.append(random.uniform(-1, 1))
         return thetas
 
     def compute_y_hat(self, thetas, single_feature_set):
+        """
+
+        :param thetas:
+        :param single_feature_set:
+        :return:
+        """
         sum = 0.0
         for j in range(len(thetas)):
             sum += thetas[j] * single_feature_set[j]
@@ -62,6 +55,13 @@ class LogisticRegression:
         return y_hat
 
     def calculate_error(self, thetas, data, y_hats):
+        """
+
+        :param thetas:
+        :param data:
+        :param y_hats:
+        :return:
+        """
         count = len(data)
 
         summation = 0.0
@@ -95,6 +95,14 @@ class LogisticRegression:
         return error
 
     def logistic_derivative(self, j, thetas, data, y_hats):
+        """
+
+        :param j:
+        :param thetas:
+        :param data:
+        :param y_hats:
+        :return:
+        """
         count = len(data)
         sum = 0.0
 
@@ -114,12 +122,26 @@ class LogisticRegression:
         return derivative
 
     def compute_estimates(self, thetas, data):
+        """
+
+        :param thetas:
+        :param data:
+        :return:
+        """
         y_hats = []
         for feature_vector in data:
             y_hats.append(self.compute_y_hat(thetas, feature_vector))
         return y_hats
 
     def gradient_descent(self, data, alpha=0.1, epsilon=0.0001, verbose=True):
+        """
+
+        :param data:
+        :param alpha:
+        :param epsilon:
+        :param verbose:
+        :return:
+        """
         ittor_count = 0
         thetas = self.init_thetas(len(data[0])-1)
         previous_error = 0.0
@@ -159,11 +181,24 @@ class LogisticRegression:
     # Adaptive Alpha
     # Return list of thetas
     def learn(self, training_data, verbose=False):
+        """
+
+        :param training_data:
+        :param verbose:
+        :return:
+        """
         return self.gradient_descent(training_data, alpha=.1, verbose=verbose)
 
     # If unlabed, predict
     # if labled, return true value, and predicted
     def classify(self, model, test_data, labeled=True):
+        """
+
+        :param model:
+        :param test_data:
+        :param labeled:
+        :return:
+        """
         threshold = 0.5
         list_of_predictions = []
 
