@@ -19,7 +19,7 @@ def run_classification_experiment(data_set_path, learner, positive_class_name, l
 
     Works by reading in the data, training and test data.
 
-    Creates the Cross validation objects with the correct decision Tree  algorithm (classification ID3)
+    Creates the Cross validation objects with the correct linear model algorithm (NB or LR)
     Then runs the cross validation (classificaiton) and gets the outputs from the cross validation.
 
     Finally, I print all information needed in a human readable way.

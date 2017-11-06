@@ -42,7 +42,8 @@ class LogisticRegression:
 
     def compute_y_hat(self, thetas, single_feature_set):
         """
-
+        The function that computes the estimated value of a given data point.
+        Uses 1/ (1+ e^sum(w_i + x_i))
         :param thetas:
         :param single_feature_set:
         :return:
@@ -56,11 +57,16 @@ class LogisticRegression:
 
     def calculate_error(self, thetas, data, y_hats):
         """
+        Calculates the error between the predicted values, y_hats and the data.
+        This does so in a batched manner.
 
-        :param thetas:
-        :param data:
-        :param y_hats:
-        :return:
+        The error rate is calculated assuming 2 possible classes, 0 and 1.
+        error =  (y)* log(y_hat) + (1 - y)* log(y_hat)
+
+        :param thetas: list of thetas  the model
+        :param data: list of list of datapoints
+        :param y_hats: list of predictions for each datapoint
+        :return: error rate
         """
         count = len(data)
 
@@ -96,12 +102,19 @@ class LogisticRegression:
 
     def logistic_derivative(self, j, thetas, data, y_hats):
         """
+        Calculates the derivative of the objective function for logistic regression.
+        This is the function that provides an update the models.
 
-        :param j:
-        :param thetas:
-        :param data:
-        :param y_hats:
-        :return:
+        The result is used to move along the gradient for gradient descent.
+
+        does this in a batched manner. Looks at all predictions at once.
+        used to update a single theta at a time.
+
+        :param j: jth weight to update.
+        :param thetas: list of thetas
+        :param data: list of data points
+        :param y_hats: list of predicted values.
+        :return: the amount to move down the gradient.
         """
         count = len(data)
         sum = 0.0
@@ -123,10 +136,11 @@ class LogisticRegression:
 
     def compute_estimates(self, thetas, data):
         """
+        Computes all estimated values for the data given a model.
 
-        :param thetas:
-        :param data:
-        :return:
+        :param thetas: model
+        :param data: dataset
+        :return: list of predictions.
         """
         y_hats = []
         for feature_vector in data:
@@ -135,12 +149,17 @@ class LogisticRegression:
 
     def gradient_descent(self, data, alpha=0.1, epsilon=0.0001, verbose=True):
         """
+        The main workhorse for learning the logistic model.
 
-        :param data:
-        :param alpha:
-        :param epsilon:
-        :param verbose:
-        :return:
+        Uses gradient descent with a convergence factor of epsilon.
+        The size of the steps taken down the gradient are given by alpha ( a proportion of the step to take)
+
+
+        :param data: list of datapoints
+        :param alpha: step size
+        :param epsilon: convergence value.
+        :param verbose: if to print debug
+        :return: a list of floats, the learned model
         """
         ittor_count = 0
         thetas = self.init_thetas(len(data[0])-1)
@@ -152,21 +171,25 @@ class LogisticRegression:
         if verbose:
             print(current_error)
 
+        # Start main loop
+        # if error is less then epsilon stop.
         while abs(current_error - previous_error) > epsilon:
+            # Calculate the new thetas
             new_thetas = []
             for j in range(len(thetas)):
                 new_thetas.append(
-                    # thetas[j] - alpha * logistic_derivative(j, thetas, data)
                     thetas[j] - alpha * self.logistic_derivative(j, thetas, data, y_hats)
                 )
 
             thetas = new_thetas
 
-            # previous_error_difference = abs(current_error - previous_error)
+            # Get the estimated values for all of the data points
             y_hats = self.compute_estimates(thetas, data)
+            # calculate the error
             previous_error = current_error
             current_error = self.calculate_error(thetas, data, y_hats)
 
+            # Adjust alpha if it looks like we are taking to big of steps.
             if current_error > previous_error:
                 print("Adjusting Alpha!!!")
                 alpha = alpha / 10
@@ -182,10 +205,11 @@ class LogisticRegression:
     # Return list of thetas
     def learn(self, training_data, verbose=False):
         """
+        Entry function to start gradient descent.
 
-        :param training_data:
-        :param verbose:
-        :return:
+        :param training_data: list of data points
+        :param verbose: to print or not.
+        :return: Model
         """
         return self.gradient_descent(training_data, alpha=.1, verbose=verbose)
 
@@ -193,11 +217,14 @@ class LogisticRegression:
     # if labled, return true value, and predicted
     def classify(self, model, test_data, labeled=True):
         """
+        Function to classify data.
+        Calculates the estimated probabilities for each data point based on the model.
+        The probability and the predicted class are then added to the list of predictions
 
-        :param model:
-        :param test_data:
-        :param labeled:
-        :return:
+        :param model:  list of thetas
+        :param test_data: test data
+        :param labeled: if the data is labeled
+        :return: list of tuples of predictions ( prediction , actual class)
         """
         threshold = 0.5
         list_of_predictions = []
@@ -216,71 +243,6 @@ class LogisticRegression:
                 list_of_predictions.append((predicted_class, feature_vector[-1]))
 
         return list_of_predictions
-
-    def get_confusion_html(self, tp, tn, fp, fn, err_rate, tpr, tnr):
-        return """
-                <table>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th colspan="2">Actual</th>
-                    </tr>
-    
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th>hill</th>
-                        <th>Not hill</th>
-                    </tr>
-                    <tr>
-                        <th rowspan="2">Telephone</th>
-                        <td>hill</td>
-                        <td>{}</td>
-                        <td>{}</td>
-                    </tr>
-                    <tr>
-                        <td>Not hill</td>
-                        <td>{}</td>
-                        <td>{}</td>
-                    </tr>
-                </table>
-                <p>
-                    Error Rate:  {}
-                </p>
-                <p>
-                    True Positive Rate:  {}
-                </p>
-                <p>
-                    True Negative Rate:  {}
-                </p>
-                """.format(tp, fp, fn, tn, err_rate, tpr, tnr)
-
-    def calculate_confusion_matrix(self, results):
-        tp = 0
-        tn = 0
-        fp = 0
-        fn = 0
-
-        for result in results:
-            actual = result[0]
-            predict = result[1]
-
-            if actual == 1 and actual == predict:
-                tp += 1
-            elif actual == 1 and actual != predict:
-                fn += 1
-            elif actual == 0 and actual == predict:
-                tn += 1
-            elif actual == 0 and actual != predict:
-                fp += 1
-
-        error_rate = (fn + fp) / float(len(results))
-        true_positive_rate = tp/float((tp+fn))
-        true_negative_rate = tn/float((tn+fp))
-
-        html = self.get_confusion_html(tp, tn, fp, fn, error_rate, true_positive_rate, true_negative_rate)
-
-        return (error_rate, true_positive_rate, true_negative_rate)
 
 ####################
 #  Test Functions  #
