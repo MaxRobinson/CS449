@@ -1,7 +1,6 @@
 from __future__ import division
 
 
-
 class NaiveBayes:
     def __init__(self):
         pass
@@ -351,86 +350,3 @@ class NaiveBayes:
         return new_data
     # </editor-fold>
 
-# <editor-fold desc="Experiment">
-
-# def run_experiment(data_set_path, positive_class_name):
-#     """
-#     The main work horse for running the experiments and output the approriate information into a file
-#
-#     Works by reading in the data, setting up the 67/33 split of trainnig and test data.
-#     Next it creates the Naive bayes distribution, using the "Learn" function.
-#     It logs the distribution in a readable manner.
-#
-#     Finally it classifies the test set.
-#     It prints all information needed in a human readable way.
-#
-#     Finally we print the error rate for the test set.
-#     """
-#     print("Running {0} Experiment with positive class={1}".format(data_set_path, positive_class_name))
-#     test_records = read_file(data_set_path)
-#     test_records = pre_process(test_records, positive_class_name)
-#
-#     random.shuffle(test_records)
-#
-#     two_thirds = 2 * int(math.floor(len(test_records)/3))
-#     set_1 = test_records[:two_thirds]
-#     set_2 = test_records[two_thirds:]
-#
-#     distro_1 = learn(set_1)
-#
-#     pp = pprint.PrettyPrinter(indent=2)
-#     print("Learned Naive Bayes Distribution: ")
-#     print("Keys are structured as follows: (feature#, possible domain values 0 or 1, 'label', label value)")
-#     print("Special Key's that are ('label', possible_class_value) are the percentage of the distribution with that class label")
-#     pp.pprint(distro_1)
-#     print()
-#
-#     # Evaluate
-#     c2 = classify(distro_1, set_2)
-#
-#     print("Results for Test Set: \n")
-#     for predicted_class, test_record in zip(c2, set_2):
-#         print("Predicted Class: {}".format(predicted_class[0][0]))
-#         print("Actual Class: {}".format(get_class(test_record)))
-#         print("Test feature Vector (last feature is actual class): \n{} \n".format(test_record))
-#
-#     evaluation_1 = evaluate(set_2, c2)
-#     print("Error Rate = {}".format(evaluation_1))
-#     print()
-# </editor-fold>
-
-"""
-This is the main method for the experiments. 
-
-These calls run the experiments on the different data sets with the appropriate 
-positive class to be used. 
-
-In addition, standard out is piped to a file so that all logging statements are 
-captured in their own unique file per experiment. 
-"""
-# sys.stdout = open('results/NB-Bresat-Cancer-results.txt', 'w')
-# run_experiment("data/breast-cancer-wisconsin.data.new.txt", 1)
-# run_experiment("data/breast-cancer-wisconsin.data.new.txt", 0)
-#
-# sys.stdout = open('results/NB-soybean-small-results.txt', 'w')
-# run_experiment("data/soybean-small.data.new.txt", "D1")
-# run_experiment("data/soybean-small.data.new.txt", "D2")
-# run_experiment("data/soybean-small.data.new.txt", "D3")
-# run_experiment("data/soybean-small.data.new.txt", "D4")
-#
-# sys.stdout = open('results/NB-house-votes-84-results.txt', 'w')
-# run_experiment("data/house-votes-84.data.new.txt", "democrat")
-# run_experiment("data/house-votes-84.data.new.txt", "republican")
-#
-# sys.stdout = open('results/NB-iris-results.txt', 'w')
-# run_experiment("data/iris.data.new.txt", "Iris-setosa")
-# run_experiment("data/iris.data.new.txt", "Iris-versicolor")
-# run_experiment("data/iris.data.new.txt", "Iris-virginica")
-#
-# sys.stdout = open('results/NB-glass-results.txt', 'w')
-# run_experiment("data/glass.data.new.txt", 1)
-# run_experiment("data/glass.data.new.txt", 2)
-# run_experiment("data/glass.data.new.txt", 3)
-# run_experiment("data/glass.data.new.txt", 5)
-# run_experiment("data/glass.data.new.txt", 6)
-# run_experiment("data/glass.data.new.txt", 7)
