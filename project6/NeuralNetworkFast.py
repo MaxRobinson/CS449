@@ -105,7 +105,7 @@ class NeuralNetwork:
             else:
                 # Get the error for a hidden layer.
                 # need all weights, the layer_index, the layer_outputs and the delta/error for the previous layer.
-                hidden_layer_error = self.calculate_hidden_node_error(weights[layer_index-1], layer_outputs[layer_index],
+                hidden_layer_error = self.calculate_hidden_node_error(weights[layer_index+1], layer_outputs[layer_index],
                                                  layer_errors[layer_index + 1])
 
                 # Remove the hidden layer error for the Bias node (IT IS NOT REUSED)
@@ -202,6 +202,7 @@ class NeuralNetwork:
 
 
 # <editor-fold desc="Tests">
+# nn = NeuralNetwork(num_inputs=2, num_outputs=2, num_in_hidden_layer_1=3, num_in_hidden_layer_2=2)
 nn = NeuralNetwork(num_inputs=2, num_outputs=2, num_in_hidden_layer_1=3)
 
 # input_vector = np.random.rand(5)
