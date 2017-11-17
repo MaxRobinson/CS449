@@ -135,7 +135,7 @@ class NeuralNetwork:
 
         return hidden_layer_errors
 
-    def update_wights(self, weights: np.ndarray, data_input: np.ndarray, layer_outputs: np.ndarray, weight_error_matrix: np.ndarray, alpha=.5):
+    def update_wights(self, weights: np.ndarray, data_input: np.ndarray, layer_outputs: np.ndarray, weight_error_matrix: np.ndarray, alpha=.1):
         for layer_index in range(len(weights)-1, -1, -1):
             layer_weights = weights[layer_index]
 
