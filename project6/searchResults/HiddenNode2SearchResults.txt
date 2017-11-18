@@ -1,0 +1,35 @@
+Cancer
+Trying node number: 5
+Trying node number: 10
+Trying node number: 15
+Trying node number: 20
+[ 0.36909871  0.06008584  0.06437768  0.05579399]
+20
+Soybean
+Trying node number: 5
+Trying node number: 10
+Trying node number: 15
+Trying node number: 20
+[ 0.25  0.25  0.75  0.75]
+5
+Votes
+Trying node number: 5
+Trying node number: 10
+Trying node number: 15
+Trying node number: 20
+[ 0.4  0.4  0.07586207  0.4 ]
+15
+Iris
+Trying node number: 5
+Trying node number: 10
+Trying node number: 15
+Trying node number: 20
+[ 0.28  0.28  0.28  0.72]
+5
+Glass
+Trying node number: 5
+Trying node number: 10
+Trying node number: 15
+Trying node number: 20
+[ 0.04166667  0.04166667  0.04166667  0.04166667]
+5
