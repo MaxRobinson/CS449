@@ -86,7 +86,7 @@ class NeuralNetwork:
         current_error = self.get_total_error_average(data)
 
         ittor_count = 0
-        while not self.can_stop(current_error, previous_error, epsilon):
+        while (not self.can_stop(current_error, previous_error, epsilon)) and abs(current_error) < abs(previous_error):
             for data_point in data:
                 node_outputs = self.estimate_output(data_point)
                 # do back prop to update weights
@@ -99,6 +99,12 @@ class NeuralNetwork:
             #     print("Count: {0} \n Current Error: {1}".format(ittor_count, current_error))
             # print("Count: {0} \n Current Error: {1}".format(ittor_count, current_error))
             ittor_count += 1
+            #
+            # if abs(current_error) > abs(previous_error):
+            #     print("SOMETHING WENT WRONG")
+            #     print("Current error: {}".format(abs(current_error)))
+            #     print("previous error: {}".format(abs(previous_error)))
+
         # print("Count: {0} \n Current Error: {1}".format(ittor_count, current_error))
         return self.weights
 
@@ -200,14 +206,29 @@ class NeuralNetwork:
 
         for index in range(len(data)):
             node_outputs = self.estimate_output(data[index])
-            error_per_output_node = self.calculate_output_node_error(data[index][-1], node_outputs)
-            output_errors[index] = error_per_output_node
+            # error_per_output_node = self.calculate_output_node_error(data[index][-1], node_outputs)
+            squared_error = self.calc_output_node_squared_error(data[index][-1], node_outputs)
+            output_errors[index] = squared_error
 
         error_totals = np.sum(output_errors, axis=0)
         error_average = np.apply_along_axis(lambda error_total: error_total/len(data), 0, error_totals)
         mean_summed_error = np.sum(error_average)
 
-        return mean_summed_error
+        return abs(mean_summed_error)
+
+    def calc_output_node_squared_error(self, actual_output_vector: list, predicted_output_vector: np.ndarray):
+        if type(actual_output_vector) != list:
+            actual_output_vector = [actual_output_vector]
+
+        error_list = []
+
+        for actual_value, predicted_value in zip(actual_output_vector, predicted_output_vector):
+            error_list.append((actual_value - predicted_value)**2)
+
+        error_sum = sum(error_list) / float(2)
+        return error_sum
+
+
 
     def calculate_output_node_error(self, actual_output_vector: list, predicted_output_vector: np.ndarray) -> np.ndarray:
         if type(actual_output_vector) != list:
@@ -287,9 +308,10 @@ class NeuralNetwork:
 
 
 # <editor-fold desc="Tests">
-# nn = NeuralNetwork(num_inputs=2, num_outputs=2, num_in_hidden_layer_1=3, num_in_hidden_layer_2=2)
+# nn = NeuralNetwork(num_inputs=2, num_outputs=1, num_in_hidden_layer_1=5, num_in_hidden_layer_2=2)
 # nn = NeuralNetwork(num_inputs=2, num_outputs=1, num_in_hidden_layer_1=3)
 # nn = NeuralNetwork(num_inputs=2, num_outputs=1)
+# nn = NeuralNetwork(num_inputs=2, num_outputs=1, num_in_hidden_layer_1=3)
 
 # input_vector = np.random.rand(5)
 # input2 = np.ones((2, 2))
@@ -316,7 +338,7 @@ class NeuralNetwork:
 # new_weights = nn.back_prop(nn.weights, estimate, np.array(layer_outputs), [1, 0], [.52, -.97])
 # print(new_weights)
 
-# nn.learn_model([[.52, -.97, [1,0]], [.6, -1, [1,0]], [1, -.77, [1,0]], [.3, -.31, [1,0]]])
+# nn.learn_model([[.52, -.97, 1], [.6, -1, 1], [1, -.77, 1], [.3, -.31, 1]])
 
 # </editor-fold>
 
