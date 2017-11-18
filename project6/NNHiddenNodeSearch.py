@@ -90,7 +90,7 @@ print(optimal_node_number)
 
 # <editor-fold desc="Votes">
 print("Votes")
-node_search = hidden_layer1_node_search(90, 1)
+node_search = hidden_layer1_node_search(16, 1)
 
 all_data = CustomCSVReader.read_file("data/house-votes-84.data.new.txt", float)
 optimal_node_number = node_search.find_optimal_hidden_node_1(start_number=5, max_number=50,
@@ -100,7 +100,7 @@ print(optimal_node_number)
 
 # <editor-fold desc="iris">
 print("Iris")
-node_search = hidden_layer1_node_search(90, 1)
+node_search = hidden_layer1_node_search(24, 1)
 
 all_data = CustomCSVReader.read_file("data/iris.data.new.txt", float)
 optimal_node_number = node_search.find_optimal_hidden_node_1(start_number=5, max_number=50,
@@ -110,7 +110,7 @@ print(optimal_node_number)
 
 # <editor-fold desc="Glass">
 print("Glass")
-node_search = hidden_layer1_node_search(90, 1)
+node_search = hidden_layer1_node_search(54, 1)
 
 all_data = CustomCSVReader.read_file("data/glass.data.new.txt", float)
 optimal_node_number = node_search.find_optimal_hidden_node_1(start_number=5, max_number=50,
