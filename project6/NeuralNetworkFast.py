@@ -95,11 +95,11 @@ class NeuralNetwork:
             previous_error = current_error
             current_error = self.get_total_error_average(data)
 
-            if ittor_count % 1000 == 0:
-                print("Count: {0} \n Current Error: {1}".format(ittor_count, current_error))
+            # if ittor_count % 1000 == 0:
+            #     print("Count: {0} \n Current Error: {1}".format(ittor_count, current_error))
             # print("Count: {0} \n Current Error: {1}".format(ittor_count, current_error))
             ittor_count += 1
-        print("Count: {0} \n Current Error: {1}".format(ittor_count, current_error))
+        # print("Count: {0} \n Current Error: {1}".format(ittor_count, current_error))
         return self.weights
 
     def can_stop(self, current_error, previous_error, epsilon):
@@ -289,7 +289,7 @@ class NeuralNetwork:
 # <editor-fold desc="Tests">
 # nn = NeuralNetwork(num_inputs=2, num_outputs=2, num_in_hidden_layer_1=3, num_in_hidden_layer_2=2)
 # nn = NeuralNetwork(num_inputs=2, num_outputs=1, num_in_hidden_layer_1=3)
-nn = NeuralNetwork(num_inputs=2, num_outputs=1)
+# nn = NeuralNetwork(num_inputs=2, num_outputs=1)
 
 # input_vector = np.random.rand(5)
 # input2 = np.ones((2, 2))
