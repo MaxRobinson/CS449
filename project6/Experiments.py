@@ -8,10 +8,6 @@ from CrossValidation import CrossValidation
 
 
 # <editor-fold desc="Experiment">
-from decisionTree import ID3
-
-
-# def run_classification_experiment(data_set_path, learner, pruner, pruning=False, data_type=float):
 def run_classification_experiment(data_set_path, learner, positive_class_name, data_type=float):
     """
     The main work horse for running the experiments and output the approriate information into a file
