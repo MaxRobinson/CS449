@@ -102,6 +102,7 @@ class CrossValidation:
             training_set = [item for sublist in training_set for item in sublist]
 
             # calculate the error rate for the test set with the training set
+            self.learner.init()
             model = self.learner.learn(training_set)
             models.append(model)
 
@@ -188,10 +189,11 @@ class CrossValidation:
 
         num_errors = 0
         for prediction, test_item in zip(predictions, test_data):
-            if type(prediction) is tuple:
-                actual_prediction = prediction[0]
-            else:
-                actual_prediction = prediction[0][0]
+            # if type(prediction) is tuple:
+            #     actual_prediction = prediction[0]
+            # else:
+            #     actual_prediction = prediction[0][0]
+            actual_prediction = prediction
 
             actuals.append(test_item[-1])
             if actual_prediction != test_item[-1]:
