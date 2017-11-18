@@ -9,6 +9,29 @@ from typing import Dict, Tuple, List
 
 class NeuralNetwork:
     def __init__(self, num_inputs,  num_outputs, num_in_hidden_layer_1=None, num_in_hidden_layer_2=None):
+        self.num_inputs = num_inputs
+        self.num_outputs = num_outputs
+        self.num_in_hidden_layer_1 = num_in_hidden_layer_1
+        self.num_in_hidden_layer_2 = num_in_hidden_layer_2
+
+        self.init()
+
+    def init(self):
+        """
+        allows for network to be reset in between runs.
+        :param num_inputs:
+        :param num_outputs:
+        :param num_in_hidden_layer_1:
+        :param num_in_hidden_layer_2:
+        :return:
+        """
+
+        num_inputs = self.num_inputs
+        num_outputs = self.num_outputs
+        num_in_hidden_layer_1 = self.num_in_hidden_layer_1
+        num_in_hidden_layer_2 = self.num_in_hidden_layer_2
+
+
         self.layer_outputs = []
 
         if num_in_hidden_layer_1 is None:
@@ -25,7 +48,6 @@ class NeuralNetwork:
             self.layer2_weights = np.random.rand(num_in_hidden_layer_2, num_in_hidden_layer_1 + 1)
             self.output_weight = np.random.rand(num_outputs, num_in_hidden_layer_2 + 1)
             self.weights = np.array([self.layer1_weights, self.layer2_weights, self.output_weight])
-
 
 
     def estimate_output(self, input_vector):
@@ -49,7 +71,8 @@ class NeuralNetwork:
     def logistic_function(self, value):
         return 1/(1 + math.e**(-1*value))
 
-
+    def learn(self, data):
+        return self.learn_model(data)
 
     def learn_model(self, data):
         """
@@ -72,11 +95,11 @@ class NeuralNetwork:
             previous_error = current_error
             current_error = self.get_total_error_average(data)
 
-            # if ittor_count % 1000 == 0:
-            #     print("Count: {0} \n Current Error: {1}".format(ittor_count, current_error))
-            print("Count: {0} \n Current Error: {1}".format(ittor_count, current_error))
+            if ittor_count % 1000 == 0:
+                print("Count: {0} \n Current Error: {1}".format(ittor_count, current_error))
+            # print("Count: {0} \n Current Error: {1}".format(ittor_count, current_error))
             ittor_count += 1
-
+        print("Count: {0} \n Current Error: {1}".format(ittor_count, current_error))
         return self.weights
 
     def can_stop(self, current_error, previous_error, epsilon):
@@ -198,12 +221,75 @@ class NeuralNetwork:
 
         return np.array(error_list)
 
+    # <editor-fold desc="Classify">
+    def classify(self, nn_model, test_data):
+        """
+        classify based on one's hot encoding or a single value for 1 node output.
+        :param nn_model:
+        :param test_data:
+        :return:
+        """
+        self.weights = nn_model
+
+        results = []
+        for data_point in test_data:
+            estimate = self.estimate_output(data_point)
+
+            if len(estimate) == 1:
+                if estimate > .5:
+                    results.append(1)
+                else:
+                    results.append(0)
+            else:
+                max_index = np.array(estimate).argmax()
+                result = np.zeros(len(estimate))
+                result[max_index] = 1
+                results.append(result.tolist())
+
+        return results
+
+
+
+
+
+
+    # </editor-fold>
+
+    # <editor-fold desc="Preprocess Data">
+    """
+        Pre-processes the data for a given test run. 
+
+        The data is preprocessed by taking a positive class label, and modifying the in memory data to replace the 
+        positive_class_name with a 1, and all other classification names as 0, negative. 
+
+        This allows for easier binary classificaiton 
+
+        input: 
+        + data: list of feature vecotrs
+        + positive_class_name: Stirng, class to be the positive set.
+
+        """
+
+    def pre_process(self, data, positive_class_name):
+        new_data = []
+        for record in data:
+            current_class = record[-1]
+            if current_class == positive_class_name:
+                record[-1] = 1
+            else:
+                record[-1] = 0
+            new_data.append(record)
+        return new_data
+
+    # </editor-fold>
+
 
 
 
 # <editor-fold desc="Tests">
 # nn = NeuralNetwork(num_inputs=2, num_outputs=2, num_in_hidden_layer_1=3, num_in_hidden_layer_2=2)
-nn = NeuralNetwork(num_inputs=2, num_outputs=2, num_in_hidden_layer_1=3)
+# nn = NeuralNetwork(num_inputs=2, num_outputs=1, num_in_hidden_layer_1=3)
+nn = NeuralNetwork(num_inputs=2, num_outputs=1)
 
 # input_vector = np.random.rand(5)
 # input2 = np.ones((2, 2))
@@ -230,7 +316,7 @@ nn = NeuralNetwork(num_inputs=2, num_outputs=2, num_in_hidden_layer_1=3)
 # new_weights = nn.back_prop(nn.weights, estimate, np.array(layer_outputs), [1, 0], [.52, -.97])
 # print(new_weights)
 
-nn.learn_model([[.52, -.97, [1,0]], [.6, -1, [1,0]], [1, -.77, [1,0]], [.3, -.31, [1,0]]])
+# nn.learn_model([[.52, -.97, [1,0]], [.6, -1, [1,0]], [1, -.77, [1,0]], [.3, -.31, [1,0]]])
 
 # </editor-fold>
 
