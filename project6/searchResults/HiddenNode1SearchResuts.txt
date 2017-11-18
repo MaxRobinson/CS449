@@ -1,0 +1,69 @@
+Cancer
+Trying node number: 5
+Trying node number: 10
+Trying node number: 15
+Trying node number: 20
+Trying node number: 25
+Trying node number: 30
+Trying node number: 35
+Trying node number: 40
+Trying node number: 45
+Trying node number: 50
+[ 0.32188841  0.32188841  0.32188841  0.0472103   0.67811159  0.67811159
+  0.67811159  0.67811159  0.67811159  0.67811159]
+20
+Soybean
+Trying node number: 5
+Trying node number: 10
+Trying node number: 15
+Trying node number: 20
+Trying node number: 25
+Trying node number: 30
+Trying node number: 35
+Trying node number: 40
+Trying node number: 45
+Trying node number: 50
+[ 0.1875  0.1875  0.1875  0.8125  0.8125  0.8125  0.8125  0.8125  0.8125
+  0.8125]
+5
+Votes
+Trying node number: 5
+Trying node number: 10
+Trying node number: 15
+Trying node number: 20
+Trying node number: 25
+Trying node number: 30
+Trying node number: 35
+Trying node number: 40
+Trying node number: 45
+Trying node number: 50
+[ 0.02758621  0.02758621  0.02758621  0.39310345  0.39310345  0.39310345
+  0.39310345  0.39310345  0.39310345  0.39310345]
+5
+Iris
+Trying node number: 5
+Trying node number: 10
+Trying node number: 15
+Trying node number: 20
+Trying node number: 25
+Trying node number: 30
+Trying node number: 35
+Trying node number: 40
+Trying node number: 45
+Trying node number: 50
+[ 0.    0.    0.    0.64  0.64  0.64  0.64  0.64  0.64  0.64]
+5
+Glass
+Trying node number: 5
+Trying node number: 10
+Trying node number: 15
+Trying node number: 20
+Trying node number: 25
+Trying node number: 30
+Trying node number: 35
+Trying node number: 40
+Trying node number: 45
+Trying node number: 50
+[ 0.125  0.125  0.125  0.125  0.875  0.875  0.875  0.875  0.875  0.875]
+5
+
