@@ -57,45 +57,47 @@ def run_classification_experiment(data_set_path, learner, positive_class_name, d
         print("{0}, {1}".format(predicted, actual))
 
     return average_error_rate[0]
+
+
 # </editor-fold>
-# NN
-# sys.stdout = open('results/NN-0-hidden-layers-Cancer-results-class-1.txt', 'w')
+# NeuralNetwork 0 hidden layers
+sys.stdout = open('results/NN-0-hidden-layers-Cancer-results-class-1.txt', 'w')
 run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt", NeuralNetwork(num_inputs=90, num_outputs=1), 1)
 
-# sys.stdout = open('results/NB-Breast-Cancer-results-class-2.txt', 'w')
-# run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt", NaiveBayes(), 0)
+sys.stdout = open('results/NN-0-hidden-layers-Cancer-results-class-0.txt', 'w')
+run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt", NeuralNetwork(num_inputs=90, num_outputs=1), 0)
 
-# sys.stdout = open('results/NB-soybean-small-results-class-D1.txt', 'w')
-# run_classification_experiment("data/soybean-small.data.new.txt", NaiveBayes(), "D1")
-# sys.stdout = open('results/NB-soybean-small-results-class-D2.txt', 'w')
-# run_classification_experiment("data/soybean-small.data.new.txt", NaiveBayes(), "D2")
-# sys.stdout = open('results/NB-soybean-small-results-class-D3.txt', 'w')
-# run_classification_experiment("data/soybean-small.data.new.txt", NaiveBayes(), "D3")
-# sys.stdout = open('results/NB-soybean-small-results-class-D4.txt', 'w')
-# run_classification_experiment("data/soybean-small.data.new.txt", NaiveBayes(), "D4")
-#
-# sys.stdout = open('results/NB-house-votes-84-results-class-democrat.txt', 'w')
-# run_classification_experiment("data/house-votes-84.data.new.txt", NaiveBayes(), "democrat")
-# sys.stdout = open('results/NB-house-votes-84-results-class-republican.txt', 'w')
-# run_classification_experiment("data/house-votes-84.data.new.txt", NaiveBayes(), "republican")
-#
-# sys.stdout = open('results/NB-iris-results-class-setosa.txt', 'w')
-# run_classification_experiment("data/iris.data.new.txt", NaiveBayes(), "Iris-setosa")
-# sys.stdout = open('results/NB-iris-results-class-versicolor.txt', 'w')
-# run_classification_experiment("data/iris.data.new.txt", NaiveBayes(), "Iris-versicolor")
-# sys.stdout = open('results/NB-iris-results-class-virginica.txt', 'w')
-# run_classification_experiment("data/iris.data.new.txt", NaiveBayes(), "Iris-virginica")
-#
-# sys.stdout = open('results/NB-glass-results-class-1.txt', 'w')
-# run_classification_experiment("data/glass.data.new.txt", NaiveBayes(), 1)
-# sys.stdout = open('results/NB-glass-results-class-2.txt', 'w')
-# run_classification_experiment("data/glass.data.new.txt", NaiveBayes(), 2)
-# sys.stdout = open('results/NB-glass-results-class-3.txt', 'w')
-# run_classification_experiment("data/glass.data.new.txt", NaiveBayes(), 3)
-# sys.stdout = open('results/NB-glass-results-class-5.txt', 'w')
-# run_classification_experiment("data/glass.data.new.txt", NaiveBayes(), 5)
-# sys.stdout = open('results/NB-glass-results-class-6.txt', 'w')
-# run_classification_experiment("data/glass.data.new.txt", NaiveBayes(), 6)
-# sys.stdout = open('results/NB-glass-results-class-7.txt', 'w')
-# run_classification_experiment("data/glass.data.new.txt", NaiveBayes(), 7)
+sys.stdout = open('results/NN-0-hidden-layers-soybean-small-results-class-D1.txt', 'w')
+run_classification_experiment("data/soybean-small.data.new.txt", NeuralNetwork(num_inputs=204, num_outputs=1), "D1")
+sys.stdout = open('results/NN-0-hidden-layers-soybean-small-results-class-D2.txt', 'w')
+run_classification_experiment("data/soybean-small.data.new.txt", NeuralNetwork(num_inputs=204, num_outputs=1), "D2")
+sys.stdout = open('results/NN-0-hidden-layers-soybean-small-results-class-D3.txt', 'w')
+run_classification_experiment("data/soybean-small.data.new.txt", NeuralNetwork(num_inputs=204, num_outputs=1), "D3")
+sys.stdout = open('results/NN-0-hidden-layers-soybean-small-results-class-D4.txt', 'w')
+run_classification_experiment("data/soybean-small.data.new.txt", NeuralNetwork(num_inputs=204, num_outputs=1), "D4")
+
+sys.stdout = open('results/NN-0-hidden-layers-house-votes-84-results-class-democrat.txt', 'w')
+run_classification_experiment("data/house-votes-84.data.new.txt", NeuralNetwork(num_inputs=16, num_outputs=1), "democrat")
+sys.stdout = open('results/NN-0-hidden-layers-house-votes-84-results-class-republican.txt', 'w')
+run_classification_experiment("data/house-votes-84.data.new.txt", NeuralNetwork(num_inputs=16, num_outputs=1), "republican")
+
+sys.stdout = open('results/NN-0-hidden-layers-iris-results-class-setosa.txt', 'w')
+run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1), "Iris-setosa")
+sys.stdout = open('results/NN-0-hidden-layers-iris-results-class-versicolor.txt', 'w')
+run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1), "Iris-versicolor")
+sys.stdout = open('results/NN-0-hidden-layers-iris-results-class-virginica.txt', 'w')
+run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1), "Iris-virginica")
+
+sys.stdout = open('results/NN-0-hidden-layers-glass-results-class-1.txt', 'w')
+run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1), 1)
+sys.stdout = open('results/NN-0-hidden-layers-glass-results-class-2.txt', 'w')
+run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1), 2)
+sys.stdout = open('results/NN-0-hidden-layers-glass-results-class-3.txt', 'w')
+run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1), 3)
+sys.stdout = open('results/NN-0-hidden-layers-glass-results-class-5.txt', 'w')
+run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1), 5)
+sys.stdout = open('results/NN-0-hidden-layers-glass-results-class-6.txt', 'w')
+run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1), 6)
+sys.stdout = open('results/NN-0-hidden-layers-glass-results-class-7.txt', 'w')
+run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1), 7)
 
