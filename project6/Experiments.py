@@ -111,9 +111,9 @@ sys.stdout = console_out
 print("Cancer Data Set")
 
 sys.stdout = open('results/NN-1-hidden-layers-Cancer-results-class-1.txt', 'w')
-run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt", NeuralNetwork(num_inputs=90, num_outputs=1, num_in_hidden_layer_1=20), 1)
+run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt", NeuralNetwork(num_inputs=90, num_outputs=1, num_in_hidden_layer_1=5), 1)
 sys.stdout = open('results/NN-1-hidden-layers-Cancer-results-class-0.txt', 'w')
-run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt", NeuralNetwork(num_inputs=90, num_outputs=1, num_in_hidden_layer_1=20), 0)
+run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt", NeuralNetwork(num_inputs=90, num_outputs=1, num_in_hidden_layer_1=5), 0)
 
 sys.stdout = console_out
 print("Soybean Data Set")
@@ -139,11 +139,11 @@ sys.stdout = console_out
 print("Iris Data Set")
 
 sys.stdout = open('results/NN-1-hidden-layers-iris-results-class-setosa.txt', 'w')
-run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1, num_in_hidden_layer_1=5), "Iris-setosa")
+run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1, num_in_hidden_layer_1=20), "Iris-setosa")
 sys.stdout = open('results/NN-1-hidden-layers-iris-results-class-versicolor.txt', 'w')
-run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1, num_in_hidden_layer_1=5), "Iris-versicolor")
+run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1, num_in_hidden_layer_1=20), "Iris-versicolor")
 sys.stdout = open('results/NN-1-hidden-layers-iris-results-class-virginica.txt', 'w')
-run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1, num_in_hidden_layer_1=5), "Iris-virginica")
+run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1, num_in_hidden_layer_1=20), "Iris-virginica")
 
 sys.stdout = console_out
 print("Glass Data Set")
@@ -161,3 +161,11 @@ run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_input
 sys.stdout = open('results/NN-1-hidden-layers-glass-results-class-7.txt', 'w')
 run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5), 7)
 
+
+# run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt",
+#                               NeuralNetwork(num_inputs=90, num_outputs=1,
+#                                             num_in_hidden_layer_1=5, num_in_hidden_layer_2=5), 1)
+
+# run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt",
+#                               NeuralNetwork(num_inputs=90, num_outputs=1,
+#                                             num_in_hidden_layer_1=5), 1)
