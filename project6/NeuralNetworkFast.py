@@ -8,7 +8,16 @@ from typing import Dict, Tuple, List
 
 
 class NeuralNetwork:
+    """
+    A neural network implimentation that uses Numpy Matricies to do most of the calculations
+    """
+
     def __init__(self, num_inputs,  num_outputs, num_in_hidden_layer_1=None, num_in_hidden_layer_2=None):
+        """
+        Assign the structure of the network.
+        Give the number of inputs, outputs, and number per hidden layer.
+        Then constructs the network.
+        """
         self.num_inputs = num_inputs
         self.num_outputs = num_outputs
         self.num_in_hidden_layer_1 = num_in_hidden_layer_1
@@ -19,11 +28,10 @@ class NeuralNetwork:
     def init(self):
         """
         allows for network to be reset in between runs.
-        :param num_inputs:
-        :param num_outputs:
-        :param num_in_hidden_layer_1:
-        :param num_in_hidden_layer_2:
-        :return:
+        Randomly generates weights that conform the the specified number of weights in each layer.
+        Actually creaets the wieghts for the network
+
+        Self.weights stores the matrix of weights in order from input to output
         """
 
         num_inputs = self.num_inputs
@@ -51,6 +59,11 @@ class NeuralNetwork:
 
 
     def estimate_output(self, input_vector):
+        """
+        This is the forward pass of the network.
+        Applies the network to the input vector to get the estimated output.
+        Saves the layer outputs per layer so that backProp can be done after words if training.
+        """
         self.layer_outputs = []
 
         input_value = np.copy(input_vector[:-1])
@@ -64,6 +77,12 @@ class NeuralNetwork:
         return copy.copy(self.layer_outputs[-1])
 
     def compute_node_value(self, input_vector, layer):
+        """
+        Computes the output value for a given layer given a vector input.
+        A layer is a layer of WEIGHTS not nodes. Allows for the matrix mulitiplication to work.
+        Applies the activation function to the nodes as well.
+        Hands back a vector of node outputs.
+        """
         result_vector = np.inner(input_vector, layer)
         node_results = np.apply_along_axis(self.logistic_function, 0, result_vector)
         return node_results
@@ -77,8 +96,9 @@ class NeuralNetwork:
     def learn_model(self, data):
         """
         Perform Gradient Descent to learn the weights for the nodes.
-        :param data: list of data points aka feature vectors
-        :return: a matrix of weights for the edges between nodes
+        Does online training where backprop is done after each datapoint passes through the network.
+
+        Also ensures that the error is decreasing and not increasing.
         """
 
         epsilon = .000001
@@ -109,12 +129,20 @@ class NeuralNetwork:
         return self.weights
 
     def can_stop(self, current_error, previous_error, epsilon):
+        """
+        Simple check to see if the network can stop
+        """
         if abs(current_error - previous_error) > epsilon:
             return False
         return True
 
     def back_prop(self, weights: np.ndarray, node_outputs: np.ndarray, layer_outputs:np.ndarray,
                   actual_result, data_input):
+        """
+        Main work horse for the back propagation algorithm.
+        First we calculate all of the errors for each layer, ( a matrix of those)
+        Then apply the update weights rule based on the errors.
+        """
 
         weight_error_matrix = self.calculate_layer_errors(weights, node_outputs, layer_outputs, actual_result)
         new_weights = self.update_wights(np.copy(weights), data_input, layer_outputs, weight_error_matrix)
@@ -122,6 +150,12 @@ class NeuralNetwork:
 
     def calculate_layer_errors(self, weights: np.ndarray, node_outputs: np.ndarray, layer_outputs:np.ndarray,
                                actual_result):
+        """
+        calculate the error terms for the different weight layers
+        output layer uses a different error calculation than the rest.
+        Errors are added to the matrix
+        Errors for hidden layer bias nodes are removed since they do not propagate backwards
+        """
 
         layer_errors = np.empty(len(weights), dtype=object)
 
@@ -143,6 +177,11 @@ class NeuralNetwork:
         return layer_errors
 
     def calculate_hidden_node_error(self, previous_layer_weights: np.ndarray, layer_outputs: np.ndarray, layer_errors: np.ndarray):
+        """
+        Calculates the error for the hidden nodes
+        Takes into accout the contribution to different output nodes.
+        Then the derivative of the activation function is applied to all of the sum of error contributions.
+        """
         # calc contribution to error
 
         # contrib_to_error = layer_errors * weights
@@ -165,6 +204,10 @@ class NeuralNetwork:
         return hidden_layer_errors
 
     def update_wights(self, weights: np.ndarray, data_input: np.ndarray, layer_outputs: np.ndarray, weight_error_matrix: np.ndarray, alpha=.1):
+        """
+        Update weights given the error matrix.
+        Updates the weights based on the input input from the input to the layer from the previous layer. (closer to output)
+        """
         for layer_index in range(len(weights)-1, -1, -1):
             layer_weights = weights[layer_index]
 
@@ -196,8 +239,6 @@ class NeuralNetwork:
         data[0][-1] are the expected values for the output of the network.
         For a network with more than 1 output node, this value will be an array.
         For a network with 1 output node, this value will be an value, corresponding the the actual value
-        :param data:
-        :return:
         """
         if type(data[0][-1]) != list:
             output_errors = np.zeros((len(data), 1))
@@ -217,6 +258,10 @@ class NeuralNetwork:
         return abs(mean_summed_error)
 
     def calc_output_node_squared_error(self, actual_output_vector: list, predicted_output_vector: np.ndarray):
+        """
+        Calculates the output node squared error.
+        Error is cauclated for all output nodes.
+        """
         if type(actual_output_vector) != list:
             actual_output_vector = [actual_output_vector]
 
@@ -231,6 +276,10 @@ class NeuralNetwork:
 
 
     def calculate_output_node_error(self, actual_output_vector: list, predicted_output_vector: np.ndarray) -> np.ndarray:
+        """
+        Caclulates the derivative of the error function and gives the error of the output node
+        that is to be used during UPDATING / backpropagation.
+        """
         if type(actual_output_vector) != list:
             actual_output_vector = [actual_output_vector]
 
@@ -246,9 +295,8 @@ class NeuralNetwork:
     def classify(self, nn_model, test_data):
         """
         classify based on one's hot encoding or a single value for 1 node output.
-        :param nn_model:
-        :param test_data:
-        :return:
+        Use a .5 cutoff range to deterine if the value is part of the class or not.
+        Works for both arrays and single vlues.
         """
         self.weights = nn_model
 

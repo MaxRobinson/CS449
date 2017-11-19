@@ -13,6 +13,12 @@ class hidden_layer1_node_search():
         self.number_outputs = number_outputs
 
     def find_optimal_hidden_node_1(self, start_number, max_number, step, dataset, positive_class_name):
+        """
+        A search that trains a nerual network with the specified number of layers, and then searches for
+        the optimal number in the hidden layer that is specified.
+        Does so by training and testing a network on 2/3s of the data for a data set.
+        Lowest error rate is best
+        """
         random.shuffle(dataset)
         processing_data = NeuralNetwork(self.number_inputs, self.number_outputs, num_in_hidden_layer_1=2)
 
