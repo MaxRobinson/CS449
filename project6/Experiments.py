@@ -62,6 +62,8 @@ def run_classification_experiment(data_set_path, learner, positive_class_name, d
 
 
 # </editor-fold>
+console_out = sys.stdout
+
 # NeuralNetwork 0 hidden layers
 # sys.stdout = open('results/NN-0-hidden-layers-Cancer-results-class-1.txt', 'w')
 # run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt", NeuralNetwork(num_inputs=90, num_outputs=1), 1)
@@ -103,69 +105,117 @@ def run_classification_experiment(data_set_path, learner, positive_class_name, d
 # sys.stdout = open('results/NN-0-hidden-layers-glass-results-class-7.txt', 'w')
 # run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1), 7)
 
-console_out = sys.stdout
+
+# NeuralNetwork 1 hidden layers
+#
+# sys.stdout = console_out
+# print("Cancer Data Set")
+#
+# sys.stdout = open('results/NN-1-hidden-layers-Cancer-results-class-1.txt', 'w')
+# run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt", NeuralNetwork(num_inputs=90, num_outputs=1, num_in_hidden_layer_1=5), 1)
+# sys.stdout = open('results/NN-1-hidden-layers-Cancer-results-class-0.txt', 'w')
+# run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt", NeuralNetwork(num_inputs=90, num_outputs=1, num_in_hidden_layer_1=5), 0)
+#
+# sys.stdout = console_out
+# print("Soybean Data Set")
+#
+# sys.stdout = open('results/NN-1-hidden-layers-soybean-small-results-class-D1.txt', 'w')
+# run_classification_experiment("data/soybean-small.data.new.txt", NeuralNetwork(num_inputs=204, num_outputs=1, num_in_hidden_layer_1=5), "D1")
+# sys.stdout = open('results/NN-1-hidden-layers-soybean-small-results-class-D2.txt', 'w')
+# run_classification_experiment("data/soybean-small.data.new.txt", NeuralNetwork(num_inputs=204, num_outputs=1, num_in_hidden_layer_1=5), "D2")
+# sys.stdout = open('results/NN-1-hidden-layers-soybean-small-results-class-D3.txt', 'w')
+# run_classification_experiment("data/soybean-small.data.new.txt", NeuralNetwork(num_inputs=204, num_outputs=1, num_in_hidden_layer_1=5), "D3")
+# sys.stdout = open('results/NN-1-hidden-layers-soybean-small-results-class-D4.txt', 'w')
+# run_classification_experiment("data/soybean-small.data.new.txt", NeuralNetwork(num_inputs=204, num_outputs=1, num_in_hidden_layer_1=5), "D4")
+#
+# sys.stdout = console_out
+# print("Votes Data Set")
+#
+# sys.stdout = open('results/NN-1-hidden-layers-house-votes-84-results-class-democrat.txt', 'w')
+# run_classification_experiment("data/house-votes-84.data.new.txt", NeuralNetwork(num_inputs=16, num_outputs=1, num_in_hidden_layer_1=5), "democrat")
+# sys.stdout = open('results/NN-1-hidden-layers-house-votes-84-results-class-republican.txt', 'w')
+# run_classification_experiment("data/house-votes-84.data.new.txt", NeuralNetwork(num_inputs=16, num_outputs=1, num_in_hidden_layer_1=5), "republican")
+#
+# sys.stdout = console_out
+# print("Iris Data Set")
+#
+# sys.stdout = open('results/NN-1-hidden-layers-iris-results-class-setosa.txt', 'w')
+# run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1, num_in_hidden_layer_1=20), "Iris-setosa")
+# sys.stdout = open('results/NN-1-hidden-layers-iris-results-class-versicolor.txt', 'w')
+# run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1, num_in_hidden_layer_1=20), "Iris-versicolor")
+# sys.stdout = open('results/NN-1-hidden-layers-iris-results-class-virginica.txt', 'w')
+# run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1, num_in_hidden_layer_1=20), "Iris-virginica")
+#
+# sys.stdout = console_out
+# print("Glass Data Set")
+#
+# sys.stdout = open('results/NN-1-hidden-layers-glass-results-class-1.txt', 'w')
+# run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5), 1)
+# sys.stdout = open('results/NN-1-hidden-layers-glass-results-class-2.txt', 'w')
+# run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5), 2)
+# sys.stdout = open('results/NN-1-hidden-layers-glass-results-class-3.txt', 'w')
+# run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5), 3)
+# sys.stdout = open('results/NN-1-hidden-layers-glass-results-class-5.txt', 'w')
+# run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5), 5)
+# sys.stdout = open('results/NN-1-hidden-layers-glass-results-class-6.txt', 'w')
+# run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5), 6)
+# sys.stdout = open('results/NN-1-hidden-layers-glass-results-class-7.txt', 'w')
+# run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5), 7)
+
 
 # NeuralNetwork 1 hidden layers
 
 sys.stdout = console_out
 print("Cancer Data Set")
 
-sys.stdout = open('results/NN-1-hidden-layers-Cancer-results-class-1.txt', 'w')
-run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt", NeuralNetwork(num_inputs=90, num_outputs=1, num_in_hidden_layer_1=5), 1)
-sys.stdout = open('results/NN-1-hidden-layers-Cancer-results-class-0.txt', 'w')
-run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt", NeuralNetwork(num_inputs=90, num_outputs=1, num_in_hidden_layer_1=5), 0)
+sys.stdout = open('results/NN-2-hidden-layers-Cancer-results-class-1.txt', 'w')
+run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt", NeuralNetwork(num_inputs=90, num_outputs=1, num_in_hidden_layer_1=5, num_in_hidden_layer_2=20), 1)
+sys.stdout = open('results/NN-2-hidden-layers-Cancer-results-class-0.txt', 'w')
+run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt", NeuralNetwork(num_inputs=90, num_outputs=1, num_in_hidden_layer_1=5, num_in_hidden_layer_2=20), 0)
 
 sys.stdout = console_out
 print("Soybean Data Set")
 
-sys.stdout = open('results/NN-1-hidden-layers-soybean-small-results-class-D1.txt', 'w')
-run_classification_experiment("data/soybean-small.data.new.txt", NeuralNetwork(num_inputs=204, num_outputs=1, num_in_hidden_layer_1=5), "D1")
-sys.stdout = open('results/NN-1-hidden-layers-soybean-small-results-class-D2.txt', 'w')
-run_classification_experiment("data/soybean-small.data.new.txt", NeuralNetwork(num_inputs=204, num_outputs=1, num_in_hidden_layer_1=5), "D2")
-sys.stdout = open('results/NN-1-hidden-layers-soybean-small-results-class-D3.txt', 'w')
-run_classification_experiment("data/soybean-small.data.new.txt", NeuralNetwork(num_inputs=204, num_outputs=1, num_in_hidden_layer_1=5), "D3")
-sys.stdout = open('results/NN-1-hidden-layers-soybean-small-results-class-D4.txt', 'w')
-run_classification_experiment("data/soybean-small.data.new.txt", NeuralNetwork(num_inputs=204, num_outputs=1, num_in_hidden_layer_1=5), "D4")
+sys.stdout = open('results/NN-2-hidden-layers-soybean-small-results-class-D1.txt', 'w')
+run_classification_experiment("data/soybean-small.data.new.txt", NeuralNetwork(num_inputs=204, num_outputs=1, num_in_hidden_layer_1=5, num_in_hidden_layer_2=5), "D1")
+sys.stdout = open('results/NN-2-hidden-layers-soybean-small-results-class-D2.txt', 'w')
+run_classification_experiment("data/soybean-small.data.new.txt", NeuralNetwork(num_inputs=204, num_outputs=1, num_in_hidden_layer_1=5, num_in_hidden_layer_2=5), "D2")
+sys.stdout = open('results/NN-2-hidden-layers-soybean-small-results-class-D3.txt', 'w')
+run_classification_experiment("data/soybean-small.data.new.txt", NeuralNetwork(num_inputs=204, num_outputs=1, num_in_hidden_layer_1=5, num_in_hidden_layer_2=5), "D3")
+sys.stdout = open('results/NN-2-hidden-layers-soybean-small-results-class-D4.txt', 'w')
+run_classification_experiment("data/soybean-small.data.new.txt", NeuralNetwork(num_inputs=204, num_outputs=1, num_in_hidden_layer_1=5, num_in_hidden_layer_2=5), "D4")
 
 sys.stdout = console_out
 print("Votes Data Set")
 
-sys.stdout = open('results/NN-1-hidden-layers-house-votes-84-results-class-democrat.txt', 'w')
-run_classification_experiment("data/house-votes-84.data.new.txt", NeuralNetwork(num_inputs=16, num_outputs=1, num_in_hidden_layer_1=5), "democrat")
-sys.stdout = open('results/NN-1-hidden-layers-house-votes-84-results-class-republican.txt', 'w')
-run_classification_experiment("data/house-votes-84.data.new.txt", NeuralNetwork(num_inputs=16, num_outputs=1, num_in_hidden_layer_1=5), "republican")
+sys.stdout = open('results/NN-2-hidden-layers-house-votes-84-results-class-democrat.txt', 'w')
+run_classification_experiment("data/house-votes-84.data.new.txt", NeuralNetwork(num_inputs=16, num_outputs=1, num_in_hidden_layer_1=5, num_in_hidden_layer_2=15), "democrat")
+sys.stdout = open('results/NN-2-hidden-layers-house-votes-84-results-class-republican.txt', 'w')
+run_classification_experiment("data/house-votes-84.data.new.txt", NeuralNetwork(num_inputs=16, num_outputs=1, num_in_hidden_layer_1=5, num_in_hidden_layer_2=15), "republican")
 
 sys.stdout = console_out
 print("Iris Data Set")
 
-sys.stdout = open('results/NN-1-hidden-layers-iris-results-class-setosa.txt', 'w')
-run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1, num_in_hidden_layer_1=20), "Iris-setosa")
-sys.stdout = open('results/NN-1-hidden-layers-iris-results-class-versicolor.txt', 'w')
-run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1, num_in_hidden_layer_1=20), "Iris-versicolor")
-sys.stdout = open('results/NN-1-hidden-layers-iris-results-class-virginica.txt', 'w')
-run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1, num_in_hidden_layer_1=20), "Iris-virginica")
+sys.stdout = open('results/NN-2-hidden-layers-iris-results-class-setosa.txt', 'w')
+run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1, num_in_hidden_layer_1=20, num_in_hidden_layer_2=5), "Iris-setosa")
+sys.stdout = open('results/NN-2-hidden-layers-iris-results-class-versicolor.txt', 'w')
+run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1, num_in_hidden_layer_1=20, num_in_hidden_layer_2=5), "Iris-versicolor")
+sys.stdout = open('results/NN-2-hidden-layers-iris-results-class-virginica.txt', 'w')
+run_classification_experiment("data/iris.data.new.txt", NeuralNetwork(num_inputs=24, num_outputs=1, num_in_hidden_layer_1=20, num_in_hidden_layer_2=5), "Iris-virginica")
 
 sys.stdout = console_out
 print("Glass Data Set")
 
-sys.stdout = open('results/NN-1-hidden-layers-glass-results-class-1.txt', 'w')
-run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5), 1)
-sys.stdout = open('results/NN-1-hidden-layers-glass-results-class-2.txt', 'w')
-run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5), 2)
-sys.stdout = open('results/NN-1-hidden-layers-glass-results-class-3.txt', 'w')
-run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5), 3)
-sys.stdout = open('results/NN-1-hidden-layers-glass-results-class-5.txt', 'w')
-run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5), 5)
-sys.stdout = open('results/NN-1-hidden-layers-glass-results-class-6.txt', 'w')
-run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5), 6)
-sys.stdout = open('results/NN-1-hidden-layers-glass-results-class-7.txt', 'w')
-run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5), 7)
+sys.stdout = open('results/NN-2-hidden-layers-glass-results-class-1.txt', 'w')
+run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5, num_in_hidden_layer_2=5), 1)
+sys.stdout = open('results/NN-2-hidden-layers-glass-results-class-2.txt', 'w')
+run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5, num_in_hidden_layer_2=5), 2)
+sys.stdout = open('results/NN-2-hidden-layers-glass-results-class-3.txt', 'w')
+run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5, num_in_hidden_layer_2=5), 3)
+sys.stdout = open('results/NN-2-hidden-layers-glass-results-class-5.txt', 'w')
+run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5, num_in_hidden_layer_2=5), 5)
+sys.stdout = open('results/NN-2-hidden-layers-glass-results-class-6.txt', 'w')
+run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5, num_in_hidden_layer_2=5), 6)
+sys.stdout = open('results/NN-2-hidden-layers-glass-results-class-7.txt', 'w')
+run_classification_experiment("data/glass.data.new.txt", NeuralNetwork(num_inputs=54, num_outputs=1, num_in_hidden_layer_1=5, num_in_hidden_layer_2=5), 7)
 
-
-# run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt",
-#                               NeuralNetwork(num_inputs=90, num_outputs=1,
-#                                             num_in_hidden_layer_1=5, num_in_hidden_layer_2=5), 1)
-
-# run_classification_experiment("data/breast-cancer-wisconsin.data.new.txt",
-#                               NeuralNetwork(num_inputs=90, num_outputs=1,
-#                                             num_in_hidden_layer_1=5), 1)
