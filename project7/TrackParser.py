@@ -14,6 +14,7 @@ class TrackParser:
             dimensions_str = lines[0]
             dims = dimensions_str.split(',')
 
+            # (Y,X) coords.
             track = np.zeros((int(dims[0]), int(dims[1])))
 
             for line_index in range(1, len(lines)):
@@ -38,6 +39,6 @@ class TrackParser:
             return -1
 
 
-np.set_printoptions(linewidth=500)
-pprint.pprint(TrackParser.parse_track("tracks/L-track.txt"), width=500)
+# np.set_printoptions(linewidth=500)
+# pprint.pprint(TrackParser.parse_track("tracks/L-track.txt"), width=500)
 
