@@ -2,6 +2,8 @@
 import random
 
 import copy
+from typing import Tuple
+
 import numpy as np
 
 from TrackParser import TrackParser
@@ -9,10 +11,25 @@ from TrackParser import TrackParser
 np.set_printoptions(linewidth=500)
 
 class GameState:
-    def __init__(self, current_position, current_velocity, reward):
+    def __init__(self, current_position: tuple, current_velocity: tuple):
         self.current_position = current_position
         self.current_velocity = current_velocity
-        self.reward = reward
+        # self.reward = reward
+
+    def value(self):
+        return self.current_position[0], self.current_position[1], self.current_velocity[0], self.current_velocity[1]
+
+    def __str__(self):
+        return str((self.current_position[0], self.current_position[1], self.current_velocity[0], self.current_velocity[1]))
+
+    def __hash__(self):
+        return self.current_position.__hash__() + self.current_velocity.__hash__()
+
+    def __eq__(self, other):
+        try:
+            return self.current_position == other.current_position and self.current_velocity == self.current_velocity
+        except Exception:
+            return False
 
 
 class Game:
@@ -60,8 +77,13 @@ class Game:
         self.velocity = (0, 0)
         self.acceleration = (0, 0)
 
+    def take_action(self, action: tuple) -> Tuple:
+        """
+        returns GameState and reward tuple
 
-    def take_action(self, action: tuple) -> GameState:
+        :param action:
+        :return:
+        """
         # Action is (a_y, a_x) -> Acceleration in y and x directions
         acceleration = self.valididate_accelearation(action)
 
@@ -77,7 +99,7 @@ class Game:
         self.current_position = position_velocity_reward[0]
         self.velocity = position_velocity_reward[1]
 
-        return GameState(self.current_position, self.velocity, position_velocity_reward[2])
+        return GameState(self.current_position, self.velocity), position_velocity_reward[2]
 
     def update_position(self, current_position: tuple, velocity:tuple, restart: bool) -> tuple:
         new_position = []
@@ -121,7 +143,7 @@ class Game:
                 reward = -1
 
         # return GameState(position, new_velocity, reward)
-        return position, new_velocity, reward
+        return tuple(position), new_velocity, reward
 
     def update_velocity(self, velocities, accelerations: tuple, success_chance: float) -> tuple:
         """
@@ -133,7 +155,7 @@ class Game:
         # chance of actually applying acceleration (successful action)
         apply_move_chance = random.random()
         if apply_move_chance > success_chance:
-            print("NOT CHANGING VELOCITY")
+            # print("NOT CHANGING VELOCITY")
             return velocities
 
 
@@ -224,6 +246,16 @@ class Game:
         track[self.current_position[0]][self.current_position[1]] = 5
         print(track)
 
+    def get_current_state(self) -> GameState:
+        return GameState(self.current_position, self.velocity)
+
+    def is_goal(self, game_state: GameState) -> bool:
+        track_value = self.track[game_state.current_position[0]][game_state.current_position[1]]
+        if track_value == 2:
+            return True
+        else:
+            return False
+
 
 
 
@@ -253,16 +285,17 @@ x = np.array([[-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., 
 # game.take_action((0, 1))
 # game.print_game_board()
 
-game = Game('tracks/L-track.txt', success_chance=1)
+# game = Game('tracks/L-track.txt', success_chance=1)
 # print(game.get_possible_start_positions(x))
 # print(game.find_nearest_valid_track_placement(x, (0, 1)))
-game.print_game_board()
-game.take_action((-1, 1))
-game.print_game_board()
-game.take_action((-1, 1))
-game.print_game_board()
-game.take_action((-1, 1))
-game.print_game_board()
-game.take_action((-1, 1))
-game.print_game_board()
+# game.print_game_board()
+# game_state = game.take_action((-1, 1))
+# game.print_game_board()
+# game.take_action((-1, 1))
+# game.print_game_board()
+# game.take_action((-1, 1))
+# game.print_game_board()
+# game.take_action((-1, 1))
+# game.print_game_board()
 
+# print(game.is_goal(GameState((2, 35), (0, 0))))
