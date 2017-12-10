@@ -11,7 +11,7 @@ class ValueIteration:
     def __init__(self, game):
         self.game = game
 
-        self.gamma = .8
+        self.gamma = .999
 
         self.q = {}
         self.v = {}
@@ -66,29 +66,50 @@ class ValueIteration:
     def update_q_iteration(self, game, state: tuple, action, q, gamma, v_s_last):
         game.set_state((state[0], state[1]), (state[2], state[3]))
 
-        state_reward_success = game.take_action(action)
+        state_reward_success = game.take_action_with_success_rate(action, 1)
         new_state = state_reward_success[0]
         reward = state_reward_success[1]
         if new_state is not None:
-            q[state][action] = reward + gamma * self.sum_transition(game, state, self.possible_actions, v_s_last)
+            # q[state][action] = reward + gamma * self.sum_transition(game, state, self.possible_actions, v_s_last)
+            q[state][action] = reward + gamma * self.sum_transition(game, state, action, v_s_last)
         return q
 
-    def sum_transition(self, game: Game, state: tuple, actions, v_s_last):
+    def sum_transition(self, game: Game, state: tuple, action, v_s_last):
         sum_value = 0
-        for action in actions:
-            game.set_state((state[0], state[1]), (state[2], state[3]))
-            state_reward_success = game.take_action(action)
-            new_state = state_reward_success[0]
-            reward = state_reward_success[1]
-            successful = state_reward_success[2]
+        # for action in actions:
+        #     game.set_state((state[0], state[1]), (state[2], state[3]))
+        #     state_reward_success = game.take_action(action)
+        #
+        #     new_state = state_reward_success[0]
+        #     reward = state_reward_success[1]
+        #     successful = state_reward_success[2]
+        #
+        #     if new_state is None:
+        #         print("WTF")
+        #
+        #     if successful:
+        #         sum_value += .8 * v_s_last[new_state.value()]
+        #     else:
+        #         sum_value += .2 * v_s_last[new_state.value()]
 
-            if new_state is None:
-                print("WTF")
+        # S prime is after a successful transition with action
+        game.set_state((state[0], state[1]), (state[2], state[3]))
+        state_reward_success = game.take_action_with_success_rate(action, 1)
 
-            if successful:
-                sum_value += .8 * v_s_last[new_state.value()]
-            else:
-                sum_value += .2 * v_s_last[new_state.value()]
+        new_state = state_reward_success[0]
+        reward = state_reward_success[1]
+        successful = state_reward_success[2]
+        sum_value += .8 * v_s_last[new_state.value()]
+
+        # S prime is after a failed transition
+        game.set_state((state[0], state[1]), (state[2], state[3]))
+        state_reward_success = game.take_action_with_success_rate(action, 0)
+
+        new_state = state_reward_success[0]
+        reward = state_reward_success[1]
+        successful = state_reward_success[2]
+        sum_value += .2 * v_s_last[new_state.value()]
+
 
         return sum_value
 
@@ -127,6 +148,7 @@ class ValueIteration:
             if state not in v_s_last:
                 return False
             if abs(v_s[state] - v_s_last[state]) > epsilon:
+                print(abs(v_s[state] - v_s_last[state]))
                 return False
         return True
 
