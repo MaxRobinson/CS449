@@ -1,4 +1,3 @@
-""" Created by Max 12/9/2017 """
 import pickle
 
 import copy
@@ -242,16 +241,16 @@ class QLearning:
 
 
 
-test_game = Game('tracks/R-track.txt', success_chance=.8, crash_restart=True)
-
-q_learning = QLearning(test_game, num_episodes=5000, alpha=.7, gamma=.7, epsilon=.1)
-q = q_learning.learn()
-
-# pprint(q)
-print(q_learning.num_moves_per_episode)
-print(q_learning.num_random_moves_per_episode)
-
-result = q_learning.execute_policy(q, True)
-
-print(result[1])
+# test_game = Game('tracks/R-track.txt', success_chance=.8, crash_restart=True)
+#
+# q_learning = QLearning(test_game, num_episodes=5000, alpha=.7, gamma=.7, epsilon=.1)
+# q = q_learning.learn()
+#
+# # pprint(q)
+# print(q_learning.num_moves_per_episode)
+# print(q_learning.num_random_moves_per_episode)
+#
+# result = q_learning.execute_policy(q, True)
+#
+# print(result[1])
 

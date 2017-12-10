@@ -1,4 +1,3 @@
-""" Created by Max 12/2/2017 """
 import random
 
 import copy

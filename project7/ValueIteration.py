@@ -1,4 +1,3 @@
-""" Created by Max 12/9/2017 """
 import copy
 import pprint
 
