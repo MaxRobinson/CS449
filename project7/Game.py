@@ -71,11 +71,30 @@ class Game:
     def set_current_position(self, position: tuple) -> None:
         self.current_position = copy.copy(position)
 
+    def set_state(self, current_position, current_velocity):
+        self.current_position = current_position
+        self.velocity = current_velocity
+
     def start(self):
         self.set_start_position()
         self.set_current_position(self.start_position)
         self.velocity = (0, 0)
         self.acceleration = (0, 0)
+
+    def get_valid_states(self):
+        tuple_indices = np.where(self.track != -1)
+        position_results = []
+        for y, x in zip(tuple_indices[0], tuple_indices[1]):
+            position_results.append((y, x))
+
+        actual_results = []
+        for position in position_results:
+            for y_velocity in range(-5, 6):
+                for x_velocity in range(-5, 6):
+                    state = GameState(position, (y_velocity,x_velocity))
+                    actual_results.append(state)
+
+        return actual_results
 
     def take_action(self, action: tuple) -> Tuple:
         """
@@ -89,7 +108,9 @@ class Game:
 
         # acceleration is applied to velocity BEFORE position update.
         # 80% chance of actually applying acceleration (successful action)
-        self.velocity = self.update_velocity(self.velocity, acceleration, self.success_chance)
+        velocity_and_if_successful_update = self.update_velocity(self.velocity, acceleration, self.success_chance)
+        self.velocity = velocity_and_if_successful_update[0]
+        action_successful = velocity_and_if_successful_update[1]
 
         # LOGIC for MOVING
         # UPDATES the current position based on the rules of movement and the track.
@@ -99,7 +120,7 @@ class Game:
         self.current_position = position_velocity_reward[0]
         self.velocity = position_velocity_reward[1]
 
-        return GameState(self.current_position, self.velocity), position_velocity_reward[2]
+        return GameState(self.current_position, self.velocity), position_velocity_reward[2], action_successful
 
     def update_position(self, current_position: tuple, velocity:tuple, restart: bool) -> tuple:
         new_position = []
@@ -156,7 +177,7 @@ class Game:
         apply_move_chance = random.random()
         if apply_move_chance > success_chance:
             # print("NOT CHANGING VELOCITY")
-            return velocities
+            return velocities, False
 
 
         result_velocity = []
@@ -171,7 +192,7 @@ class Game:
             elif result_velocity[index] < -5:
                 result_velocity[index] = -5
 
-        return tuple(result_velocity)
+        return tuple(result_velocity), True
 
     def valididate_accelearation(self, accelerations: tuple) -> tuple:
         """
@@ -286,6 +307,7 @@ x = np.array([[-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., 
 # game.print_game_board()
 
 # game = Game('tracks/L-track.txt', success_chance=1)
+# print(len(game.get_valid_states()))
 # print(game.get_possible_start_positions(x))
 # print(game.find_nearest_valid_track_placement(x, (0, 1)))
 # game.print_game_board()
