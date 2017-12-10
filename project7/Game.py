@@ -96,6 +96,27 @@ class Game:
 
         return actual_results
 
+    def take_action_with_success_rate(self, action: tuple, success_rate: float) -> Tuple:
+        # Action is (a_y, a_x) -> Acceleration in y and x directions
+        acceleration = self.valididate_accelearation(action)
+
+        # acceleration is applied to velocity BEFORE position update.
+        # 80% chance of actually applying acceleration (successful action)
+        velocity_and_if_successful_update = self.update_velocity(self.velocity, acceleration, success_rate)
+        self.velocity = velocity_and_if_successful_update[0]
+        action_successful = velocity_and_if_successful_update[1]
+
+        # LOGIC for MOVING
+        # UPDATES the current position based on the rules of movement and the track.
+        # returns (position, velocity and reward)
+        position_velocity_reward = self.update_position(self.current_position, self.velocity, self.crash_restart)
+
+        self.current_position = position_velocity_reward[0]
+        self.velocity = position_velocity_reward[1]
+
+        return GameState(self.current_position, self.velocity), position_velocity_reward[2], action_successful
+
+
     def take_action(self, action: tuple) -> Tuple:
         """
         returns GameState and reward tuple
