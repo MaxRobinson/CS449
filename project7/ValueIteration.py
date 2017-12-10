@@ -61,7 +61,7 @@ class ValueIteration:
             print(update_cycle)
             update_cycle += 1
 
-        return policy
+        return policy, update_cycle
 
     def update_q_iteration(self, game, state: tuple, action, q, gamma, v_s_last):
         game.set_state((state[0], state[1]), (state[2], state[3]))
@@ -153,12 +153,42 @@ class ValueIteration:
         return True
 
 
+    def execute_policy(self, policy, show=False):
+        """
+        Used for executing a learned memory with no updates
+
+        """
+        self.game.start()
+        game = self.game
+
+        current_state = game.get_current_state()
+
+        num_steps_taken = 0
+
+        while not game.is_goal(current_state):
+            # action = self.select_action(policy, current_state, 0.01)
+            action = policy[current_state.value()]
+
+            new_state_and_reward = game.take_action(action)
+            new_state = new_state_and_reward[0]
+            reward = new_state_and_reward[1]
+
+            current_state = copy.copy(new_state)
+
+            if show:
+                game.print_game_board()
+                print()
+
+            num_steps_taken += 1
+
+        return num_steps_taken
+
 # game = Game('tracks/L-track.txt', success_chance=.8)
 # vi = ValueIteration(game)
 # policy = vi.value_iteration()
 # print(policy)
 
-game = Game('tracks/R-track.txt', success_chance=.8)
-vi = ValueIteration(game)
-policy = vi.value_iteration()
-pprint.pprint(policy)
+# game = Game('tracks/R-track.txt', success_chance=.8)
+# vi = ValueIteration(game)
+# policy = vi.value_iteration()
+# pprint.pprint(policy)
