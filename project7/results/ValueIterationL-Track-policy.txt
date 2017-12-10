@@ -1,4 +1,7 @@
 12 iterations, epsilon = .1
+key = (y coord, x coord, y vel, x vel)
+value = (y accel, x accel)
+
 {(0, 32, -5, -5): None,
  (0, 32, -5, -4): None,
  (0, 32, -5, -3): None,
