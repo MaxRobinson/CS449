@@ -1,5 +1,6 @@
 """ Created by Max 12/9/2017 """
 import copy
+import pprint
 
 import sys
 
@@ -153,8 +154,12 @@ class ValueIteration:
         return True
 
 
-game = Game('tracks/L-track.txt', success_chance=.8)
+# game = Game('tracks/L-track.txt', success_chance=.8)
+# vi = ValueIteration(game)
+# policy = vi.value_iteration()
+# print(policy)
+
+game = Game('tracks/R-track.txt', success_chance=.8)
 vi = ValueIteration(game)
 policy = vi.value_iteration()
-print(policy)
-
+pprint.pprint(policy)
