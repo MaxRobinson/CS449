@@ -10,12 +10,18 @@ from TrackParser import TrackParser
 np.set_printoptions(linewidth=500)
 
 class GameState:
+    """
+    A state object that represents where the agent is in the game
+    """
     def __init__(self, current_position: tuple, current_velocity: tuple):
         self.current_position = current_position
         self.current_velocity = current_velocity
         # self.reward = reward
 
     def value(self):
+        """
+        Helper function to identify the state
+        """
         return self.current_position[0], self.current_position[1], self.current_velocity[0], self.current_velocity[1]
 
     def __str__(self):
@@ -34,6 +40,12 @@ class GameState:
 class Game:
 
     def __init__(self, path_to_track_file: str, success_chance=.8, crash_restart=False) -> None:
+        """
+        Initializes the game with the specified parameters, including which track to use.
+        Uses the Track parser to parse the track.
+
+        Sets up the start of the game and needed information for the game object like possible start locations.
+        """
         self.track = TrackParser.parse_track(path_to_track_file)
         self.possible_starts = self.get_possible_start_positions(self.track)
         self.track_dimension_y = len(self.track)
@@ -56,6 +68,9 @@ class Game:
         self.start()
 
     def get_possible_start_positions(self, track: np.ndarray) -> list:
+        """
+        Helper function to get all possible start locations.
+        """
         tuple_indices = np.where(track == 1)
         results = []
         for y, x in zip(tuple_indices[0], tuple_indices[1]):
@@ -64,23 +79,45 @@ class Game:
         return results
 
     def set_start_position(self) -> None:
+        """
+        Sets the start position for the game to a random start location
+        :return:
+        """
         start_index = random.randint(0, len(self.possible_starts)-1)
         self.start_position = self.possible_starts[start_index]
 
     def set_current_position(self, position: tuple) -> None:
+        """
+        Helper function to the current position on the game board.
+        """
         self.current_position = copy.copy(position)
 
     def set_state(self, current_position, current_velocity):
+        """
+        Sets the state of the game, position and velocity.
+
+        Used by Value Iteration
+        """
         self.current_position = current_position
         self.velocity = current_velocity
 
     def start(self):
+        """
+        Set up the game to be the start of the game!
+        """
         self.set_start_position()
         self.set_current_position(self.start_position)
         self.velocity = (0, 0)
         self.acceleration = (0, 0)
 
     def get_valid_states(self):
+        """
+        Returns a list of valid states, include all possible velocities that go with them.
+
+        This is a very large number of states for these boards.
+
+        Used by Value Iteration
+        """
         tuple_indices = np.where(self.track != -1)
         position_results = []
         for y, x in zip(tuple_indices[0], tuple_indices[1]):
@@ -96,6 +133,13 @@ class Game:
         return actual_results
 
     def take_action_with_success_rate(self, action: tuple, success_rate: float) -> Tuple:
+        """
+        Action loop for the game with a given rate of action success.
+        Given an action, validate the action and then perform the action with some degree of guaranteed
+        success rate.
+
+        Used by VI since it knows the model and accounts for it else where.
+        """
         # Action is (a_y, a_x) -> Acceleration in y and x directions
         acceleration = self.valididate_accelearation(action)
 
@@ -118,10 +162,10 @@ class Game:
 
     def take_action(self, action: tuple) -> Tuple:
         """
-        returns GameState and reward tuple
+        Main Action loop for the game!
+        Given an action, validate the action and then perform the action in accordance to all the rules!
 
-        :param action:
-        :return:
+        returns GameState and reward tuple
         """
         # Action is (a_y, a_x) -> Acceleration in y and x directions
         acceleration = self.valididate_accelearation(action)
@@ -143,6 +187,10 @@ class Game:
         return GameState(self.current_position, self.velocity), position_velocity_reward[2], action_successful
 
     def update_position(self, current_position: tuple, velocity:tuple, restart: bool) -> tuple:
+        """
+        Updates the current position of the Agent based on velocity.
+        Ensures that the resulting state is a valid state, that is on the track!
+        """
         new_position = []
         for current_position_i, velocity_i in zip(current_position, velocity):
             new_position.append(current_position_i + velocity_i)
@@ -216,10 +264,8 @@ class Game:
 
     def valididate_accelearation(self, accelerations: tuple) -> tuple:
         """
+        Validates acceleration inputs
         Valid values are a{y,x} element of {-1,0,1}
-
-        :param accelerations:
-        :return:
         """
         accelerations = list(accelerations)
         for index in range(len(accelerations)):
@@ -230,6 +276,10 @@ class Game:
         return tuple(accelerations)
 
     def find_nearest_valid_track_placement(self, track: np.ndarray, position: tuple):
+        """
+        Finds the nearest point on the map that is a valid place on the track.
+        Uses a radial grid search, in a box formation, looking for valid track positions.
+        """
         track_value = track[position[0]][position[1]]
         radius = 1
         nearest_valid_position = None
@@ -268,6 +318,10 @@ class Game:
 
 
     def bound_position(self, track_dimension_y: int, track_dimension_x: int, position: list):
+        """
+        Bounds all movement to be some position on the grid. This prevents values from
+        trying to leave the grid world space.
+        """
         if position[0] >= track_dimension_y:
             position[0] = track_dimension_y - 1
 
@@ -283,14 +337,23 @@ class Game:
         return position
 
     def print_game_board(self):
+        """
+        Prints the game board.
+        """
         track = np.copy(self.track)
         track[self.current_position[0]][self.current_position[1]] = 5
         print(track)
 
     def get_current_state(self) -> GameState:
+        """
+        returns the current state in a game state object
+        """
         return GameState(self.current_position, self.velocity)
 
     def is_goal(self, game_state: GameState) -> bool:
+        """
+        returns if the state given is a goal state.
+        """
         track_value = self.track[game_state.current_position[0]][game_state.current_position[1]]
         if track_value == 2:
             return True
@@ -301,17 +364,17 @@ class Game:
 
 
 
-x = np.array([[-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1.],
-       [-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1.,  2.,  2.,  2.,  2., -1.],
-       [-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1.,  0.,  0.,  0.,  0., -1.],
-       [-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1.,  0.,  0.,  0.,  0., -1.],
-       [-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1.,  0.,  0.,  0.,  0., -1.],
-       [-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1.,  0.,  0.,  0.,  0., -1.],
-       [-1.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0., -1.],
-       [-1.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0., -1.],
-       [-1.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0., -1.],
-       [-1.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0., -1.],
-       [-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1.]])
+# x = np.array([[-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1.],
+#        [-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1.,  2.,  2.,  2.,  2., -1.],
+#        [-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1.,  0.,  0.,  0.,  0., -1.],
+#        [-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1.,  0.,  0.,  0.,  0., -1.],
+#        [-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1.,  0.,  0.,  0.,  0., -1.],
+#        [-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1.,  0.,  0.,  0.,  0., -1.],
+#        [-1.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0., -1.],
+#        [-1.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0., -1.],
+#        [-1.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0., -1.],
+#        [-1.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0., -1.],
+#        [-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1.]])
 
 # game = Game('tracks/L-track.txt', success_chance=1)
 # # print(game.get_possible_start_positions(x))

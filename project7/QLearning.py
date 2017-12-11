@@ -10,6 +10,11 @@ from Game import Game, GameState
 
 class QLearning:
     def __init__(self, game, epsilon=.99, alpha=.99, decay_rate=.99, gamma=.9, num_episodes=300, save_rate=20):
+        """
+        initialize all parameters for the algorithm. and init the possible actions for the game.
+
+        include tracking variables like number of moves and such.
+        """
         self.game = game
         self.epsilon = epsilon
         self.alpha = alpha
@@ -35,6 +40,10 @@ class QLearning:
                                  (1, 1))
 
     def learn(self) -> dict:
+        """
+        Runs multiple episodes of q-learning, based on the number of episodes desired.
+        Tracks all information from the episode to be used as analysis.
+        """
         episode_count = 1
         while episode_count <= self.num_episodes:
             # Decay learning rate and exploration over time
@@ -67,6 +76,9 @@ class QLearning:
         return self.q
 
     def q_learning(self, game: Game, q, epsilon, alpha, gamma) -> tuple:
+        """
+        The main Q-Learning Algorithm for a given episode.
+        """
         # init state
         current_state = game.get_current_state()
 
@@ -90,7 +102,9 @@ class QLearning:
     def update_q(self, q, new_state: GameState, previous_state: GameState, action_taken: tuple, reward: int) -> dict:
         """
         Update q based on:
-        q[s,a] = (1-alpha)Q[s,a] + alpha(r + gamma* max_args(Q[s'])
+        q[s,a] = Q[s,a] + alpha(r + gamma* max_args(Q[s'])
+
+        The main update function for updating a given q value.
         """
         previous_state_hash = previous_state.value()
 
@@ -111,6 +125,9 @@ class QLearning:
 
 
     def get_max_value(self, state, q):
+        """
+        returns the max value for a state action pair.
+        """
         max_value = -sys.maxsize
 
         if state not in q:
@@ -122,6 +139,9 @@ class QLearning:
         return max_value
 
     def select_action(self, q, current_state, epsilon) -> tuple:
+        """
+        Selects an action according to an epsilon-greedy policy.
+        """
         role = random.random()
         action = None
 
@@ -136,11 +156,17 @@ class QLearning:
         return action
 
     def select_random_move(self, possible_actions: tuple) -> tuple:
+        """
+        Helper function to select a random move.
+        """
         self.num_random_moves += 1
         role = random.randint(0, len(possible_actions)-1)
         return possible_actions[role]
 
     def arg_max(self, current_state, q):
+        """
+        Returns the argmax for the current state. the arg max is the action that maximizes Q(s,a)
+        """
         max_arg = None
         max_value = -sys.maxsize
 
@@ -155,6 +181,9 @@ class QLearning:
         return max_arg
 
     def save(self, count):
+        """
+        Saves the Q state
+        """
         output = open('q_save_file_normal_large_world{}.txt'.format(count), 'wb')
         pickle.dump(self.q, output)
         output.close()
@@ -163,7 +192,6 @@ class QLearning:
     def execute_policy(self, q, show=False):
         """
         Used for executing a learned memory with no updates
-
         """
         self.game.start()
         game = self.game

@@ -9,6 +9,10 @@ from Game import GameState
 
 class ValueIteration:
     def __init__(self, game):
+        """
+        Init Variables for tracking the V_S values and the Q values.
+        Init possible actions as well.
+        """
         self.game = game
 
         self.gamma = .999
@@ -26,6 +30,13 @@ class ValueIteration:
                                  (1, 1))
 
     def value_iteration(self):
+        """
+        Main work horse for the VI algorithm.
+
+        after initialization of everything so that all states are known and stored in V and Q
+
+        start updating V and Q until the largest difference in V and V_last is less than epsilon.
+        """
         epsilon = .1
 
         states = self.game.get_valid_states()
@@ -64,33 +75,29 @@ class ValueIteration:
         return policy, update_cycle
 
     def update_q_iteration(self, game, state: tuple, action, q, gamma, v_s_last):
+        """
+        Updates the Q values for VI based on
+        R(s,a) + gamma * sum( T(s,a,s') V_t-1(s)) for all s' in s
+        """
         game.set_state((state[0], state[1]), (state[2], state[3]))
 
         state_reward_success = game.take_action_with_success_rate(action, 1)
         new_state = state_reward_success[0]
         reward = state_reward_success[1]
         if new_state is not None:
-            # q[state][action] = reward + gamma * self.sum_transition(game, state, self.possible_actions, v_s_last)
             q[state][action] = reward + gamma * self.sum_transition(game, state, action, v_s_last)
         return q
 
     def sum_transition(self, game: Game, state: tuple, action, v_s_last):
+        """
+        create the sum for the possible outcomes states given an action pair.
+        the only two outcomes are that the action works or doesn't.
+        as a result 2 s' need to be considered.
+        The action is successful 80 percent of the time and not 20 thus the probability values infront of the updates.
+        """
+
         sum_value = 0
-        # for action in actions:
-        #     game.set_state((state[0], state[1]), (state[2], state[3]))
-        #     state_reward_success = game.take_action(action)
-        #
-        #     new_state = state_reward_success[0]
-        #     reward = state_reward_success[1]
-        #     successful = state_reward_success[2]
-        #
-        #     if new_state is None:
-        #         print("WTF")
-        #
-        #     if successful:
-        #         sum_value += .8 * v_s_last[new_state.value()]
-        #     else:
-        #         sum_value += .2 * v_s_last[new_state.value()]
+
 
         # S prime is after a successful transition with action
         game.set_state((state[0], state[1]), (state[2], state[3]))
@@ -114,12 +121,18 @@ class ValueIteration:
         return sum_value
 
     def init_policy(self, v_s):
+        """
+        Inits the policy table
+        """
         policy = {}
         for state in v_s:
             policy[state] = None
         return policy
 
     def init_q(self, v_s, actions):
+        """
+        Init the Q table
+        """
         q = {}
         for state in v_s:
             q[state] = {}
@@ -128,6 +141,9 @@ class ValueIteration:
         return q
 
     def arg_max_iteration_version(self, current_state: tuple, q):
+        """
+        Get the argmax in the Q table
+        """
         max_arg = None
         max_value = -sys.maxsize
         if current_state not in q:
@@ -140,6 +156,10 @@ class ValueIteration:
         return max_arg
 
     def v_s_comp_v_s_last_less_than_epsilon(self, v_s_last, v_s, epsilon, is_first_round):
+        """
+        The check to see if we are done.
+        we stop when no difference in the table is larger than epsilon. 
+        """
         if is_first_round:
             return False
         for state in v_s:

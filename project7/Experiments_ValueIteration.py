@@ -3,6 +3,14 @@ from ValueIteration import ValueIteration
 
 
 def experiment(test_game, num_experiments):
+    """
+    Main experiment method that runs the Value Iteration experiments and prints results
+    works by learning a model x number of times.
+
+    the average number of moves per policy is then created and averaged per experiment
+
+    prints and returns the average number of episodes to reach the goal along with the learned policy.
+    """
 
     average_number_of_moves_with_policy = []
     for x in range(num_experiments):
@@ -10,6 +18,7 @@ def experiment(test_game, num_experiments):
         vi = ValueIteration(test_game)
         policy_and_num_iterations = vi.value_iteration()
         policy = policy_and_num_iterations[0]
+        print(policy)
 
         avg_num_steps = 0
         for itter in range(100):

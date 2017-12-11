@@ -8,6 +8,11 @@ class TrackParser:
 
     @staticmethod
     def parse_track(path_to_track_file: str) -> np.ndarray:
+        """
+        Primary parser for tracks.
+        Reads in the ascii representation and turns it into a numpy array.
+        coords are y,x for the array.
+        """
         track = None
         with open(path_to_track_file, 'r') as track_file:
             lines = track_file.readlines()
@@ -27,6 +32,9 @@ class TrackParser:
 
     @staticmethod
     def get_char_value(char: str):
+        """
+        Translates the ascii characters into easy to read integers.
+        """
         if char == '#':
             return -1
         elif char == '.':
