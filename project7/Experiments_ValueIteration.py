@@ -28,14 +28,14 @@ def experiment(test_game, num_experiments):
 # <editor-fold desc="Experiments">
 
 
-# game = Game('tracks/L-track.txt', success_chance=.8)
-# experiment(game, 1)
-#
-# game = Game('tracks/R-track.txt', success_chance=.8)
-# experiment(game, 1)
+game = Game('tracks/L-track.txt', success_chance=.8)
+experiment(game, 10)
+
+game = Game('tracks/R-track.txt', success_chance=.8)
+experiment(game, 10)
 
 game = Game('tracks/R-track.txt', success_chance=.8, crash_restart=True)
-experiment(game, 1)
+experiment(game, 10)
 
 
 
