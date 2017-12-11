@@ -192,3 +192,9 @@ class ValueIteration:
 # vi = ValueIteration(game)
 # policy = vi.value_iteration()
 # pprint.pprint(policy)
+
+# game = Game('tracks/R-track.txt', success_chance=.8, crash_restart=True)
+# vi = ValueIteration(game)
+# policy = vi.value_iteration()
+# pprint.pprint(policy)
+
