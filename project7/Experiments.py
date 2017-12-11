@@ -73,7 +73,7 @@ result = experiment(game, 10, "diagrams/L-Track-Easy-1", num_episodes=5000, alph
 pprint.pprint(result)
 
 game = Game('tracks/R-track.txt', success_chance=.8)
-result = experiment(game, 10, "diagrams/R-Track-Easy-1", num_episodes=5000, alpha=.7, gamma=.7, epsilon=.99, decay_rate=.9)
+result = experiment(game, 10, "diagrams/R-Track-Easy-1", num_episodes=2000, alpha=.7, gamma=.7, epsilon=.99, decay_rate=.9)
 pprint.pprint(result)
 
 game = Game('tracks/R-track.txt', success_chance=.8, crash_restart=True)
